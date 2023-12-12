@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -22,6 +23,10 @@ namespace CEESP
     {
         private SolidColorBrush enter_color; 
         private SolidColorBrush exit_color;
+        private bool menu_isVisible = false;
+
+        private Storyboard mostra_menu;
+        private Storyboard esconde_menu;
         public MainWindow()
         {
             InitializeComponent();
@@ -44,6 +49,9 @@ namespace CEESP
 
             Work.Height = SystemParameters.WorkArea.Height;
             Work.Width = SystemParameters.WorkArea.Width;
+
+            this.esconde_menu = (Storyboard)FindResource("esconde_menu");
+            this.mostra_menu = (Storyboard)FindResource("mostra_menu");
 
         }
 
@@ -92,5 +100,19 @@ namespace CEESP
             rtRelatorios.Fill = exit_color;
         }
 
+        private void menu_button_Click(object sender, RoutedEventArgs e)
+        {
+            if(menu_isVisible)
+            {
+                mostra_menu.Stop();
+                esconde_menu.Begin();
+                menu_isVisible = false;
+            } else
+            {
+                esconde_menu.Stop();
+                mostra_menu.Begin();
+                menu_isVisible = true;
+            }
+        }
     }
 }
