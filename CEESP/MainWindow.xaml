@@ -1,0 +1,71 @@
+﻿<Window x:Class="CEESP.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CEESP"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="720" Width="1280">
+    <Grid x:Name="backgroundPrincipal" Width="1280" Height="720">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="1,1" StartPoint="0,1">
+                <GradientStop Color="#FF12154B"/>
+                <GradientStop Color="#FF1E042C" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <TabControl x:Name="Work" Margin="0,-4,0,4" Background="{x:Null}" BorderBrush="{x:Null}" Width="1280" Height="720">
+            <TabControl.ItemsPanel>
+                <ItemsPanelTemplate/>
+            </TabControl.ItemsPanel>
+
+            <TabItem Header="Inicio" IsEnabled="False" Visibility="Collapsed">
+                <Frame x:Name="FrameInicio" NavigationUIVisibility="Hidden"/>
+            </TabItem>
+
+            <TabItem Header="Graficos" IsEnabled="False" Visibility="Collapsed">
+                <Frame x:Name="FrameGraficos" NavigationUIVisibility="Hidden"/>
+            </TabItem>
+
+            <TabItem Header="Dados" IsEnabled="False" Visibility="Collapsed">
+                <Frame x:Name="FrameDados" NavigationUIVisibility="Hidden"/>
+            </TabItem>
+
+            <TabItem Header="Relatorio" IsEnabled="False" Visibility="Collapsed">
+                <Frame x:Name="FrameRelatorio" NavigationUIVisibility="Hidden"/>
+            </TabItem>
+            <Grid Height="897" Width="8"/>
+
+        </TabControl>
+        <Button x:Name="menu_button" Content="Button" Margin="0,10,1225,665" Width="45" Height="45" Foreground="#00000000" BorderBrush="#00707070" HorizontalAlignment="Right">
+            <Button.OpacityMask>
+                <ImageBrush ImageSource="/icons/menu.png"/>
+            </Button.OpacityMask>
+            <Button.Background>
+                <ImageBrush ImageSource="/icons/menu.png"/>
+            </Button.Background>
+        </Button>
+        <Grid x:Name="menu_lateral" Margin="-180,60,1280,460" Width="180" Height="200">
+
+            <Rectangle x:Name="background_menu" Stroke="#BF3633CA" Width="180" Height="200" RadiusX="15" RadiusY="15">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="1,1" StartPoint="0,0" MappingMode="RelativeToBoundingBox">
+                        <GradientStop Color="#72125649"/>
+                        <GradientStop Color="#591B3BAB" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle x:Name="rtInicio" Margin="0,0,0,150" Height="50" Width="180" OpacityMask="#33F0E6E6" MouseEnter="rtInicio_MouseEnter" MouseLeave="rtInicio_MouseLeave" Fill="#00F0E6E6" Cursor="Hand"/>
+            <Rectangle x:Name="rtGraficos" OpacityMask="#33F0E6E6" Margin="0,50,0,100" MouseEnter="rtGraficos_MouseEnter" MouseLeave="rtGraficos_MouseLeave" Fill="#00F0E6E6" Cursor="Hand"/>
+            <Rectangle x:Name="rtDados" Margin="0,100,0,50" Height="50" Width="180" OpacityMask="#33F0E6E6" MouseEnter="rtDados_MouseEnter" MouseLeave="rtDados_MouseLeave" Fill="#00F0E6E6" Cursor="Hand"/>
+            <Rectangle x:Name="rtRelatorios" Margin="0,150,0,0" Height="50" Width="180" OpacityMask="#33F0E6E6" MouseEnter="rtRelatorios_MouseEnter" MouseLeave="rtRelatorios_MouseLeave" Fill="#00F0E6E6" Cursor="Hand"/>
+            <TextBlock x:Name="textInicio" HorizontalAlignment="Center" Margin="0,13,0,0" TextWrapping="Wrap" Text="INICIO" VerticalAlignment="Top" FontSize="20" FontFamily="Imprint MT Shadow" Width="180" FontWeight="Bold" Foreground="#FFCCCCCC" Padding="15,0,0,0"/>
+            <TextBlock x:Name="textGraficos" HorizontalAlignment="Center" TextWrapping="Wrap" Text="GRÁFICOS" VerticalAlignment="Top" FontSize="20" FontFamily="Imprint MT Shadow" Width="180" FontWeight="Bold" Foreground="#FFCCCCCC" Padding="15,0,0,0" Margin="0,63,0,0"/>
+            <TextBlock x:Name="textDados" HorizontalAlignment="Center" TextWrapping="Wrap" Text="DADOS" VerticalAlignment="Top" FontSize="20" FontFamily="Imprint MT Shadow" Width="180" FontWeight="Bold" Foreground="#FFCCCCCC" Padding="15,0,0,0" Margin="0,113,0,0"/>
+            <TextBlock x:Name="textRelatorios" HorizontalAlignment="Center" Margin="0,163,0,0" TextWrapping="Wrap" Text="RELATÓRIOS" VerticalAlignment="Top" FontSize="20" FontFamily="Imprint MT Shadow" Width="180" FontWeight="Bold" Foreground="#FFCCCCCC" Padding="15,0,0,0"/>
+        </Grid>
+    </Grid>
+</Window>
