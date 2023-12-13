@@ -137,7 +137,7 @@
             </TabItem>
 
             <TabItem Header="Relatorio" IsEnabled="False" Visibility="Collapsed">
-                <Frame x:Name="FrameRelatorio" NavigationUIVisibility="Hidden"/>
+                <Frame x:Name="FrameRelatorios" NavigationUIVisibility="Hidden"/>
             </TabItem>
             <Grid Height="897" Width="8"/>
 
@@ -158,7 +158,7 @@
                 <ImageBrush ImageSource="/icons/menu.png"/>
             </Button.Background>
         </Button>
-        <Grid x:Name="menu_lateral" Margin="-180,60,1280,460" Width="180" Height="200" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <Grid x:Name="menu_lateral" Margin="-180,77,0,0" Width="180" Height="200" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Grid.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -176,7 +176,7 @@
                     </LinearGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
-            <Rectangle x:Name="rtInicio" Margin="0,0,0,150" Height="50" Width="180" OpacityMask="#33F0E6E6" MouseEnter="rtInicio_MouseEnter" MouseLeave="rtInicio_MouseLeave" Fill="#00F0E6E6" Cursor="Hand"/>
+            <Rectangle x:Name="rtInicio" Margin="0,0,0,150" Height="50" Width="180" OpacityMask="#33F0E6E6" MouseEnter="rtInicio_MouseEnter" MouseLeave="rtInicio_MouseLeave"  Fill="#00F0E6E6" Cursor="Hand"/>
             <Rectangle x:Name="rtGraficos" OpacityMask="#33F0E6E6" Margin="0,50,0,100" MouseEnter="rtGraficos_MouseEnter" MouseLeave="rtGraficos_MouseLeave" Fill="#00F0E6E6" Cursor="Hand"/>
             <Rectangle x:Name="rtDados" Margin="0,100,0,50" Height="50" Width="180" OpacityMask="#33F0E6E6" MouseEnter="rtDados_MouseEnter" MouseLeave="rtDados_MouseLeave" Fill="#00F0E6E6" Cursor="Hand"/>
             <Rectangle x:Name="rtRelatorios" Margin="0,150,0,0" Height="50" Width="180" OpacityMask="#33F0E6E6" MouseEnter="rtRelatorios_MouseEnter" MouseLeave="rtRelatorios_MouseLeave" Fill="#00F0E6E6" Cursor="Hand"/>
@@ -184,6 +184,10 @@
             <TextBlock x:Name="textGraficos" HorizontalAlignment="Center" TextWrapping="Wrap" Text="GRÁFICOS" VerticalAlignment="Top" FontSize="20" FontFamily="Imprint MT Shadow" Width="180" FontWeight="Bold" Foreground="#FFCCCCCC" Padding="15,0,0,0" Margin="0,63,0,0"/>
             <TextBlock x:Name="textDados" HorizontalAlignment="Center" TextWrapping="Wrap" Text="DADOS" VerticalAlignment="Top" FontSize="20" FontFamily="Imprint MT Shadow" Width="180" FontWeight="Bold" Foreground="#FFCCCCCC" Padding="15,0,0,0" Margin="0,113,0,0"/>
             <TextBlock x:Name="textRelatorios" HorizontalAlignment="Center" Margin="0,163,0,0" TextWrapping="Wrap" Text="RELATÓRIOS" VerticalAlignment="Top" FontSize="20" FontFamily="Imprint MT Shadow" Width="180" FontWeight="Bold" Foreground="#FFCCCCCC" Padding="15,0,0,0"/>
+            <Button x:Name="graficos_button" Content="Button" Margin="0,50,0,100" Background="#00000000" Foreground="{x:Null}" BorderBrush="{x:Null}" MouseEnter="rtGraficos_MouseEnter" MouseLeave="rtGraficos_MouseLeave" Click="Grafico_Click" OpacityMask="#00000000"/>
+            <Button x:Name="dados_button" Content="Button" Background="#00000000" Foreground="{x:Null}" BorderBrush="{x:Null}" Height="50" Width="180" Margin="0,100,0,50" MouseEnter="rtDados_MouseEnter" MouseLeave="rtDados_MouseLeave" Click="Dados_Click" OpacityMask="#00000000"/>
+            <Button x:Name="relatorios_button" Content="Button" Background="#00000000" Foreground="{x:Null}" BorderBrush="{x:Null}" Height="50" Width="180" Margin="0,150,0,0" MouseEnter="rtRelatorios_MouseEnter" MouseLeave="rtRelatorios_MouseLeave" Click="Relatorios_Click" OpacityMask="#00000000"/>
+            <Button x:Name="inicio_button" Content="Button" Background="#00000000" Foreground="{x:Null}" BorderBrush="{x:Null}" Height="50" Width="180" Margin="0,0,0,150" MouseEnter="rtInicio_MouseEnter" MouseLeave="rtInicio_MouseLeave" Click="Inicio_Click" OpacityMask="#00000000"/>
         </Grid>
     </Grid>
 </Window>

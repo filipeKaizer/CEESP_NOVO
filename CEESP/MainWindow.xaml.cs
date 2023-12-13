@@ -27,6 +27,13 @@ namespace CEESP
 
         private Storyboard mostra_menu;
         private Storyboard esconde_menu;
+
+        private Inicio inicio;
+        private Dados dados;
+        private Graficos graficos;
+        private Relatorios relatorios;
+        private SerialCOM serial;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -53,6 +60,25 @@ namespace CEESP
             this.esconde_menu = (Storyboard)FindResource("esconde_menu");
             this.mostra_menu = (Storyboard)FindResource("mostra_menu");
 
+            inicio = new Inicio(this);
+            graficos = new Graficos(this);
+            dados = new Dados(this);
+            relatorios = new Relatorios(this);
+            serial = new SerialCOM(this);
+
+            FrameInicio.Navigate(this.inicio);
+            FrameGraficos.Navigate(this.graficos);
+            FrameDados.Navigate(this.dados);
+            FrameRelatorios.Navigate(this.relatorios);
+
+            Work.SelectedIndex = 0;
+        }
+
+        public void SetPage(int index)
+        {
+            this.Work.SelectedIndex = index;
+            change_menu();
+
         }
 
         private void close_button_Click(object sender, RoutedEventArgs e)
@@ -70,6 +96,11 @@ namespace CEESP
             rtInicio.Fill = exit_color;
         }
 
+        private void Inicio_Click(object sender, RoutedEventArgs e)
+        {
+            this.SetPage(0);
+        }
+
         private void rtGraficos_MouseEnter(object sender, RoutedEventArgs e)
         {
             rtGraficos.Fill = enter_color;
@@ -78,6 +109,11 @@ namespace CEESP
         private void rtGraficos_MouseLeave(object sender, RoutedEventArgs e)
         {
             rtGraficos.Fill = exit_color;
+        }
+
+        private void Grafico_Click(object sender, RoutedEventArgs e)
+        {
+            this.SetPage(1);
         }
 
         private void rtDados_MouseEnter(object sender, RoutedEventArgs e)
@@ -90,6 +126,11 @@ namespace CEESP
             rtDados.Fill = exit_color;
         }
 
+        private void Dados_Click(object sender, RoutedEventArgs e)
+        {
+            this.SetPage(2);
+        }
+
         private void rtRelatorios_MouseEnter(object sender, RoutedEventArgs e)
         {
             rtRelatorios.Fill = enter_color;
@@ -100,19 +141,65 @@ namespace CEESP
             rtRelatorios.Fill = exit_color;
         }
 
+        private void Relatorios_Click(object sender, RoutedEventArgs e)
+        {
+            this.SetPage(3);
+        }
+
         private void menu_button_Click(object sender, RoutedEventArgs e)
         {
-            if(menu_isVisible)
+            change_menu();
+        }
+
+        private void change_menu()
+        {
+            if (menu_isVisible)
             {
                 mostra_menu.Stop();
                 esconde_menu.Begin();
                 menu_isVisible = false;
-            } else
+            }
+            else
             {
                 esconde_menu.Stop();
                 mostra_menu.Begin();
                 menu_isVisible = true;
             }
+        }
+
+        public double getWidth()
+        {
+            return this.Width;
+        }
+
+        public double getHeigth()
+        {
+            return this.Height;
+        }
+
+        public Inicio getInicio()
+        {
+            return this.inicio;
+        }
+
+        public Dados getDados()
+        {
+            return this.dados;
+        }
+
+        public Graficos getGraficos()
+        {
+            return this.graficos;
+        }
+
+        public Relatorios getRelatorios()
+        {
+            return this.relatorios;
+        }
+
+        public SerialCOM getSerial()
+        {
+            return this.serial;
         }
     }
 }

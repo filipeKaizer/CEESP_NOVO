@@ -9,12 +9,25 @@
 
   <ItemGroup>
     <None Remove="close.png" />
+    <None Remove="Download.png" />
+    <None Remove="Edit.png" />
     <None Remove="menu.png" />
+    <None Remove="Trash.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.5.0" />
+    <PackageReference Include="MahApps.Metro" Version="2.4.10" />
+    <PackageReference Include="Syncfusion.Blazor.Buttons" Version="23.2.7" />
+    <PackageReference Include="System.IO.Ports" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="icons\Download.png" />
+    <Resource Include="icons\Edit.png" />
     <Resource Include="icons\close.png" />
     <Resource Include="icons\menu.png" />
+    <Resource Include="icons\Trash.png" />
   </ItemGroup>
 
 </Project>
