@@ -11,13 +11,18 @@
     <None Remove="close.png" />
     <None Remove="Download.png" />
     <None Remove="Edit.png" />
+    <None Remove="List.png" />
     <None Remove="menu.png" />
+    <None Remove="refresh.png" />
+    <None Remove="Timer.png" />
     <None Remove="Trash.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="EPPlus" Version="7.0.3" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.5.0" />
     <PackageReference Include="MahApps.Metro" Version="2.4.10" />
+    <PackageReference Include="OxyPlot.Wpf" Version="2.1.2" />
     <PackageReference Include="Syncfusion.Blazor.Buttons" Version="23.2.7" />
     <PackageReference Include="System.IO.Ports" Version="8.0.0" />
   </ItemGroup>
@@ -28,6 +33,9 @@
     <Resource Include="icons\close.png" />
     <Resource Include="icons\menu.png" />
     <Resource Include="icons\Trash.png" />
+    <Resource Include="icons\Timer.png" />
+    <Resource Include="icons\refresh.png" />
+    <Resource Include="icons\List.png" />
   </ItemGroup>
 
 </Project>

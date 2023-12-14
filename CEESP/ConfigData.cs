@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace CEESP
 {
@@ -27,6 +28,8 @@ namespace CEESP
         private string UnFreq;
         private string UnTempo;
 
+
+
         private bool AdicionarUnidade;
 
 
@@ -38,8 +41,8 @@ namespace CEESP
             this.IaMultiplier = 5;
 
             // Grafico
-            this.centerX = 250;
-            this.centerY = 450;
+            this.centerX = 150;
+            this.centerY = (float)SystemParameters.WorkArea.Height / 2;
             this.LarguraLinha = 2;
 
             // Comunicação
@@ -72,6 +75,11 @@ namespace CEESP
         public float getXs()
         {
             return this.XsDefault;
+        }
+
+        public void setXs(float Xs)
+        {
+            this.XsDefault = Xs;
         }
 
         public int getDecimals()

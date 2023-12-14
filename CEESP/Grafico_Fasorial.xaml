@@ -1,0 +1,58 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CEESP"
+      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Name="Page" x:Class="CEESP.Grafico_Fasorial"
+      mc:Ignorable="d"
+      Title="Grafico_Fasorial" Foreground="{x:Null}" Width="1280" Height="704" HorizontalAlignment="Left" VerticalAlignment="Top">
+
+    <Grid x:Name="Grid" Width="1280" Height="704" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <Canvas x:Name="Graph" HorizontalAlignment="Left" Width="1280" Height="704" Background="#19000000" VerticalAlignment="Top" Cursor="Arrow"/>
+        <Label x:Name="TimeSelected" Content="2s" Background="{x:Null}" Foreground="#99DEDEDE" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="53,664,0,0"/>
+        <Button x:Name="refresh" Content="Button" Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Margin="94,645,0,0">
+            <Button.OpacityMask>
+                <ImageBrush ImageSource="/icons/refresh.png"/>
+            </Button.OpacityMask>
+            <Button.Background>
+                <ImageBrush ImageSource="/icons/refresh.png"/>
+            </Button.Background>
+        </Button>
+        <ComboBox x:Name="CBTimes" Margin="21,645,1219,19" Width="40" Height="40" BorderBrush="{x:Null}" Foreground="#FF17006D" HorizontalAlignment="Left" VerticalAlignment="Top" SelectionChanged="CBTimes_SelectionChanged">
+            <ComboBox.OpacityMask>
+                <ImageBrush ImageSource="/icons/Timer.png"/>
+            </ComboBox.OpacityMask>
+            <ComboBox.Background>
+                <ImageBrush ImageSource="/icons/Timer.png"/>
+            </ComboBox.Background>
+        </ComboBox>
+        <Grid x:Name="Values" Height="30" Width="538" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="230,653,0,0">
+            <Rectangle HorizontalAlignment="Left" VerticalAlignment="Center" RadiusX="5" RadiusY="5" Fill="#3F000000" Width="538" Height="30"/>
+            <Rectangle x:Name="rtVa" Height="14" Width="15" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" Fill="#FF429743" RadiusX="2" RadiusY="2"/>
+            <Label x:Name="VaValue" Content="Va: 0V" FontFamily="Arial Rounded MT Bold" Width="60" Foreground="#FFAFAFAF" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="25,0,0,0" Padding="2,0,0,0"/>
+            <Rectangle x:Name="rtIa" Height="14" Width="15" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="100,0,0,0" Fill="#FFE71717" RadiusX="2" RadiusY="2"/>
+            <Label x:Name="IaValue" Content="Ia: 0A" FontFamily="Arial Rounded MT Bold" Width="60" Foreground="#FFAFAFAF" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="115,0,0,0" Padding="2,0,0,0"/>
+            <Rectangle x:Name="rtEa" Height="14" Width="15" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="189,0,0,0" Fill="#FFA6016F" RadiusX="2" RadiusY="2"/>
+            <Label x:Name="EaValue" Content="Ea: 0V" FontFamily="Arial Rounded MT Bold" Width="60" Foreground="#FFAFAFAF" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="204,0,0,0" Padding="2,0,0,0"/>
+            <Rectangle x:Name="rtXsIa" Height="14" Width="15" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="281,0,0,0" Fill="#FFC15100" RadiusX="2" RadiusY="2"/>
+            <Label x:Name="XsIa" Content="XsIa: 0v" FontFamily="Arial Rounded MT Bold" Width="79" Foreground="#FFAFAFAF" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="296,0,0,0" Padding="2,0,0,0"/>
+            <Rectangle x:Name="rtFP" Height="14" Width="15" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="383,0,0,0" Fill="#FF3D0D2C" RadiusX="2" RadiusY="2"/>
+            <Label x:Name="FPValue" Content="φ: 1i" FontFamily="Arial Rounded MT Bold" Width="79" Foreground="#FFAFAFAF" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="398,0,0,0" Padding="2,0,0,0"/>
+            <Label x:Name="type" Content="Indutivo" FontFamily="Arial Rounded MT Bold" Width="79" Foreground="#FFAFAFAF" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="482,0,0,0" Padding="2,0,0,0"/>
+        </Grid>
+        <Grid x:Name="Zoom" Margin="863,653,255,0" Width="162" VerticalAlignment="Top">
+            <Rectangle Height="30" Width="162" HorizontalAlignment="Left" VerticalAlignment="Center" RadiusX="5" RadiusY="5" Fill="#33000000"/>
+            <Slider x:Name="Slider" Margin="7,0,0,5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="106" Height="20" ValueChanged="Slider_ValueChanged"/>
+            <Label x:Name="LabelZoom" Content="1x" HorizontalAlignment="Left" Margin="118,0,0,0" VerticalAlignment="Center" FontFamily="Algerian" Width="41" Foreground="#FFAFAFAF" HorizontalContentAlignment="Center"/>
+        </Grid>
+        <ComboBox x:Name="Phase" Canvas.Left="312" Canvas.Top="410" Width="176" Height="30" BorderBrush="#00ACACAC" OpacityMask="#191E1E1E" Background="#191E1E1E" Foreground="#D81D1C1C" Cursor="Hand" ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="1008,653,10,0" VerticalAlignment="Top" SelectionChanged="Phase_SelectionChanged">
+            <ComboBoxItem Content="Media"/>
+            <ComboBoxItem Cursor="Hand" Content="Fase A"/>
+            <ComboBoxItem Content="Fase B"/>
+            <ComboBoxItem Cursor="Hand" Content="Fase C"/>
+        </ComboBox>
+
+
+    </Grid>
+</Page>

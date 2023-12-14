@@ -89,7 +89,7 @@
     <Grid Width="1280" Height="720">
         <Rectangle HorizontalAlignment="Center" Height="50" Margin="0,594,0,0" VerticalAlignment="Top" Width="200" RadiusX="25" RadiusY="25" Fill="#72D9D9D9"/>
         <TextBlock HorizontalAlignment="Center" Margin="0,600,0,0" TextWrapping="Wrap" Text="Buscar" VerticalAlignment="Top" FontSize="30" FontFamily="Elephant" Foreground="#FF171049"/>
-        <ListBox x:Name="LPorts" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="490,360,490,180" Background="#1CA3A3A3" VerticalContentAlignment="Top" FontWeight="Bold" FontStyle="Italic" Foreground="#CCD0C9C9" Width="300" Height="180" FontSize="20" HorizontalContentAlignment="Center" RenderTransformOrigin="0.5,0.5" Visibility="Hidden">
+        <ListBox x:Name="LPorts" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="490,360,490,180" Background="#1CA3A3A3" VerticalContentAlignment="Top" FontWeight="Bold" FontStyle="Italic" Foreground="#CCD0C9C9" Width="300" Height="180" FontSize="20" HorizontalContentAlignment="Center" RenderTransformOrigin="0.5,0.5" SelectionChanged="LPorts_SelectionChanged" Visibility="Hidden">
             <ListBox.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -106,7 +106,7 @@
             </ListBox.BorderBrush>
         </ListBox>
         <Label x:Name="verbose" Content="" HorizontalAlignment="Center" Margin="0,649,0,0" VerticalAlignment="Top" FontSize="15" FontFamily="Elephant" Foreground="#CCFFFFFF" Width="300" HorizontalContentAlignment="Center"/>
-        <Button x:Name="Buscar" Content="Button" HorizontalAlignment="Center" Margin="0,594,0,0" VerticalAlignment="Top" Width="200" Height="50" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}"/>
+        <Button x:Name="Buscar" Content="Button" HorizontalAlignment="Center" Margin="0,594,0,0" VerticalAlignment="Top" Width="200" Height="50" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Buscar_ClickAsync"/>
         <ProgressBar x:Name="progress" HorizontalAlignment="Center" Height="10" Margin="0,683,0,0" VerticalAlignment="Top" Width="300" BorderBrush="{x:Null}" Background="{x:Null}"/>
         <Grid x:Name="grid" Margin="540,752,540,-112" Width="200" RenderTransformOrigin="0.5,0.5">
             <Grid.RenderTransform>

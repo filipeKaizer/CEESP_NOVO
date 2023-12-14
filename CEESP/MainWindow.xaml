@@ -1,9 +1,10 @@
-﻿<Window x:Class="CEESP.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CEESP"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Class="CEESP.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1280">
     <Window.Resources>
@@ -109,6 +110,10 @@
         </Storyboard>
     </Window.Resources>
     <Grid x:Name="backgroundPrincipal" Width="1280" Height="720">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="77*"/>
+            <ColumnDefinition Width="83*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
         </Grid.RowDefinitions>
@@ -119,30 +124,29 @@
             </LinearGradientBrush>
         </Grid.Background>
 
-        <TabControl x:Name="Work" Margin="0,-4,0,4" Background="{x:Null}" BorderBrush="{x:Null}" Width="1280" Height="720">
+        <TabControl x:Name="Work" Background="{x:Null}" BorderBrush="{x:Null}" Width="1280" Height="704" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="0,0,0,0" VerticalContentAlignment="Top" HorizontalContentAlignment="Left" BorderThickness="0,0,0,0" Grid.ColumnSpan="2">
             <TabControl.ItemsPanel>
                 <ItemsPanelTemplate/>
             </TabControl.ItemsPanel>
 
-            <TabItem Header="Inicio" IsEnabled="False" Visibility="Collapsed">
+            <TabItem Header="Inicio" IsEnabled="False" Visibility="Collapsed" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" mah:HeaderedControlHelper.HeaderHorizontalContentAlignment="Left" mah:HeaderedControlHelper.HeaderVerticalContentAlignment="Top" Width="1280" Height="704">
                 <Frame x:Name="FrameInicio" NavigationUIVisibility="Hidden"/>
             </TabItem>
 
-            <TabItem Header="Graficos" IsEnabled="False" Visibility="Collapsed">
+            <TabItem Header="Graficos" IsEnabled="False" Visibility="Collapsed" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" mah:HeaderedControlHelper.HeaderHorizontalContentAlignment="Left" mah:HeaderedControlHelper.HeaderVerticalContentAlignment="Top" Width="1280" Height="704">
                 <Frame x:Name="FrameGraficos" NavigationUIVisibility="Hidden"/>
             </TabItem>
 
-            <TabItem Header="Dados" IsEnabled="False" Visibility="Collapsed">
+            <TabItem Header="Dados" IsEnabled="False" Visibility="Collapsed" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" mah:HeaderedControlHelper.HeaderHorizontalContentAlignment="Left" mah:HeaderedControlHelper.HeaderVerticalContentAlignment="Top" Width="1280" Height="704">
                 <Frame x:Name="FrameDados" NavigationUIVisibility="Hidden"/>
             </TabItem>
 
-            <TabItem Header="Relatorio" IsEnabled="False" Visibility="Collapsed">
+            <TabItem Header="Relatorio" IsEnabled="False" Visibility="Collapsed" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" mah:HeaderedControlHelper.HeaderHorizontalContentAlignment="Left" mah:HeaderedControlHelper.HeaderVerticalContentAlignment="Top" Width="1280" Height="704">
                 <Frame x:Name="FrameRelatorios" NavigationUIVisibility="Hidden"/>
             </TabItem>
-            <Grid Height="897" Width="8"/>
 
         </TabControl>
-        <Button x:Name="menu_button" Content="Button" Margin="10,10,1225,665" Height="45" Foreground="#00000000" BorderBrush="#00707070" RenderTransformOrigin="0.5,0.5" Cursor="Hand" Click="menu_button_Click" HorizontalAlignment="Left" Width="45" VerticalAlignment="Top">
+        <Button x:Name="menu_button" Content="Button" Margin="10,10,0,0" Height="45" Foreground="#00000000" BorderBrush="#00707070" RenderTransformOrigin="0.5,0.5" Cursor="Hand" Click="menu_button_Click" HorizontalAlignment="Left" Width="45" VerticalAlignment="Top">
             <Button.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>

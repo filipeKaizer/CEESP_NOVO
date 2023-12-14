@@ -1,14 +1,15 @@
-﻿<Page x:Class="CEESP.Dados"
+﻿<Page
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CEESP"
+      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Class="CEESP.Dados"
       mc:Ignorable="d"
       Title="Dados" Width="1280" Height="720">
 
     <Grid Width="1280" Height="720" HorizontalAlignment="Left" VerticalAlignment="Top">
-        <ListView d:ItemsSource="{d:SampleData ItemCount=5}" Width="760" Height="450" Margin="86,120,0,0" Background="#3F0C0B0B" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <ListView x:Name="ListData" d:ItemsSource="{d:SampleData ItemCount=5}" Width="760" Height="450" Margin="86,120,0,0" Background="#3F0C0B0B" HorizontalAlignment="Left" VerticalAlignment="Top" SelectionChanged="ListData_SelectionChanged">
             <ListView.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black"/>
@@ -45,7 +46,7 @@
             </Rectangle.Fill>
         </Rectangle>
         <GridSplitter HorizontalAlignment="Left" Height="1" Margin="86,607,0,0" VerticalAlignment="Top" Width="760" Background="#7F8373B0"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="816,628,0,0" VerticalAlignment="Top" Width="30" Height="35" BorderBrush="{x:Null}" Foreground="{x:Null}" Cursor="Hand">
+        <Button x:Name="btDelete" Content="Button" HorizontalAlignment="Left" Margin="816,628,0,0" VerticalAlignment="Top" Width="30" Height="35" BorderBrush="{x:Null}" Foreground="{x:Null}" Cursor="Hand" Click="btDelete_Click">
             <Button.OpacityMask>
                 <ImageBrush ImageSource="/icons/Trash.png"/>
             </Button.OpacityMask>
@@ -53,7 +54,7 @@
                 <ImageBrush ImageSource="/icons/Trash.png"/>
             </Button.Background>
         </Button>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="765,626,0,0" VerticalAlignment="Top" Width="40" Height="40" BorderBrush="{x:Null}" Foreground="{x:Null}" Cursor="Hand">
+        <Button x:Name="btEdit" Content="Button" HorizontalAlignment="Left" Margin="765,626,0,0" VerticalAlignment="Top" Width="40" Height="40" BorderBrush="{x:Null}" Foreground="{x:Null}" Cursor="Hand" Click="btEdit_Click">
             <Button.OpacityMask>
                 <ImageBrush ImageSource="/icons/Edit.png"/>
             </Button.OpacityMask>
@@ -61,7 +62,7 @@
                 <ImageBrush ImageSource="/icons/Edit.png"/>
             </Button.Background>
         </Button>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="720,626,0,0" VerticalAlignment="Top" Width="40" Height="41" BorderBrush="{x:Null}" Foreground="{x:Null}" Cursor="Hand">
+        <Button x:Name="btSave" Content="Button" HorizontalAlignment="Left" Margin="720,626,0,0" VerticalAlignment="Top" Width="40" Height="41" BorderBrush="{x:Null}" Foreground="{x:Null}" Cursor="Hand" Click="btSave_Click">
             <Button.OpacityMask>
                 <ImageBrush ImageSource="/icons/Download.png"/>
             </Button.OpacityMask>
@@ -69,6 +70,23 @@
                 <ImageBrush ImageSource="/icons/Download.png"/>
             </Button.Background>
         </Button>
+        <TextBlock x:Name="TextNItens" HorizontalAlignment="Left" Margin="445,586,0,0" TextWrapping="Wrap" Text="Itens: 0" VerticalAlignment="Top" FontFamily="Microsoft YaHei" Foreground="#B2FFFFFF"/>
+        <TextBlock HorizontalAlignment="Left" Margin="988,149,0,0" TextWrapping="Wrap" Text="Ia:" VerticalAlignment="Top" FontSize="25" Foreground="#CCB0ABA0" FontFamily="Segoe UI Black"/>
+        <TextBlock HorizontalAlignment="Left" Margin="979,197,0,0" TextWrapping="Wrap" Text="Va:" VerticalAlignment="Top" FontSize="25" Foreground="#CCB0ABA0" FontFamily="Segoe UI Black"/>
+        <TextBlock HorizontalAlignment="Left" Margin="981,244,0,0" TextWrapping="Wrap" Text="FP:" VerticalAlignment="Top" FontSize="25" Foreground="#CCB0ABA0" FontFamily="Segoe UI Black"/>
+        <TextBlock HorizontalAlignment="Left" Margin="953,295,0,0" TextWrapping="Wrap" Text="RPM:" VerticalAlignment="Top" FontSize="25" Foreground="#CCB0ABA0" FontFamily="Segoe UI Black"/>
+        <TextBlock HorizontalAlignment="Left" Margin="956,345,0,0" TextWrapping="Wrap" Text="Freq:" VerticalAlignment="Top" FontSize="25" Foreground="#CCB0ABA0" FontFamily="Segoe UI Black"/>
+        <TextBlock HorizontalAlignment="Left" Margin="1035,430,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="25" Foreground="#CCB0ABA0" FontFamily="Segoe UI Black" Text="Φ:"/>
+
+        <mah:NumericUpDown x:Name="TBIa" HorizontalAlignment="Left" Margin="1046,156,0,0" VerticalAlignment="Top" Width="158" Foreground="#CCB7B7B7" IsEnabled="False" Interval="0.1" Speedup="False" TextAlignment="Center"/>
+        <mah:NumericUpDown x:Name="TBVa" HorizontalAlignment="Left" Margin="1046,204,0,0" VerticalAlignment="Top" Width="158" Foreground="#CCB7B7B7" IsEnabled="False" TextAlignment="Center"/>
+        <mah:NumericUpDown x:Name="TBFP" HorizontalAlignment="Left" Margin="1046,251,0,0" VerticalAlignment="Top" Width="158" Foreground="#CCB7B7B7" IsEnabled="False" TextAlignment="Center"/>
+        <mah:NumericUpDown x:Name="TBRPM" HorizontalAlignment="Left" Margin="1046,299,0,0" VerticalAlignment="Top" Width="158" Foreground="#CCB7B7B7" IsEnabled="False" TextAlignment="Center"/>
+        <mah:NumericUpDown x:Name="TBF" HorizontalAlignment="Left" Margin="1046,349,0,0" VerticalAlignment="Top" Width="158" Foreground="#CCB7B7B7" IsEnabled="False" TextAlignment="Center"/>
+        <mah:NumericUpDown x:Name="TBAngle" HorizontalAlignment="Left" Margin="1088,437,0,0" VerticalAlignment="Top" Width="120" Foreground="#CCB7B7B7" IsEnabled="False" TextAlignment="Center"/>
+        <Rectangle x:Name="RetSave" Height="30" Width="80" Margin="1048,522,152,168" RadiusX="15" RadiusY="15" Fill="#99D9D9D9" Visibility="Hidden"/>
+        <Label x:Name="LabelSave" Content="Salvar" HorizontalAlignment="Left" Margin="1057,516,0,0" VerticalAlignment="Top" Foreground="#FF1D0E4A" Background="{x:Null}" Cursor="Hand" FontSize="20" Height="42" Visibility="Hidden"/>
+        <Button x:Name="btSaveAfterEdit" Content="Button" HorizontalAlignment="Left" Margin="1048,522,0,0" VerticalAlignment="Top" Width="80" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="btSaveAfterEdit_Click" Visibility="Hidden"/>
 
     </Grid>
 </Page>
