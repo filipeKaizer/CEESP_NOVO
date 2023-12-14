@@ -27,20 +27,17 @@ namespace CEESP
                this.serialPort = new SerialPort(portSelected, ListData1.configData.getBoundRate(), Parity.None, 8, StopBits.One);
         }
 
-            public async Task<List<string>> SearchPorts()
+            public Task<List<string>> SearchPorts()
             {
                 string[] ports = SerialPort.GetPortNames();
                 List<string> comp = new List<string>();
                 Random random = new Random();
                 int percent = 0;
 
-                if (ports.Length > 0)
-                    percent = (98) / ports.Length;
-
+            return Task.Run(() =>
+            {
                 foreach (String port in ports)
                 {
-                    this.main.getInicio().setProgress((port + ": Testando..."), (int)(percent / 2), true);
-
                     SerialPort serialPort = new SerialPort(port, ListData1.configData.getBoundRate(), Parity.None, 8, StopBits.One);
 
                     try
@@ -58,22 +55,18 @@ namespace CEESP
 
                         if (int.Parse(serialPort.ReadLine()) == resposta)
                         {
-                            this.main.getInicio().setProgress((port + ": Compativel"), percent, true);
                             comp.Add(port);
                         }
-                        else
-                        {
-                            this.main.getInicio().setProgress((port + ": Não compativel"), percent, true);
-                        }
+
                         serialPort.Close();
                     }
                     catch (Exception e)
                     {
                         MessageBox.Show(e.Message);
                     }
-
                 }
                 return comp;
+            });
             }
 
             public async Task<ColectedData> readValues()

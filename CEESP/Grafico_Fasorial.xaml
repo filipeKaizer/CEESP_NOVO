@@ -27,8 +27,8 @@
                 <ImageBrush ImageSource="/icons/Timer.png"/>
             </ComboBox.Background>
         </ComboBox>
-        <Grid x:Name="Values" Height="30" Width="538" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="232,653,0,0">
-            <Rectangle HorizontalAlignment="Left" VerticalAlignment="Center" RadiusX="5" RadiusY="5" Fill="#3F000000" Width="538" Height="30"/>
+        <Grid x:Name="Values" Height="30" Width="656" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="192,653,0,0">
+            <Rectangle HorizontalAlignment="Center" VerticalAlignment="Center" RadiusX="5" RadiusY="5" Fill="#3F000000" Width="656" Height="30"/>
             <Rectangle x:Name="rtVa" Height="14" Width="15" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" Fill="#FF429743" RadiusX="2" RadiusY="2"/>
             <Label x:Name="VaValue" Content="Va: 0V" FontFamily="Arial Rounded MT Bold" Width="60" Foreground="#FFAFAFAF" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="25,0,0,0" Padding="2,0,0,0"/>
             <Rectangle x:Name="rtIa" Height="14" Width="15" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="100,0,0,0" Fill="#FFE71717" RadiusX="2" RadiusY="2"/>
@@ -38,8 +38,8 @@
             <Rectangle x:Name="rtXsIa" Height="14" Width="15" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="281,0,0,0" Fill="#FFC15100" RadiusX="2" RadiusY="2"/>
             <Label x:Name="XsIa" Content="XsIa: 0v" FontFamily="Arial Rounded MT Bold" Width="79" Foreground="#FFAFAFAF" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="296,0,0,0" Padding="2,0,0,0"/>
             <Rectangle x:Name="rtFP" Height="14" Width="15" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="383,0,0,0" Fill="#FF3D0D2C" RadiusX="2" RadiusY="2"/>
-            <Label x:Name="FPValue" Content="φ: 1" FontFamily="Arial Rounded MT Bold" Width="79" Foreground="#FFAFAFAF" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="398,0,0,0" Padding="2,0,0,0"/>
-            <Label x:Name="type" Content="Indutivo" FontFamily="Arial Rounded MT Bold" Width="74" Foreground="#FFAFAFAF" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="454,0,0,0" Padding="2,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label x:Name="FPValue" Content="φ: 1" FontFamily="Arial Rounded MT Bold" Width="131" Foreground="#FFAFAFAF" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="398,0,0,0" Padding="2,0,0,0"/>
+            <Label x:Name="type" Content="Indutivo" FontFamily="Arial Rounded MT Bold" Width="74" Foreground="#FFAFAFAF" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="541,0,0,0" Padding="2,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         </Grid>
         <Grid x:Name="Zoom" Margin="863,653,250,0" Width="162" VerticalAlignment="Top" HorizontalAlignment="Right">
             <Rectangle Height="30" Width="162" HorizontalAlignment="Left" VerticalAlignment="Center" RadiusX="5" RadiusY="5" Fill="#33000000"/>

@@ -53,18 +53,18 @@ namespace CEESP
         public Line createIa(float value, float FP, char type)
         {
             value = value * ListData1.configData.getIaMultiplier();
-            float valueIC;
-            float angle = (float)Math.Acos(FP);
+            double valueIC;
+            double angle = (float)Math.Acos(FP);
 
             SolidColorBrush customBrush = new SolidColorBrush(Color.FromRgb(231, 23, 23));
 
             if (type == 'i')
             {
-                valueIC = value * (float)Math.Sin(angle); //Ou Ia*sub
+                valueIC = value * Math.Sin(angle); //Ou Ia*sub
             }
             else
             {
-                valueIC = (-1) * value * (float)Math.Sin(angle);
+                valueIC = (-1) * value * Math.Sin(angle);
             }
             Line Ia = new Line
             {

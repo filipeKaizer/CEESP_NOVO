@@ -25,12 +25,15 @@ namespace CEESP
     public partial class Dados : Page
     {
         private MainWindow main;
+        private Brush defaultColor;
 
         bool edit = true;
         public Dados(MainWindow main)
         {
             InitializeComponent();
             this.main = main;
+
+            this.defaultColor = btSaveAfterEdit.Background;
 
             changeVisibility();
         }
@@ -89,13 +92,11 @@ namespace CEESP
                     {
                         TBAngle.Value = Math.Round((float)(Math.Acos((float)fp) * 180) / Math.PI, ListData1.configData.getDecimals());
                     }
-
                 }
                 catch
                 {
-
+                    //MessageBox.Show("Falha no calculo de fp.");
                 }
-
             }
         }
 
@@ -111,7 +112,6 @@ namespace CEESP
                 ListData1.colectedData.Remove(ListData1.colectedData[ListData.SelectedIndex]);
                 LegendaDefault();
                 atualizaDados();
-
             }
         }
 
@@ -132,11 +132,11 @@ namespace CEESP
             {
                 try
                 {
-                        ListData1.colectedData[ListData.SelectedIndex].setIa((float)TBIa.Value, 0);
-                        ListData1.colectedData[ListData.SelectedIndex].setVa((float)TBVa.Value, 0);
-                        ListData1.colectedData[ListData.SelectedIndex].setFP((float)TBFP.Value, 0);
-                        ListData1.colectedData[ListData.SelectedIndex].setRPM((float)TBRPM.Value);
-                        ListData1.colectedData[ListData.SelectedIndex].setFrequency((float)TBF.Value);
+                    ListData1.colectedData[ListData.SelectedIndex].setIa((float)TBIa.Value, 0);
+                    ListData1.colectedData[ListData.SelectedIndex].setVa((float)TBVa.Value, 0);
+                    ListData1.colectedData[ListData.SelectedIndex].setFP((float)TBFP.Value, 0);
+                    ListData1.colectedData[ListData.SelectedIndex].setRPM((float)TBRPM.Value);
+                    ListData1.colectedData[ListData.SelectedIndex].setFrequency((float)TBF.Value);
 
                     atualizaDados();
                     this.main.getGraficos().getFasorial().drawLines();
@@ -144,15 +144,12 @@ namespace CEESP
 
                     // Desativa edição
                     btSaveAfterEdit.Visibility = Visibility.Hidden;
-                    RetSave.Visibility = Visibility.Hidden;
-                    LabelSave.Visibility = Visibility.Hidden;
                     TBVa.IsEnabled = false;
                     TBFP.IsEnabled = false;
                     TBIa.IsEnabled = false;
                     TBRPM.IsEnabled = false;
                     TBF.IsEnabled = false;
                     edit = false;
-
                 }
                 catch
                 {
@@ -172,8 +169,6 @@ namespace CEESP
                 TBF.IsEnabled = false;
                 edit = false;
                 btSaveAfterEdit.Visibility = Visibility.Hidden;
-                RetSave.Visibility = Visibility.Hidden;
-                LabelSave.Visibility = Visibility.Hidden;
             }
             else
             {
@@ -185,8 +180,6 @@ namespace CEESP
                 edit = true;
                 btSaveAfterEdit.Visibility = Visibility.Visible;
                 btSaveAfterEdit.IsEnabled = true;
-                RetSave.Visibility = Visibility.Visible;
-                LabelSave.Visibility = Visibility.Visible;
             }
         }
 
@@ -252,15 +245,23 @@ namespace CEESP
                     }
                 }
             }
-
-
-
         }
 
         private void btSaveAfterEdit_Click(object sender, RoutedEventArgs e)
         {
             atualizaBaseDeDados();
         }
+
+        private void Buscar_MouseEnter(object sender, RoutedEventArgs e)
+        {
+            btSaveAfterEdit.Background = Brushes.DarkCyan;
+        }
+
+        private void Buscar_MouseLeave(object sender, RoutedEventArgs e)
+        {
+            btSaveAfterEdit.Background = defaultColor;
+        }
+
 
         private void btSave_Click(object sender, RoutedEventArgs e)
         {

@@ -83,12 +83,13 @@ namespace CEESP
             // Atuliza tabela de valores
             VaValue.Content = "Va: " + Math.Round(valores.getVa(index), ListData1.configData.getDecimals()).ToString() + "V";
             IaValue.Content = "Ia: " + Math.Round(valores.getIa(index), ListData1.configData.getDecimals()).ToString() + "A";
-            XsIa.Content = "XsIa: " + Math.Round((valores.getIa(index) * ListData1.configData.getXs()), ListData1.configData.getDecimals()).ToString() + "V";
+            EaValue.Content = "Ea: " + Math.Round(valores.getEa(index), ListData1.configData.getDecimals()).ToString() + "V";
+            XsIa.Content = "XsIa: " + Math.Abs(Math.Round((valores.getIa(index) * ListData1.configData.getXs()), ListData1.configData.getDecimals())).ToString() + "V";
 
-            string FPv = Math.Round(valores.getFP(index), ListData1.configData.getDecimals()).ToString();
-            FPValue.Content = "φ: " + FPv;
+            double FPv = valores.getFP(index);
+            FPValue.Content = "φ: " + Math.Round(Math.Acos(FPv) * 180 / Math.PI, 1) + "º, Cos(φ): "+Math.Round(FPv, 2); 
 
-            if (FPv != "1")
+            if (FPv.ToString() != "1")
                 type.Content = ((valores.getFPType(index) == 'i') ? "Indutivo" : "Capacitivo");
             else
                 type.Content = "Resistivo";

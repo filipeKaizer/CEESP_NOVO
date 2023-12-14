@@ -69,12 +69,12 @@ namespace CEESP
 
             if (index == 0)
             {
-                selectFasores.Background = Brushes.DarkGray;
+                selectFasores.Background = Brushes.DarkGreen;
                 selectTemporal.Background = null;
             } else
             {
                 selectFasores.Background = null;
-                selectTemporal.Background = Brushes.DarkGray;
+                selectTemporal.Background = Brushes.DarkGreen;
             }
         }
 

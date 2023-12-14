@@ -8,6 +8,7 @@
       mc:Ignorable="d"
       Title="Dados" Width="1280" Height="720">
 
+
     <Grid Width="1280" Height="720" HorizontalAlignment="Left" VerticalAlignment="Top">
         <ListView x:Name="ListData" d:ItemsSource="{d:SampleData ItemCount=5}" Width="760" Height="450" Margin="86,120,0,0" Background="#3F0C0B0B" HorizontalAlignment="Left" VerticalAlignment="Top" SelectionChanged="ListData_SelectionChanged">
             <ListView.BorderBrush>
@@ -76,17 +77,19 @@
         <TextBlock HorizontalAlignment="Left" Margin="981,244,0,0" TextWrapping="Wrap" Text="FP:" VerticalAlignment="Top" FontSize="25" Foreground="#CCB0ABA0" FontFamily="Segoe UI Black"/>
         <TextBlock HorizontalAlignment="Left" Margin="953,295,0,0" TextWrapping="Wrap" Text="RPM:" VerticalAlignment="Top" FontSize="25" Foreground="#CCB0ABA0" FontFamily="Segoe UI Black"/>
         <TextBlock HorizontalAlignment="Left" Margin="956,345,0,0" TextWrapping="Wrap" Text="Freq:" VerticalAlignment="Top" FontSize="25" Foreground="#CCB0ABA0" FontFamily="Segoe UI Black"/>
-        <TextBlock HorizontalAlignment="Left" Margin="1035,430,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="25" Foreground="#CCB0ABA0" FontFamily="Segoe UI Black" Text="Φ:"/>
+        <TextBlock HorizontalAlignment="Left" Margin="989,433,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="25" Foreground="#CCB0ABA0" FontFamily="Segoe UI Black" Text="Φ:"/>
 
-        <mah:NumericUpDown x:Name="TBIa" HorizontalAlignment="Left" Margin="1046,156,0,0" VerticalAlignment="Top" Width="158" Foreground="#CCB7B7B7" IsEnabled="False" Interval="0.1" Speedup="False" TextAlignment="Center"/>
-        <mah:NumericUpDown x:Name="TBVa" HorizontalAlignment="Left" Margin="1046,204,0,0" VerticalAlignment="Top" Width="158" Foreground="#CCB7B7B7" IsEnabled="False" TextAlignment="Center"/>
-        <mah:NumericUpDown x:Name="TBFP" HorizontalAlignment="Left" Margin="1046,251,0,0" VerticalAlignment="Top" Width="158" Foreground="#CCB7B7B7" IsEnabled="False" TextAlignment="Center"/>
-        <mah:NumericUpDown x:Name="TBRPM" HorizontalAlignment="Left" Margin="1046,299,0,0" VerticalAlignment="Top" Width="158" Foreground="#CCB7B7B7" IsEnabled="False" TextAlignment="Center"/>
-        <mah:NumericUpDown x:Name="TBF" HorizontalAlignment="Left" Margin="1046,349,0,0" VerticalAlignment="Top" Width="158" Foreground="#CCB7B7B7" IsEnabled="False" TextAlignment="Center"/>
-        <mah:NumericUpDown x:Name="TBAngle" HorizontalAlignment="Left" Margin="1088,437,0,0" VerticalAlignment="Top" Width="120" Foreground="#CCB7B7B7" IsEnabled="False" TextAlignment="Center"/>
-        <Rectangle x:Name="RetSave" Height="30" Width="80" Margin="1048,522,152,168" RadiusX="15" RadiusY="15" Fill="#99D9D9D9" Visibility="Hidden"/>
-        <Label x:Name="LabelSave" Content="Salvar" HorizontalAlignment="Left" Margin="1057,516,0,0" VerticalAlignment="Top" Foreground="#FF1D0E4A" Background="{x:Null}" Cursor="Hand" FontSize="20" Height="42" Visibility="Hidden"/>
-        <Button x:Name="btSaveAfterEdit" Content="Button" HorizontalAlignment="Left" Margin="1048,522,0,0" VerticalAlignment="Top" Width="80" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="btSaveAfterEdit_Click" Visibility="Hidden"/>
+        <mah:NumericUpDown x:Name="TBIa" HorizontalAlignment="Left" Margin="1046,156,0,0" VerticalAlignment="Top" Width="158" Foreground="#CCB7B7B7" IsEnabled="False" Speedup="False" TextAlignment="Center"/>
+        <mah:NumericUpDown x:Name="TBVa" HorizontalAlignment="Left" Margin="1046,204,0,0" VerticalAlignment="Top" Width="158" Foreground="#CCB7B7B7" IsEnabled="False" TextAlignment="Center" Interval="20" Maximum="14000"/>
+        <mah:NumericUpDown x:Name="TBFP" HorizontalAlignment="Left" Margin="1046,251,0,0" VerticalAlignment="Top" Width="158" Foreground="#CCB7B7B7" IsEnabled="False" TextAlignment="Center" Interval="0.05"/>
+        <mah:NumericUpDown x:Name="TBRPM" HorizontalAlignment="Left" Margin="1046,299,0,0" VerticalAlignment="Top" Width="158" Foreground="#CCB7B7B7" IsEnabled="False" TextAlignment="Center" Interval="200"/>
+        <mah:NumericUpDown x:Name="TBF" HorizontalAlignment="Left" Margin="1046,349,0,0" VerticalAlignment="Top" Width="158" Foreground="#CCB7B7B7" IsEnabled="False" TextAlignment="Center" Interval="20"/>
+        <mah:NumericUpDown x:Name="TBAngle" HorizontalAlignment="Left" Margin="1046,437,0,0" VerticalAlignment="Top" Width="158" Foreground="#CCB7B7B7" IsEnabled="False" TextAlignment="Center"/>
+        <Button x:Name="btSaveAfterEdit" Width="200" Height="50" Margin="989,503,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="{x:Null}" Click="btSaveAfterEdit_Click" MouseEnter="Buscar_MouseEnter" MouseLeave="Buscar_MouseLeave">
+            <Border x:Name="BorderButton" Background="#72D9D9D9" CornerRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock x:Name="TBBuscar" Text="Buscar" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Height="50" FontFamily="Elephant" FontSize="35" TextAlignment="Center" Foreground="#FF171049" Cursor="Hand"/>
+            </Border>
+        </Button>
 
     </Grid>
 </Page>

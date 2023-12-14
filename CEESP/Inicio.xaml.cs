@@ -29,6 +29,8 @@ namespace CEESP
         private Storyboard show_Xs;
         private Storyboard show_Ports;
 
+        private Brush defaultColor;
+
         bool portSelected = false;
 
         public Inicio(MainWindow main)
@@ -41,28 +43,26 @@ namespace CEESP
 
             this.show_Xs = (Storyboard)FindResource("show_Xs");
             this.show_Ports = (Storyboard)FindResource("show_ports");
+
+            this.defaultColor = BorderButton.Background;
         }
 
-
-
-        public void setProgress(string texto, float progresso, bool ativo)
+        public void setProgress(string texto, bool ativo)
         {
             if (ativo)
             {
-                progress.Visibility = Visibility.Visible;
+                progress.IsActive = true;
                 verbose.Visibility = Visibility.Visible;
 
                 //Adiciona valores
-                progress.Value = progresso;
                 verbose.Content = texto;
             }
             else
             {
-                progress.Visibility = Visibility.Hidden;
+                progress.IsActive = false;
                 verbose.Visibility = Visibility.Hidden;
             }
         }
-
 
         public float getXs()
         {
@@ -75,9 +75,11 @@ namespace CEESP
             {
                 LPorts.Visibility = Visibility.Visible;
                 show_Ports.Begin();
-                setProgress("Iniciando busca", 2, true);
+                setProgress("Iniciando busca", true);
 
                 List<string> compatiblePorts = await main.getSerial().SearchPorts(); //Busca portas de forma assincrona
+
+                setProgress("Adicionando porta", true);
 
                 foreach (string port in compatiblePorts)
                 {
@@ -87,7 +89,7 @@ namespace CEESP
                 if (compatiblePorts.Count >= 1)
                     LPorts.Visibility = System.Windows.Visibility.Visible;
 
-                setProgress("", 0, false);
+                setProgress("", false);
                 verbose.Visibility = Visibility.Visible;
 
                 if (compatiblePorts.Count >= 1)
@@ -101,7 +103,7 @@ namespace CEESP
             }
             else
             {
-                if (Xs.Value != 0 || Xs.Value.HasValue)
+                if (Xs.Value != 0 && Xs.Value.HasValue)
                 {
                     verbose.Visibility = Visibility.Hidden;
                     ListData1.configData.setXs((float)Xs.Value);
@@ -121,6 +123,17 @@ namespace CEESP
                 main.SetPage(1, false);
             }
         }
+
+        private void Buscar_MouseEnter(object sender, RoutedEventArgs e)
+        {
+            BorderButton.Background = Brushes.DarkCyan;
+        }
+
+        private void Buscar_MouseLeave(object sender, RoutedEventArgs e)
+        {
+            BorderButton.Background = defaultColor;
+        }
+
 
         private void LPorts_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

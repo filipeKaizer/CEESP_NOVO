@@ -8,6 +8,22 @@
       mc:Ignorable="d"
       Title="Graficos" Width="1280" Height="704" HorizontalAlignment="Left" VerticalAlignment="Top">
 
+    <Page.Resources>
+        <Style x:Key="NoMouseOverButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    
     <Grid x:Name="Grid" Width="1280" Height="704" HorizontalAlignment="Left" VerticalAlignment="Top">
 
         <TabControl x:Name="Graficos_View" Background="{x:Null}" Foreground="{x:Null}" BorderBrush="{x:Null}" Width="1280" HorizontalAlignment="Left" Cursor="" Height="704" BorderThickness="0,0,0,0" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Padding="0,0,0,0" VerticalAlignment="Top" SelectedIndex="0">
@@ -24,7 +40,7 @@
             </TabItem>
 
         </TabControl>
-        <Button x:Name="selectTemporal" Content="Temporal" Margin="640,12,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="35" Background="{x:Null}" Foreground="#B2DDDDDD" FontSize="20" Cursor="Hand" Click="selectTemporal_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Top">
+        <Button x:Name="selectTemporal"  Style="{StaticResource NoMouseOverButtonStyle}"  Content="Temporal" Margin="640,12,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="35" Background="{x:Null}" Foreground="#B2DDDDDD" FontSize="20" Cursor="Hand" Click="selectTemporal_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Top">
             <Button.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#99751697"/>
@@ -33,7 +49,7 @@
             </Button.BorderBrush>
         </Button>
 
-        <Button x:Name="selectFasores" Content="Fasorial" Margin="490,12,0,0" Width="150" Height="35" Foreground="#B2DDDDDD" Background="{x:Null}" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="Hand" Click="selectFasores_Click" HorizontalContentAlignment="Center">
+        <Button x:Name="selectFasores" Style="{StaticResource NoMouseOverButtonStyle}" Content="Fasorial" Margin="490,12,0,0" Width="150" Height="35" Foreground="#B2DDDDDD" Background="{x:Null}" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="Hand" Click="selectFasores_Click" HorizontalContentAlignment="Center">
             <Button.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#99751697"/>
