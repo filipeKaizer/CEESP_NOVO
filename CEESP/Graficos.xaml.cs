@@ -173,5 +173,13 @@ namespace CEESP
         {
             return this.grafico_Temporal;
         }
+
+        public bool timerExists()
+        {
+            if (timer != null)
+                return true;
+            else 
+                return false;
+        }
     }
 }

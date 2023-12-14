@@ -78,7 +78,14 @@ namespace CEESP
         {
             this.Work.SelectedIndex = index;
             change_menu();
+        }
 
+        public void SetPage(int index, bool menu)
+        {
+            this.Work.SelectedIndex = index;
+
+            if (menu)
+                change_menu();
         }
 
         private void close_button_Click(object sender, RoutedEventArgs e)
@@ -165,6 +172,11 @@ namespace CEESP
                 mostra_menu.Begin();
                 menu_isVisible = true;
             }
+        }
+
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            serial.serialClose();
         }
 
         public double getWidth()

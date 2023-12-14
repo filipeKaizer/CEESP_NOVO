@@ -45,7 +45,7 @@ namespace CEESP
             Grid.Width = SystemParameters.WorkArea.Width;
             Grid.Height = SystemParameters.WorkArea.Height;
 
-            this.plot = new plot(ListData1.configData.getCenterX(), ListData1.configData.getCenterY() / 2, ListData1.configData.getXs());
+            this.plot = new plot(ListData1.configData.getCenterX(), ListData1.configData.getCenterY(), ListData1.configData.getXs());
 
             this.times = new List<String>();
 
@@ -86,7 +86,12 @@ namespace CEESP
             XsIa.Content = "XsIa: " + Math.Round((valores.getIa(index) * ListData1.configData.getXs()), ListData1.configData.getDecimals()).ToString() + "V";
 
             string FPv = Math.Round(valores.getFP(index), ListData1.configData.getDecimals()).ToString();
-            FPValue.Content = "FP: " + FPv + ((FPv != "1") ? valores.getFPType(index) : 'r');
+            FPValue.Content = "φ: " + FPv;
+
+            if (FPv != "1")
+                type.Content = ((valores.getFPType(index) == 'i') ? "Indutivo" : "Capacitivo");
+            else
+                type.Content = "Resistivo";
 
             // Adiciona as linhas
             foreach (Line i in objects)

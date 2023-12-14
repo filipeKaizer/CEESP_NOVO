@@ -101,14 +101,11 @@ namespace CEESP
             }
             else
             {
-                if (Xs.Value == 0)
+                if (Xs.Value != 0 || Xs.Value.HasValue)
                 {
                     verbose.Visibility = Visibility.Hidden;
                     ListData1.configData.setXs((float)Xs.Value);
-                    this.XsValue = (float)Xs.Value;
-
-                    // Inicializa a atualização automática
-                   
+                    this.XsValue = (float)Xs.Value;                   
                 }
                 else
                 {
@@ -117,15 +114,17 @@ namespace CEESP
                     ListData1.configData.setXs(5);
                 }
 
-                main.getGraficos().AutoRefreshInit();
+                if (!main.getGraficos().timerExists())
+                    main.getGraficos().AutoRefreshInit();
 
-                main.SetPage(1);
+                this.main.getSerial().actualizeSerialPort();
+                main.SetPage(1, false);
             }
         }
 
         private void LPorts_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Buscar.Content = "Iniciar";
+            TBBuscar.Text = "Iniciar";
 
             show_Ports.Stop();
             show_Xs.Begin();

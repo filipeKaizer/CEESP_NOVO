@@ -13,12 +13,19 @@ namespace CEESP
             private String portSelected = "";
             private MainWindow main;
 
+            private SerialPort serialPort;
+
             private int tempoCorrente = 0;
 
             public SerialCOM(MainWindow main)
             {
                 this.main = main;
             }
+
+            public void actualizeSerialPort()
+            {
+               this.serialPort = new SerialPort(portSelected, ListData1.configData.getBoundRate(), Parity.None, 8, StopBits.One);
+        }
 
             public async Task<List<string>> SearchPorts()
             {
@@ -85,7 +92,7 @@ namespace CEESP
 
                 try
                 {
-                    SerialPort connection = new SerialPort(portSelected, ListData1.configData.getBoundRate(), Parity.None, ListData1.configData.getDataBits(), StopBits.One);
+                    SerialPort connection = this.serialPort;
                     connection.Open();
 
                     connection.WriteLine(ListData1.configData.getCmdSend()); //Pede envio de dados
@@ -223,6 +230,14 @@ namespace CEESP
                     }
                     return values;
                 });
+            }
+
+            public void serialClose()
+            {
+                if (this.serialPort != null && this.serialPort.IsOpen)
+                {
+                    this.serialPort.Close();
+                }
             }
 
             public void setPort(String port)

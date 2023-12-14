@@ -41,7 +41,7 @@
                 </LinearGradientBrush>
             </Button.BorderBrush>
         </Button>
-        <mah:ProgressRing x:Name="progressRing" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,12,40,0" Foreground="#FF004AFF" Width="50" Height="35" IsActive="False"/>
+        <mah:ProgressRing x:Name="progressRing" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,12,45,0" Foreground="#FF004AFF" Width="34" Height="35" IsActive="False"/>
 
     </Grid>
 </Page>
