@@ -29,6 +29,8 @@ namespace CEESP
 
         private DispatcherTimer timer;
 
+        SolidColorBrush selectedColor;
+
         public Graficos(MainWindow main)
         {
             InitializeComponent();
@@ -58,6 +60,9 @@ namespace CEESP
             FrameTemporal.Width = SystemParameters.WorkArea.Width;
             FrameTemporal.Height = SystemParameters.WorkArea.Height;
 
+            Color baseColor = Color.FromArgb(102, 0, 0, 0);
+            selectedColor = new SolidColorBrush(baseColor);
+
             selectGrafico(0); // Começa com o fasorial
         }
 
@@ -69,12 +74,12 @@ namespace CEESP
 
             if (index == 0)
             {
-                selectFasores.Background = Brushes.DarkGreen;
+                selectFasores.Background = selectedColor;
                 selectTemporal.Background = null;
             } else
             {
                 selectFasores.Background = null;
-                selectTemporal.Background = Brushes.DarkGreen;
+                selectTemporal.Background = selectedColor;
             }
         }
 
@@ -92,6 +97,9 @@ namespace CEESP
 
         public async void atualiza()
         {
+                // Verifica o tamanho do ListData1
+                this.main.saveCache();
+
                 setProgressRingStatus(true);
                 // Realiza leitura no serialCOM e atualiza o colectedData
                 ListData1.colectedData.Add(await main.getSerial().readValues());

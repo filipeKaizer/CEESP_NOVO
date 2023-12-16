@@ -13,11 +13,15 @@ namespace CEESP
         private float centerX;
         private float centerY;
 
+        private double HEIGTH;
+        private double WIDTH;
+
         private int decimals;
         private int boundRate;
         private int IaMultiplier;
         private int LarguraLinha;
         private int dataBits;
+        private int MaxReadItems;
 
         private string cmdSend;
         private string cmdRele;
@@ -44,6 +48,8 @@ namespace CEESP
             this.centerX = 150;
             this.centerY = (float)SystemParameters.WorkArea.Height / 2;
             this.LarguraLinha = 2;
+            this.HEIGTH = SystemParameters.PrimaryScreenHeight;
+            this.WIDTH = SystemParameters.PrimaryScreenWidth;
 
             // Comunicação
             this.boundRate = 9600;
@@ -60,11 +66,23 @@ namespace CEESP
             this.UnRPM = "RPM";
             this.UnTempo = "s";
 
+            // Leitura e armazenamento
+            this.MaxReadItems = 60;
         }
 
         public float getCenterX()
         {
             return this.centerX;
+        }
+
+        public float getWidth()
+        {
+            return (float)this.WIDTH;
+        }
+
+        public float getHeigth()
+        {
+            return (float)this.HEIGTH;
         }
 
         public float getCenterY()
@@ -151,6 +169,11 @@ namespace CEESP
         public bool getUnidade()
         {
             return this.AdicionarUnidade;
+        }
+
+        public int getMaxItems()
+        {
+            return this.MaxReadItems;
         }
     }
 }

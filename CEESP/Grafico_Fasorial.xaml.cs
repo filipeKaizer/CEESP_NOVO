@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OxyPlot.Annotations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -53,8 +54,6 @@ namespace CEESP
             Phase.SelectedIndex = 0;
         }
 
-
-
         public void drawLines()
         {
             /*Remove linhas antigas*/
@@ -80,14 +79,16 @@ namespace CEESP
                 plot.createEa() //Adiciona Ea
             };
 
+            double FPv = valores.getFP(index);
+            double angle = Math.Acos(FPv) * 180 / Math.PI;
             // Atuliza tabela de valores
             VaValue.Content = "Va: " + Math.Round(valores.getVa(index), ListData1.configData.getDecimals()).ToString() + "V";
-            IaValue.Content = "Ia: " + Math.Round(valores.getIa(index), ListData1.configData.getDecimals()).ToString() + "A";
+            IaValue.Content = "Ia: " + Math.Round(valores.getIa(index), ListData1.configData.getDecimals()).ToString() + "∠" + Math.Round(angle, 1) + "º A";
             EaValue.Content = "Ea: " + Math.Round(valores.getEa(index), ListData1.configData.getDecimals()).ToString() + "V";
-            XsIa.Content = "XsIa: " + Math.Abs(Math.Round((valores.getIa(index) * ListData1.configData.getXs()), ListData1.configData.getDecimals())).ToString() + "V";
+            XsIa.Content = "XsIa: " + Math.Abs(Math.Round((valores.getIa(index) * ListData1.configData.getXs()), ListData1.configData.getDecimals())).ToString() + "∠" + Math.Round(90 - angle, 1) + "º V";
 
-            double FPv = valores.getFP(index);
-            FPValue.Content = "φ: " + Math.Round(Math.Acos(FPv) * 180 / Math.PI, 1) + "º, Cos(φ): "+Math.Round(FPv, 2); 
+
+            FPValue.Content = "Cos(φ): "+Math.Round(FPv, 2); 
 
             if (FPv.ToString() != "1")
                 type.Content = ((valores.getFPType(index) == 'i') ? "Indutivo" : "Capacitivo");

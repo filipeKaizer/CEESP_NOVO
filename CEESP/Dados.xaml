@@ -9,11 +9,27 @@
       Title="Dados" Width="1280" Height="720">
 
 
+    <Page.Resources>
+        <Style x:Key="NoMouseOverButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
     <Grid Width="1280" Height="720" HorizontalAlignment="Left" VerticalAlignment="Top">
-        <ListView x:Name="ListData" d:ItemsSource="{d:SampleData ItemCount=5}" Width="760" Height="450" Margin="86,120,0,0" Background="#3F0C0B0B" HorizontalAlignment="Left" VerticalAlignment="Top" SelectionChanged="ListData_SelectionChanged">
+        <ListView x:Name="ListData" d:ItemsSource="{d:SampleData ItemCount=5}" Width="760" Height="450" Margin="86,120,0,0" Background="#3F0C0B0B" HorizontalAlignment="Left" VerticalAlignment="Top" SelectionChanged="ListData_SelectionChanged" Foreground="White" VerticalContentAlignment="Top" HorizontalContentAlignment="Center">
             <ListView.BorderBrush>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black"/>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#990A007F"/>
                     <GradientStop Color="#8C470A83" Offset="1"/>
                 </LinearGradientBrush>
             </ListView.BorderBrush>
@@ -29,7 +45,20 @@
                     <GridViewColumn Header="Tipo" Width="100" DisplayMemberBinding="{Binding Tipo}"/>
                 </GridView>
             </ListView.View>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Foreground" Value="Black"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="Black"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
         </ListView>
+        
         <GridSplitter HorizontalAlignment="Left" Height="450" Margin="886,120,0,0" VerticalAlignment="Top" Width="2" Foreground="{x:Null}">
             <GridSplitter.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -38,6 +67,7 @@
                 </LinearGradientBrush>
             </GridSplitter.Background>
         </GridSplitter>
+        
         <Rectangle HorizontalAlignment="Left" Height="450" Margin="936,120,0,0" VerticalAlignment="Top" Width="305" RadiusX="25" RadiusY="25">
             <Rectangle.Fill>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -46,7 +76,9 @@
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
+        
         <GridSplitter HorizontalAlignment="Left" Height="1" Margin="86,607,0,0" VerticalAlignment="Top" Width="760" Background="#7F8373B0"/>
+        
         <Button x:Name="btDelete" Content="Button" HorizontalAlignment="Left" Margin="816,628,0,0" VerticalAlignment="Top" Width="30" Height="35" BorderBrush="{x:Null}" Foreground="{x:Null}" Cursor="Hand" Click="btDelete_Click">
             <Button.OpacityMask>
                 <ImageBrush ImageSource="/icons/Trash.png"/>
@@ -55,6 +87,7 @@
                 <ImageBrush ImageSource="/icons/Trash.png"/>
             </Button.Background>
         </Button>
+        
         <Button x:Name="btEdit" Content="Button" HorizontalAlignment="Left" Margin="765,626,0,0" VerticalAlignment="Top" Width="40" Height="40" BorderBrush="{x:Null}" Foreground="{x:Null}" Cursor="Hand" Click="btEdit_Click">
             <Button.OpacityMask>
                 <ImageBrush ImageSource="/icons/Edit.png"/>
@@ -63,6 +96,7 @@
                 <ImageBrush ImageSource="/icons/Edit.png"/>
             </Button.Background>
         </Button>
+        
         <Button x:Name="btSave" Content="Button" HorizontalAlignment="Left" Margin="720,626,0,0" VerticalAlignment="Top" Width="40" Height="41" BorderBrush="{x:Null}" Foreground="{x:Null}" Cursor="Hand" Click="btSave_Click">
             <Button.OpacityMask>
                 <ImageBrush ImageSource="/icons/Download.png"/>
@@ -71,6 +105,7 @@
                 <ImageBrush ImageSource="/icons/Download.png"/>
             </Button.Background>
         </Button>
+        
         <TextBlock x:Name="TextNItens" HorizontalAlignment="Left" Margin="445,586,0,0" TextWrapping="Wrap" Text="Itens: 0" VerticalAlignment="Top" FontFamily="Microsoft YaHei" Foreground="#B2FFFFFF"/>
         <TextBlock HorizontalAlignment="Left" Margin="988,149,0,0" TextWrapping="Wrap" Text="Ia:" VerticalAlignment="Top" FontSize="25" Foreground="#CCB0ABA0" FontFamily="Segoe UI Black"/>
         <TextBlock HorizontalAlignment="Left" Margin="979,197,0,0" TextWrapping="Wrap" Text="Va:" VerticalAlignment="Top" FontSize="25" Foreground="#CCB0ABA0" FontFamily="Segoe UI Black"/>
@@ -79,17 +114,35 @@
         <TextBlock HorizontalAlignment="Left" Margin="956,345,0,0" TextWrapping="Wrap" Text="Freq:" VerticalAlignment="Top" FontSize="25" Foreground="#CCB0ABA0" FontFamily="Segoe UI Black"/>
         <TextBlock HorizontalAlignment="Left" Margin="989,433,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="25" Foreground="#CCB0ABA0" FontFamily="Segoe UI Black" Text="Φ:"/>
 
-        <mah:NumericUpDown x:Name="TBIa" HorizontalAlignment="Left" Margin="1046,156,0,0" VerticalAlignment="Top" Width="158" Foreground="#CCB7B7B7" IsEnabled="False" Speedup="False" TextAlignment="Center"/>
+        <mah:NumericUpDown x:Name="TBIa" HorizontalAlignment="Left" Margin="1046,156,0,0" VerticalAlignment="Top" Width="158" Foreground="#CCABABAB" IsEnabled="False" Speedup="False" TextAlignment="Center"/>
         <mah:NumericUpDown x:Name="TBVa" HorizontalAlignment="Left" Margin="1046,204,0,0" VerticalAlignment="Top" Width="158" Foreground="#CCB7B7B7" IsEnabled="False" TextAlignment="Center" Interval="20" Maximum="14000"/>
         <mah:NumericUpDown x:Name="TBFP" HorizontalAlignment="Left" Margin="1046,251,0,0" VerticalAlignment="Top" Width="158" Foreground="#CCB7B7B7" IsEnabled="False" TextAlignment="Center" Interval="0.05"/>
-        <mah:NumericUpDown x:Name="TBRPM" HorizontalAlignment="Left" Margin="1046,299,0,0" VerticalAlignment="Top" Width="158" Foreground="#CCB7B7B7" IsEnabled="False" TextAlignment="Center" Interval="200"/>
+        <mah:NumericUpDown x:Name="TBRPM" HorizontalAlignment="Left" Margin="1046,299,0,0" VerticalAlignment="Top" Width="158" Foreground="#CCB7B7B7" IsEnabled="False" TextAlignment="Center" Interval="200" />
         <mah:NumericUpDown x:Name="TBF" HorizontalAlignment="Left" Margin="1046,349,0,0" VerticalAlignment="Top" Width="158" Foreground="#CCB7B7B7" IsEnabled="False" TextAlignment="Center" Interval="20"/>
         <mah:NumericUpDown x:Name="TBAngle" HorizontalAlignment="Left" Margin="1046,437,0,0" VerticalAlignment="Top" Width="158" Foreground="#CCB7B7B7" IsEnabled="False" TextAlignment="Center"/>
-        <Button x:Name="btSaveAfterEdit" Width="200" Height="50" Margin="989,503,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="{x:Null}" Click="btSaveAfterEdit_Click" MouseEnter="Buscar_MouseEnter" MouseLeave="Buscar_MouseLeave">
+        
+        <Button x:Name="btSaveAfterEdit" Style="{StaticResource NoMouseOverButtonStyle}" Width="200" Height="50" Margin="989,503,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="{x:Null}" Click="btSaveAfterEdit_Click" MouseEnter="Buscar_MouseEnter" MouseLeave="Buscar_MouseLeave">
             <Border x:Name="BorderButton" Background="#72D9D9D9" CornerRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock x:Name="TBBuscar" Text="Buscar" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Height="50" FontFamily="Elephant" FontSize="35" TextAlignment="Center" Foreground="#FF171049" Cursor="Hand"/>
+                <TextBlock x:Name="TBBuscar" Text="Salvar" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Height="50" FontFamily="Elephant" FontSize="35" TextAlignment="Center" Foreground="#FF171049" Cursor="Hand"/>
             </Border>
         </Button>
-
+        <Button Content="Button" HorizontalAlignment="Left" Margin="86,626,0,0" VerticalAlignment="Top" Foreground="{x:Null}" BorderBrush="{x:Null}" Width="40" Height="40" Click="Button_Click">
+            <Button.OpacityMask>
+                <ImageBrush ImageSource="/icons/add.png"/>
+            </Button.OpacityMask>
+            <Button.Background>
+                <ImageBrush ImageSource="/icons/add.png"/>
+            </Button.Background>
+        </Button>
+        <Rectangle HorizontalAlignment="Left" Height="40" Margin="1046,397,0,0" VerticalAlignment="Top" Width="180" RadiusX="20" RadiusY="20" Fill="#3F000000" Stroke="#05002173"/>
+        <Rectangle HorizontalAlignment="Left" Height="30" Margin="1086,402,0,0" VerticalAlignment="Top" Width="100" RadiusX="15" RadiusY="15" Fill="#19888888"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="1055,407,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="20" Height="20">
+            <Button.OpacityMask>
+                <ImageBrush ImageSource="/icons/plus.png"/>
+            </Button.OpacityMask>
+            <Button.Background>
+                <ImageBrush ImageSource="/icons/plus.png"/>
+            </Button.Background>
+        </Button>
     </Grid>
 </Page>

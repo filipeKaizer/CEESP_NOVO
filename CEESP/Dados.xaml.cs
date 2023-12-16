@@ -33,7 +33,7 @@ namespace CEESP
             InitializeComponent();
             this.main = main;
 
-            this.defaultColor = btSaveAfterEdit.Background;
+            this.defaultColor = BorderButton.Background;
 
             changeVisibility();
         }
@@ -102,7 +102,8 @@ namespace CEESP
 
         private void btEdit_Click(object sender, RoutedEventArgs e)
         {
-            changeVisibility();
+            if (ListData.SelectedIndex != -1)
+                changeVisibility();
         }
 
         private void btDelete_Click(object sender, RoutedEventArgs e)
@@ -198,6 +199,8 @@ namespace CEESP
 
                     FileInfo fileInfo = new FileInfo(caminhoArquivo);
 
+                    ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
                     using (ExcelPackage excelPackage = new ExcelPackage(fileInfo))
                     {
                         ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("Dados");
@@ -216,8 +219,22 @@ namespace CEESP
                         int i = 0;
                         bool u = ListData1.configData.getUnidade();
                         ConfigData c = ListData1.configData;
+                        List<ColectedData> dados;
 
-                        foreach (ColectedData data in ListData1.colectedData)
+                        if (ListData1.cache.Count > 0)
+                        {
+                            dados = ListData1.cache;
+
+                            foreach(ColectedData colect in ListData1.colectedData)
+                            {
+                                dados.Add(colect);
+                            }
+                        } else
+                        {
+                            dados = ListData1.colectedData;
+                        }
+
+                        foreach (ColectedData data in dados)
                         {
                             int p = c.getDecimals();
                             //       LINHA/COLUNA -> Valor    | Valor do DB     | Adiciona Unidade se u = true
@@ -254,18 +271,34 @@ namespace CEESP
 
         private void Buscar_MouseEnter(object sender, RoutedEventArgs e)
         {
-            btSaveAfterEdit.Background = Brushes.DarkCyan;
+            BorderButton.Background = Brushes.DarkCyan;
         }
 
         private void Buscar_MouseLeave(object sender, RoutedEventArgs e)
         {
-            btSaveAfterEdit.Background = defaultColor;
+            BorderButton.Background = defaultColor;
         }
 
 
         private void btSave_Click(object sender, RoutedEventArgs e)
         {
             SalvarArquivo();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            // Temporário, remover na versão final
+            int tempo = 0;
+            if (ListData1.colectedData.Count > 0)
+                tempo = ListData1.colectedData[ListData1.colectedData.Count - 1].getTempo();
+            else if (ListData1.cache.Count > 0)
+                tempo = ListData1.cache[ListData1.cache.Count - 1].getTempo();
+
+            ListData1.colectedData.Add(new ColectedData(tempo + 1));
+            
+            this.atualizaDados();
+
+            this.main.saveCache();
         }
     }
 }

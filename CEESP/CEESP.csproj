@@ -8,11 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="add.png" />
     <None Remove="close.png" />
     <None Remove="Download.png" />
     <None Remove="Edit.png" />
     <None Remove="List.png" />
     <None Remove="menu.png" />
+    <None Remove="plus.png" />
     <None Remove="refresh.png" />
     <None Remove="Timer.png" />
     <None Remove="Trash.png" />
@@ -30,6 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="icons\add.png" />
     <Resource Include="icons\Download.png" />
     <Resource Include="icons\Edit.png" />
     <Resource Include="icons\close.png" />
@@ -38,6 +41,7 @@
     <Resource Include="icons\Timer.png" />
     <Resource Include="icons\refresh.png" />
     <Resource Include="icons\List.png" />
+    <Resource Include="icons\plus.png" />
   </ItemGroup>
 
 </Project>

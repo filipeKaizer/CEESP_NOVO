@@ -38,24 +38,27 @@ namespace CEESP
         {
             InitializeComponent();
 
+            float width = ListData1.configData.getWidth();
+            float height = ListData1.configData.getHeigth();
+
             enter_color = new SolidColorBrush(Color.FromArgb(51, 240, 230, 230));
             exit_color = new SolidColorBrush(Color.FromArgb(0, 240, 230, 230));
 
             // Define o tamanho de tela e tipo
             this.WindowState = WindowState.Maximized;
-            this.WindowStyle = WindowStyle.SingleBorderWindow;
+            this.WindowStyle = WindowStyle.ToolWindow;
 
-            this.Width = SystemParameters.WorkArea.Width;
-            this.Height = SystemParameters.WorkArea.Height;
+            this.Width = width;
+            this.Height = height;
 
-            this.Left = SystemParameters.WorkArea.Left;
-            this.Top = SystemParameters.WorkArea.Top;
+            this.Left = 0;
+            this.Top = 0;
 
-            backgroundPrincipal.Width = SystemParameters.WorkArea.Width;
-            backgroundPrincipal.Height = SystemParameters.WorkArea.Height;
+            backgroundPrincipal.Width = width;
+            backgroundPrincipal.Height = height;
 
-            Work.Height = SystemParameters.WorkArea.Height;
-            Work.Width = SystemParameters.WorkArea.Width;
+            Work.Height = height;
+            Work.Width = width;
 
             this.esconde_menu = (Storyboard)FindResource("esconde_menu");
             this.mostra_menu = (Storyboard)FindResource("mostra_menu");
@@ -72,6 +75,20 @@ namespace CEESP
             FrameRelatorios.Navigate(this.relatorios);
 
             Work.SelectedIndex = 0;
+        }
+
+        public void saveCache()
+        {
+            if (ListData1.colectedData.Count == ListData1.configData.getMaxItems())
+            {
+                // Salva em cache
+                foreach (ColectedData c in ListData1.colectedData)
+                {
+                    ListData1.cache.Add(c);
+                }
+                // Limpa
+                ListData1.colectedData.Clear();
+            }
         }
 
         public void SetPage(int index)

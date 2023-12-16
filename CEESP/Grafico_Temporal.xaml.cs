@@ -128,18 +128,20 @@ namespace CEESP
 
 
             // Adicione a série ao PlotModel conforme CheckBox
-            if (VaCheckBox.IsChecked == true)
-                plotModel.Series.Add(VaLineSeries);
+            if (ListData1.colectedData.Count != 0)
+            {
+                if (VaCheckBox.IsChecked == true)
+                    plotModel.Series.Add(VaLineSeries);
 
-            if (IaCheck.IsChecked == true)
-                plotModel.Series.Add(IaLineSeries);
+                if (IaCheck.IsChecked == true)
+                    plotModel.Series.Add(IaLineSeries);
 
-            if (RPM.IsChecked == true)
-                plotModel.Series.Add(RPMLineSeries);
+                if (RPM.IsChecked == true)
+                    plotModel.Series.Add(RPMLineSeries);
 
-            if (EaCheck.IsChecked == true)
-                plotModel.Series.Add(EaLineSeries);
-
+                if (EaCheck.IsChecked == true)
+                    plotModel.Series.Add(EaLineSeries);
+            }
             // Associe o PlotModel ao PlotView
             PlotGraph.Model = plotModel;
         }

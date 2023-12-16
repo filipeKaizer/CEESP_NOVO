@@ -76,7 +76,14 @@
 
     <Grid x:Name="Grid" Width="1280" Height="704" HorizontalAlignment="Left" VerticalAlignment="Top">
 
-        <oxy:PlotView x:Name="PlotGraph" HorizontalAlignment="Left" VerticalAlignment="Top" Height="704" Width="1280" Background="#19000000" Padding="0,0,0,0" Foreground="{x:Null}"/>
+        <oxy:PlotView x:Name="PlotGraph" HorizontalAlignment="Left" VerticalAlignment="Top" Height="704" Width="1280" Background="#19000000" Padding="0,0,0,0">
+            <oxy:PlotView.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="Black" Offset="1"/>
+                </LinearGradientBrush>
+            </oxy:PlotView.Foreground>
+        </oxy:PlotView>
         <Button x:Name="btLegenda" Content="Button" HorizontalAlignment="Left" Margin="28,642,0,0" VerticalAlignment="Top" Foreground="{x:Null}" BorderBrush="{x:Null}" Width="40" Height="40" HorizontalContentAlignment="Left" Padding="2,1,1,1" VerticalContentAlignment="Top" Cursor="Hand" Click="btLegenda_Click">
             <Button.OpacityMask>
                 <ImageBrush ImageSource="/icons/List.png"/>
@@ -95,22 +102,22 @@
                 </TransformGroup>
             </Grid.RenderTransform>
             <Rectangle HorizontalAlignment="Left" Height="40" VerticalAlignment="Center" Width="450" Fill="#4C121212" RadiusX="10" RadiusY="10" Margin="-10,0,0,0"/>
-            <CheckBox x:Name="VaCheckBox" Content="Va" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="50" Height="20" VerticalContentAlignment="Center" Checked="VaCheckBox_Checked_2" Background="#FF00DE03" BorderBrush="{x:Null}" Foreground="#FFD8D8D8" Padding="5,0,0,0" Cursor="Hand">
+            <CheckBox x:Name="VaCheckBox" Content="Va" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="50" Height="20" VerticalContentAlignment="Center" Checked="VaCheckBox_Checked_2" Unchecked="VaCheckBox_Checked_2" Background="#FF00DE03" BorderBrush="{x:Null}" Foreground="#FFD8D8D8" Padding="5,0,0,0" Cursor="Hand" IsChecked="True">
                 <CheckBox.LayoutTransform>
                     <ScaleTransform ScaleX="2" ScaleY="2"/>
                 </CheckBox.LayoutTransform>
             </CheckBox>
-            <CheckBox x:Name="IaCheck" Content="Ia" HorizontalAlignment="Left" Margin="114,0,0,0" VerticalAlignment="Center" Width="50" Height="20" VerticalContentAlignment="Center" Checked="VaCheckBox_Checked_2" Background="#FFDE0000" BorderBrush="{x:Null}" Foreground="#FFD8D8D8" Padding="5,0,0,0" Cursor="Hand">
+            <CheckBox x:Name="IaCheck" Content="Ia" HorizontalAlignment="Left" Margin="114,0,0,0" VerticalAlignment="Center" Width="50" Height="20" VerticalContentAlignment="Center" Checked="VaCheckBox_Checked_2" Unchecked="VaCheckBox_Checked_2" Background="#FFDE0000" BorderBrush="{x:Null}" Foreground="#FFD8D8D8" Padding="5,0,0,0" Cursor="Hand" IsChecked="True">
                 <CheckBox.LayoutTransform>
                     <ScaleTransform ScaleX="2" ScaleY="2"/>
                 </CheckBox.LayoutTransform>
             </CheckBox>
-            <CheckBox x:Name="EaCheck" Content="Ea" HorizontalAlignment="Left" Margin="217,0,0,0" VerticalAlignment="Top" Width="50" Height="20" VerticalContentAlignment="Center" Checked="VaCheckBox_Checked_2" Background="#FF0014FF" BorderBrush="{x:Null}" Foreground="#FFD8D8D8" Padding="5,0,0,0" Cursor="Hand">
+            <CheckBox x:Name="EaCheck" Content="Ea" HorizontalAlignment="Left" Margin="217,0,0,0" VerticalAlignment="Top" Width="50" Height="20" VerticalContentAlignment="Center" Checked="VaCheckBox_Checked_2" Unchecked="VaCheckBox_Checked_2" Background="#FF0014FF" BorderBrush="{x:Null}" Foreground="#FFD8D8D8" Padding="5,0,0,0" Cursor="Hand" IsChecked="True">
                 <CheckBox.LayoutTransform>
                     <ScaleTransform ScaleX="2" ScaleY="2"/>
                 </CheckBox.LayoutTransform>
             </CheckBox>
-            <CheckBox x:Name="RPM" Content="RPM" HorizontalAlignment="Left" Margin="322,0,0,0" VerticalAlignment="Center" Width="50" Height="20" VerticalContentAlignment="Center" Checked="VaCheckBox_Checked_2" Background="#FFBB8700" BorderBrush="{x:Null}" Foreground="#FFD8D8D8" Padding="5,0,0,0" Cursor="Hand">
+            <CheckBox x:Name="RPM" Content="RPM" HorizontalAlignment="Left" Margin="322,0,0,0" VerticalAlignment="Center" Width="50" Height="20" VerticalContentAlignment="Center" Checked="VaCheckBox_Checked_2" Unchecked="VaCheckBox_Checked_2" Background="#FFBB8700" BorderBrush="{x:Null}" Foreground="#FFD8D8D8" Padding="5,0,0,0" Cursor="Hand" IsChecked="True">
                 <CheckBox.LayoutTransform>
                     <ScaleTransform ScaleX="2" ScaleY="2"/>
                 </CheckBox.LayoutTransform>
