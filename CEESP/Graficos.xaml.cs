@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace CEESP
@@ -76,7 +66,8 @@ namespace CEESP
             {
                 selectFasores.Background = selectedColor;
                 selectTemporal.Background = null;
-            } else
+            }
+            else
             {
                 selectFasores.Background = null;
                 selectTemporal.Background = selectedColor;
@@ -97,33 +88,33 @@ namespace CEESP
 
         public async void atualiza()
         {
-                // Verifica o tamanho do ListData1
-                this.main.saveCache();
+            // Verifica o tamanho do ListData1
+            this.main.saveCache();
 
-                setProgressRingStatus(true);
-                // Realiza leitura no serialCOM e atualiza o colectedData
-                ListData1.colectedData.Add(await main.getSerial().readValues());
+            setProgressRingStatus(true);
+            // Realiza leitura no serialCOM e atualiza o colectedData
+            ListData1.colectedData.Add(await main.getSerial().readValues());
 
-                // Atualiza o dataView da classe dados
-                 this.main.getDados().atualizaDados();
+            // Atualiza o dataView da classe dados
+            this.main.getDados().atualizaDados();
 
-                // Atualiza o Graph
-                grafico_Temporal.atualizaGraph();
+            // Atualiza o Graph
+            grafico_Temporal.atualizaGraph();
 
-                // Atualiza o CBRelatorio
+            // Atualiza o CBRelatorio
 
 
-                if (ListData1.colectedData.Count > 0)
+            if (ListData1.colectedData.Count > 0)
+            {
+                try
                 {
-                    try
-                    {
-                       grafico_Fasorial.drawLines();
-                    }
-                    catch (Exception error)
-                    {
-                        //MessageBox.Show("Dados inválidos. Verifique se o módulo está conectado e ativo. \n" + error.Message);
-                    }
+                    grafico_Fasorial.drawLines();
                 }
+                catch (Exception)
+                {
+                    //MessageBox.Show("Dados inválidos. Verifique se o módulo está conectado e ativo. \n" + error.Message);
+                }
+            }
 
             setProgressRingStatus(false);
         }
@@ -135,7 +126,8 @@ namespace CEESP
             {
                 if (timer != null)
                     this.timer.Stop();
-            } else
+            }
+            else
             {
                 if (timer != null)
                     timer.Interval = TimeSpan.FromSeconds(this.grafico_Fasorial.getSelectedTime());
@@ -184,10 +176,7 @@ namespace CEESP
 
         public bool timerExists()
         {
-            if (timer != null)
-                return true;
-            else 
-                return false;
+            return timer != null;
         }
     }
 }

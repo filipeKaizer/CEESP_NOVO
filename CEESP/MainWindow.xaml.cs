@@ -1,18 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
+﻿using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CEESP
 {
@@ -21,7 +9,7 @@ namespace CEESP
     /// </summary>
     public partial class MainWindow : Window
     {
-        private SolidColorBrush enter_color; 
+        private SolidColorBrush enter_color;
         private SolidColorBrush exit_color;
         private bool menu_isVisible = false;
 
@@ -107,7 +95,7 @@ namespace CEESP
 
         private void close_button_Click(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void rtInicio_MouseEnter(object sender, RoutedEventArgs e)

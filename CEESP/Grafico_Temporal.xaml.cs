@@ -1,20 +1,9 @@
-﻿using OxyPlot.Series;
-using OxyPlot;
-using System;
+﻿using OxyPlot;
+using OxyPlot.Series;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CEESP
 {
@@ -39,7 +28,7 @@ namespace CEESP
 
             PlotGraph.Width = SystemParameters.WorkArea.Width;
             PlotGraph.Height = SystemParameters.WorkArea.Height;
-            
+
             Page.Width = SystemParameters.WorkArea.Width;
             Page.Height = SystemParameters.WorkArea.Height;
 
@@ -58,7 +47,8 @@ namespace CEESP
                 show_Checks.Stop();
                 hide_Ckechs.Begin();
                 isVisibleChecks = false;
-            } else
+            }
+            else
             {
                 hide_Ckechs.Stop();
                 show_Checks.Begin();

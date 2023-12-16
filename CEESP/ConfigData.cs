@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 
 namespace CEESP
 {
@@ -45,7 +40,7 @@ namespace CEESP
             this.IaMultiplier = 5;
 
             // Grafico
-            this.centerX = 150;
+            this.centerX = (float)SystemParameters.WorkArea.Width * (float)0.1;
             this.centerY = (float)SystemParameters.WorkArea.Height / 2;
             this.LarguraLinha = 2;
             this.HEIGTH = SystemParameters.PrimaryScreenHeight;

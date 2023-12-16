@@ -1,17 +1,7 @@
-﻿using OxyPlot.Annotations;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace CEESP
@@ -26,7 +16,9 @@ namespace CEESP
         private List<String> times;
         private plot plot;
         private List<Line> oldLines;
+        private bool autosizeEnable = true;
         private float zoomScale = 1;
+        private bool spliterEnable = true;
 
         public Grafico_Fasorial(MainWindow main)
         {
@@ -50,6 +42,11 @@ namespace CEESP
 
             this.times = new List<String>();
 
+            if (autosizeEnable)
+                AutosizeButton.Content = "A";
+            else 
+                AutosizeButton.Content = "M";
+
             InitializeTime(20, 4);
             Phase.SelectedIndex = 0;
         }
@@ -70,14 +67,21 @@ namespace CEESP
 
             ColectedData valores = data[data.Count - 1]; //Pega o ultimo dado coletado
 
+            if (autosizeEnable)
+                AutoSizeValue(valores, index);
+
             List<Line> objects = new List<Line>
 
             {
-                plot.createVa(valores.getVa(index) * (float)this.zoomScale), //Adiciona Va
-                plot.createIa(valores.getIa(index) * (float)this.zoomScale, valores.getFP(index), valores.getFPType(index)), //Adiciona Ia
-                plot.createXs(valores.getIa(index) * (float)this.zoomScale,valores.getFP(index), valores.getFPType(index)), //Adiciona Xs
-                plot.createEa() //Adiciona Ea
+                plot.createVa(valores.getVa(index) * this.zoomScale), //Adiciona Va
+                plot.createIa(valores.getIa(index) * this.zoomScale, valores.getFP(index), valores.getFPType(index)), //Adiciona Ia
+                plot.createXs(valores.getIa(index) * this.zoomScale,valores.getFP(index), valores.getFPType(index)), //Adiciona Xs
             };
+
+            if (valores.getFP(index) != 0)
+            {
+                objects.Add(plot.createEa());
+            }
 
             double FPv = valores.getFP(index);
             double angle = Math.Acos(FPv) * 180 / Math.PI;
@@ -88,12 +92,9 @@ namespace CEESP
             XsIa.Content = "XsIa: " + Math.Abs(Math.Round((valores.getIa(index) * ListData1.configData.getXs()), ListData1.configData.getDecimals())).ToString() + "∠" + Math.Round(90 - angle, 1) + "º V";
 
 
-            FPValue.Content = "Cos(φ): "+Math.Round(FPv, 2); 
+            FPValue.Content = "Cos(φ): " + Math.Round(FPv, 2);
 
-            if (FPv.ToString() != "1")
-                type.Content = ((valores.getFPType(index) == 'i') ? "Indutivo" : "Capacitivo");
-            else
-                type.Content = "Resistivo";
+            type.Content = FPv.ToString() != "1" ? (valores.getFPType(index) == 'i') ? "Indutivo" : "Capacitivo" : (object)"Resistivo";
 
             // Adiciona as linhas
             foreach (Line i in objects)
@@ -101,6 +102,8 @@ namespace CEESP
                 Graph.Children.Add(i);
             }
             oldLines = objects;
+
+            this.spliterEnable = true;
 
         }
 
@@ -116,12 +119,44 @@ namespace CEESP
             CBTimes.ItemsSource = times;
         }
 
+        public void AutoSizeValue(ColectedData valores, int index)
+        {
+            this.spliterEnable = false; // Garante que o Slider não seja alterado
+            double zoom = 0;
+            float X = 0;
+
+            float angle = (float)Math.Acos(valores.getFP(index));
+            if (valores.getFP(index) != 0)
+            {
+                X = valores.getVa(index) + ((valores.getFPType(index) == 'i') ? valores.getIa(index) * ListData1.configData.getXs() * (float)Math.Cos(1.5708 - angle) : 0);
+            } else
+            {
+                X = valores.getVa(index);
+            }
+
+            if (X != 0)
+                zoom = (this.Width - (2 * ListData1.configData.getCenterX())) / X;
+            this.zoomScale = (float)zoom;
+
+            Slider.Value = zoom;
+            LabelZoom.Content = Math.Round(this.zoomScale, 1) + "x";
+        }
+
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            this.zoomScale = (float)Slider.Value;
-            LabelZoom.Content = Math.Round(Slider.Value, 1) + "x";
-            if (ListData1.colectedData.Count > 0)
-                drawLines();
+            if (this.spliterEnable)
+            {
+                if (autosizeEnable)
+                {
+                    autosizeEnable = false;
+                    AutosizeButton.Content = "M";
+                }
+
+                this.zoomScale = (float)Slider.Value;
+                LabelZoom.Content = Math.Round(Slider.Value, 1) + "x";
+                if (ListData1.colectedData.Count > 0)
+                    drawLines();
+            }
         }
 
         public int getSelectedTime()
@@ -138,10 +173,7 @@ namespace CEESP
 
                     int tempo;
 
-                    if (int.TryParse(v.Substring(0, v.Length - 1), out tempo))
-                        return tempo;
-                    else
-                        return 2;
+                    return int.TryParse(v.Substring(0, v.Length - 1), out tempo) ? tempo : 2;
                 }
                 catch
                 {
@@ -152,10 +184,7 @@ namespace CEESP
 
         private void CBTimes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (CBTimes.SelectedItem.ToString() == "Pause")
-                TimeSelected.Content = "P";
-            else
-                TimeSelected.Content = CBTimes.SelectedItem.ToString();
+            TimeSelected.Content = CBTimes.SelectedItem.ToString() == "Pause" ? "P" : (object?)CBTimes.SelectedItem.ToString();
 
             main.getGraficos().ActualizeTimeRefresh();
         }
@@ -164,6 +193,17 @@ namespace CEESP
         {
             if (ListData1.colectedData.Count != 0)
                 drawLines();
+        }
+
+        private void AutosizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.autosizeEnable = !autosizeEnable;
+            if (this.autosizeEnable)
+                AutosizeButton.Content = "A";
+            else
+                AutosizeButton.Content = "M";
+
+            drawLines();
         }
     }
 }

@@ -1,21 +1,11 @@
 ﻿using Microsoft.Win32;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using OfficeOpenXml;
 
 namespace CEESP
 {
@@ -80,18 +70,9 @@ namespace CEESP
 
                 try
                 {
-                    if (fp <= 0)
-                    {
-                        TBAngle.Value = 90;
-                    }
-                    else if (fp >= 1)
-                    {
-                        TBAngle.Value = 0;
-                    }
-                    else
-                    {
-                        TBAngle.Value = Math.Round((float)(Math.Acos((float)fp) * 180) / Math.PI, ListData1.configData.getDecimals());
-                    }
+                    TBAngle.Value = fp <= 0
+                        ? (double?)90
+                        : fp >= 1 ? (double?)0 : Math.Round((float)(Math.Acos((float)fp) * 180) / Math.PI, ListData1.configData.getDecimals());
                 }
                 catch
                 {
@@ -225,11 +206,12 @@ namespace CEESP
                         {
                             dados = ListData1.cache;
 
-                            foreach(ColectedData colect in ListData1.colectedData)
+                            foreach (ColectedData colect in ListData1.colectedData)
                             {
                                 dados.Add(colect);
                             }
-                        } else
+                        }
+                        else
                         {
                             dados = ListData1.colectedData;
                         }
@@ -295,8 +277,10 @@ namespace CEESP
                 tempo = ListData1.cache[ListData1.cache.Count - 1].getTempo();
 
             ListData1.colectedData.Add(new ColectedData(tempo + 1));
-            
+
             this.atualizaDados();
+
+            this.main.getGraficos().getFasorial().drawLines();
 
             this.main.saveCache();
         }

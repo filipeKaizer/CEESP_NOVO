@@ -8,6 +8,22 @@
       mc:Ignorable="d"
       Title="Grafico_Fasorial" Foreground="{x:Null}" Width="1280" Height="704" HorizontalAlignment="Left" VerticalAlignment="Top">
 
+    <Page.Resources>
+        <Style x:Key="NoMouseOverButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
     <Grid x:Name="Grid" Width="1280" Height="704" HorizontalAlignment="Left" VerticalAlignment="Top">
         <Canvas x:Name="Graph" HorizontalAlignment="Left" Width="1280" Height="704" Background="#19000000" VerticalAlignment="Top" Cursor="Arrow"/>
         <Label x:Name="TimeSelected" Content="2s" Background="{x:Null}" Foreground="#99DEDEDE" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="56,665,0,0"/>
@@ -41,10 +57,15 @@
             <Label x:Name="FPValue" Content="Cos(φ): 90º" FontFamily="Arial Rounded MT Bold" Width="78" Foreground="#FFAFAFAF" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="463,0,0,0" Padding="2,0,0,0"/>
             <Label x:Name="type" Content="Indutivo" FontFamily="Arial Rounded MT Bold" Width="74" Foreground="#FFAFAFAF" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="572,0,0,0" Padding="2,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         </Grid>
-        <Grid x:Name="Zoom" Margin="863,653,250,0" Width="162" VerticalAlignment="Top" HorizontalAlignment="Right">
-            <Rectangle Height="30" Width="162" HorizontalAlignment="Left" VerticalAlignment="Center" RadiusX="5" RadiusY="5" Fill="#33000000"/>
-            <Slider x:Name="Slider" Margin="7,0,0,5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="106" Height="20" ValueChanged="Slider_ValueChanged" Cursor="Hand"/>
-            <Label x:Name="LabelZoom" Content="1x" HorizontalAlignment="Left" Margin="118,0,0,0" VerticalAlignment="Center" FontFamily="Algerian" Width="41" Foreground="#FFAFAFAF" HorizontalContentAlignment="Center"/>
+        <Grid x:Name="Zoom" Margin="0,653,230,0" Width="162" VerticalAlignment="Top" HorizontalAlignment="Right">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+            <Rectangle Height="30" Width="187" HorizontalAlignment="Left" VerticalAlignment="Top" RadiusX="5" RadiusY="5" Fill="#33000000" Margin="-25,0,0,0" Grid.RowSpan="2"/>
+            <Slider x:Name="Slider" Margin="7,0,0,10" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="106" Height="20" ValueChanged="Slider_ValueChanged" Cursor="Hand" Grid.RowSpan="2"/>
+            <Label x:Name="LabelZoom" Content="1x" HorizontalAlignment="Left" Margin="118,2,0,0" VerticalAlignment="Top" FontFamily="Algerian" Width="41" Foreground="#FFAFAFAF" HorizontalContentAlignment="Center" Grid.RowSpan="2"/>
+            <Button x:Name="AutosizeButton" Style="{StaticResource NoMouseOverButtonStyle}" Content="M" Margin="-23,0,160,5" Height="30" Width="25" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFAFAFAF" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Corbel" FontSize="13" Click="AutosizeButton_Click" Cursor="Hand" AutomationProperties.HelpText="Autosize"/>
         </Grid>
         <ComboBox x:Name="Phase" Canvas.Left="312" Canvas.Top="410" Width="176" Height="30" BorderBrush="{x:Null}" OpacityMask="#19000000" Background="#191E1E1E" Foreground="Black" Cursor="Hand" ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="1008,653,30,0" VerticalAlignment="Top" SelectionChanged="Phase_SelectionChanged" HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14">
             <ComboBoxItem Content="Media"/>

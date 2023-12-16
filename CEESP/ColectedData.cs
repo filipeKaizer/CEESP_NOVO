@@ -44,9 +44,13 @@ namespace CEESP
         public ColectedData(int tempo)
         {
             this.Ia = new float[4];
+            this.Ia[0] = 4;
             this.Va = new float[4];
+            this.Va[0] = 220;
             this.FP = new float[4];
+            this.FP[0] = (float)0.89;
             this.CFP = new float[4];
+            this.CFP[0] = 1; //i
             this.RPM = 2000;
             this.frequency = 60;
             this.Ea = new float[4];
