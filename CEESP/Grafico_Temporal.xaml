@@ -76,7 +76,7 @@
 
     <Grid x:Name="Grid" Width="1280" Height="704" HorizontalAlignment="Left" VerticalAlignment="Top">
 
-        <oxy:PlotView x:Name="PlotGraph" HorizontalAlignment="Center" VerticalAlignment="Top" Height="648" Width="1280" Background="#19000000" Padding="0,0,0,0" Margin="0,56,0,0">
+        <oxy:PlotView x:Name="PlotGraph" HorizontalAlignment="Center" VerticalAlignment="Top" Height="659" Width="1280" Background="#19000000" Padding="0,0,0,0" Margin="0,45,0,0">
             <oxy:PlotView.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black"/>

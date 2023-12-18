@@ -40,7 +40,7 @@
             </TabItem>
 
         </TabControl>
-        <Button x:Name="selectTemporal"  Style="{StaticResource NoMouseOverButtonStyle}"  Content="Temporal" Margin="640,12,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="35" Background="{x:Null}" Foreground="#B2DDDDDD" FontSize="20" Cursor="Hand" Click="selectTemporal_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Top">
+        <Button x:Name="selectTemporal"  Style="{StaticResource NoMouseOverButtonStyle}"  Content="Temporal" Margin="640,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="35" Background="{x:Null}" Foreground="#B2DDDDDD" FontSize="20" Cursor="Hand" Click="selectTemporal_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Top">
             <Button.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#99751697"/>
@@ -49,7 +49,7 @@
             </Button.BorderBrush>
         </Button>
 
-        <Button x:Name="selectFasores" Style="{StaticResource NoMouseOverButtonStyle}" Content="Fasorial" Margin="490,12,0,0" Width="150" Height="35" Foreground="#B2DDDDDD" Background="{x:Null}" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="Hand" Click="selectFasores_Click" HorizontalContentAlignment="Center">
+        <Button x:Name="selectFasores" Style="{StaticResource NoMouseOverButtonStyle}" Content="Fasorial" Margin="490,5,0,0" Width="150" Height="35" Foreground="#B2DDDDDD" Background="{x:Null}" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="Hand" Click="selectFasores_Click" HorizontalContentAlignment="Center">
             <Button.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#99751697"/>
@@ -57,7 +57,7 @@
                 </LinearGradientBrush>
             </Button.BorderBrush>
         </Button>
-        <mah:ProgressRing x:Name="progressRing" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,12,45,0" Foreground="#FF004AFF" Width="34" Height="35" IsActive="False"/>
+        <mah:ProgressRing x:Name="progressRing" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,90,0" Foreground="#FF004AFF" Width="34" Height="35" IsActive="False"/>
 
     </Grid>
 </Page>

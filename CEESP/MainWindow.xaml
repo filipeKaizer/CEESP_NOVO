@@ -164,7 +164,7 @@
                 <ImageBrush ImageSource="/icons/menu.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="Close" Content="Button" Margin="0,5,5,0" Width="45" Height="45" Grid.Column="1" BorderBrush="{x:Null}" Foreground="{x:Null}" RenderTransformOrigin="-0.222,0.534" Click="Close_Click" Cursor="Hand" HorizontalAlignment="Right" VerticalAlignment="Top">
+        <Button x:Name="Close" Content="Button" Margin="0,0,5,0" Width="45" Height="45" Grid.Column="1" BorderBrush="{x:Null}" Foreground="{x:Null}" RenderTransformOrigin="-0.222,0.534" Click="Close_Click" Cursor="Hand" HorizontalAlignment="Right" VerticalAlignment="Top">
             <Button.OpacityMask>
                 <ImageBrush ImageSource="/icons/close.png"/>
             </Button.OpacityMask>

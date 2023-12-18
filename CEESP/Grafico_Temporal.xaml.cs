@@ -27,7 +27,7 @@ namespace CEESP
             this.Height = ListData1.configData.getHeigth();
 
             PlotGraph.Width = ListData1.configData.getWidth();
-            PlotGraph.Height = ListData1.configData.getHeigth() - 55;
+            PlotGraph.Height = ListData1.configData.getHeigth() - 45;
 
             Page.Width = ListData1.configData.getWidth();
             Page.Height = ListData1.configData.getHeigth();

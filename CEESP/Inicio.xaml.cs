@@ -73,6 +73,9 @@ namespace CEESP
         {
             if (!portSelected)
             {
+                TBBuscarModulo.Visibility = Visibility.Collapsed;
+                TBBuscarModuloText.Visibility = Visibility.Collapsed;
+
                 LPorts.Visibility = Visibility.Visible;
                 show_Ports.Begin();
                 setProgress("Iniciando busca", true);
@@ -93,9 +96,11 @@ namespace CEESP
                 verbose.Visibility = Visibility.Visible;
 
                 verbose.Content = compatiblePorts.Count >= 1 ? "Portas compativeis: " + compatiblePorts.Count : (object)"Nenhuma porta válida encontrada";
+                TBSelecioneUmaPorta.Visibility = Visibility.Visible;
             }
             else
             {
+                TBSelecioneUmaPorta.Text = "Informe o valor de Xs";
                 if (Xs.Value != 0 && Xs.Value.HasValue)
                 {
                     verbose.Visibility = Visibility.Hidden;
@@ -115,6 +120,7 @@ namespace CEESP
                 this.main.getSerial().actualizeSerialPort();
                 ListData1.configData.setModuloAtivo(true);
                 this.main.selectOperationMode(true);
+
 
                 main.SetPage(1, false);
             }

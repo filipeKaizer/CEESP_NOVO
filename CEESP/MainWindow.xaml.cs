@@ -236,6 +236,7 @@ namespace CEESP
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+            this.serial.serialClose();
         }
     }
 }
