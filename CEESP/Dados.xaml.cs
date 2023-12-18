@@ -186,15 +186,34 @@ namespace CEESP
                     {
                         ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("Dados");
 
+                        // Adiciona numeros de verificação
+                        Random random = new Random();
+                        int A = random.Next(0, 101);
+                        int B = random.Next(0, 101);
+
+                        int resposta = (A % B) * (A + B);
+
+                        worksheet.Cells[1, 1].Value = A;
+                        worksheet.Cells[1, 2].Value = B;
+                        worksheet.Cells[1, 3].Value = resposta;
+
+                        // Adiciona Xs
+                        worksheet.Cells[1, 4].Value = "Xs";
+                        worksheet.Cells[1, 5].Value = ListData1.configData.getXs();
+
+                        // Adiciona O numero de intens
+                        worksheet.Cells[1, 6].Value = "Itens";
+                        worksheet.Cells[1, 7].Value = ListData1.colectedData.Count;
+
                         // Adiciona os cabeçalhos
-                        worksheet.Cells[1, 1].Value = "Tempo";
-                        worksheet.Cells[1, 2].Value = "Va";
-                        worksheet.Cells[1, 3].Value = "Ia";
-                        worksheet.Cells[1, 4].Value = "Ea";
-                        worksheet.Cells[1, 5].Value = "FP";
-                        worksheet.Cells[1, 6].Value = "RPM";
-                        worksheet.Cells[1, 7].Value = "Freq.";
-                        worksheet.Cells[1, 8].Value = "Tipo";
+                        worksheet.Cells[2, 1].Value = "Tempo";
+                        worksheet.Cells[2, 2].Value = "Va";
+                        worksheet.Cells[2, 3].Value = "Ia";
+                        worksheet.Cells[2, 4].Value = "Ea";
+                        worksheet.Cells[2, 5].Value = "FP";
+                        worksheet.Cells[2, 6].Value = "RPM";
+                        worksheet.Cells[2, 7].Value = "Freq.";
+                        worksheet.Cells[2, 8].Value = "Tipo";
 
                         // Adiciona os dados
                         int i = 0;
@@ -220,13 +239,13 @@ namespace CEESP
                         {
                             int p = c.getDecimals();
                             //       LINHA/COLUNA -> Valor    | Valor do DB     | Adiciona Unidade se u = true
-                            worksheet.Cells[i + 2, 1].Value = data.getTempo();
-                            worksheet.Cells[i + 2, 2].Value = Math.Round(data.getVa(0), p);
-                            worksheet.Cells[i + 2, 3].Value = Math.Round(data.getIa(0), p);
-                            worksheet.Cells[i + 2, 4].Value = Math.Round(data.getEa(0), p);
-                            worksheet.Cells[i + 2, 5].Value = Math.Round(data.getFP(0), p);
-                            worksheet.Cells[i + 2, 6].Value = Math.Round(data.getRPM(), p);
-                            worksheet.Cells[i + 2, 7].Value = Math.Round(data.getFrequency(), p);
+                            worksheet.Cells[i + 3, 1].Value = data.getTempo();
+                            worksheet.Cells[i + 3, 2].Value = Math.Round(data.getVa(0), p);
+                            worksheet.Cells[i + 3, 3].Value = Math.Round(data.getIa(0), p);
+                            worksheet.Cells[i + 3, 4].Value = Math.Round(data.getEa(0), p);
+                            worksheet.Cells[i + 3, 5].Value = Math.Round(data.getFP(0), p);
+                            worksheet.Cells[i + 3, 6].Value = Math.Round(data.getRPM(), p);
+                            worksheet.Cells[i + 3, 7].Value = Math.Round(data.getFrequency(), p);
 
                             if (data.getFP(0) == 1)
                                 worksheet.Cells[i + 2, 8].Value = "Resistiva";

@@ -131,7 +131,7 @@
         </Storyboard>
     </Page.Resources>
 
-    <Grid Width="1280" Height="720">
+    <Grid Width="1280" Height="720" HorizontalAlignment="Left" VerticalAlignment="Top">
         <Grid x:Name="grid" Margin="540,752,540,-112" Width="200" RenderTransformOrigin="0.5,0.5">
             <Grid.RenderTransform>
                 <TransformGroup>
@@ -159,7 +159,7 @@
             </mah:NumericUpDown>
             <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="Xs:" VerticalAlignment="Center" FontSize="20" Foreground="#FFE6CFCF"/>
         </Grid>
-        <Grid x:Name="Options" Width="990" Height="540" Margin="145,81,145,99" RenderTransformOrigin="0.5,0.5" Visibility="Hidden">
+        <Grid x:Name="Options" Width="990" Height="540" Margin="145,81,145,99" RenderTransformOrigin="0.5,0.5">
             <Grid.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -186,7 +186,7 @@
             </Button>
             <Rectangle x:Name="rtArquivo" HorizontalAlignment="Left" Height="450" Margin="544,0,0,0" VerticalAlignment="Center" Width="400" RadiusX="40" RadiusY="40" Fill="#CC2B1998"/>
             <TextBlock HorizontalAlignment="Left" Margin="624,95,0,0" TextWrapping="Wrap" Text="Carregar um arquivo" VerticalAlignment="Top" FontSize="40" Height="125" Width="240" Foreground="#CCFFFFFF" TextAlignment="Center" FontFamily="Arial"/>
-            <TextBlock HorizontalAlignment="Left" Margin="571,225,0,0" TextWrapping="Wrap" Text="Gere relatórios, gráficos de tempo e diagramas fasoriais usando um arquivo Excell." VerticalAlignment="Top" Height="104" Width="346" FontSize="21" FontFamily="Arial" Foreground="#CCFFFFFF" TextAlignment="Justify"/>
+            <TextBlock HorizontalAlignment="Left" Margin="571,225,0,0" TextWrapping="Wrap" Text="Gere relatórios, gráficos de tempo e diagramas fasoriais usando um arquivo Excel compatível." VerticalAlignment="Top" Height="104" Width="346" FontSize="21" FontFamily="Arial" Foreground="#CCFFFFFF" TextAlignment="Justify"/>
             <Button x:Name="btArquivo" MouseEnter="btArquivo_MouseEnter" MouseLeave="btArquivo_MouseLeave" Style="{StaticResource NoMouseOverButtonStyle}"  Width="250" Height="50" Margin="624,420,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="{x:Null}" Click="btArquivo_Click">
                 <Border x:Name="BorderButtonArquivo" Background="#72D9D9D9" CornerRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250">
                     <TextBlock x:Name="TBArquivo" Text="Arquivo❯" VerticalAlignment="Top" HorizontalAlignment="Center" Width="250" Height="50" FontFamily="Elephant" FontSize="35" TextAlignment="Center" Foreground="#FF171049" Cursor="Hand"/>
@@ -216,14 +216,53 @@
                 </ListBox.BorderBrush>
             </ListBox>
         </Grid>
-        <Grid x:Name="Arquivo" Width="800" Margin="240,84,240,32">
+        <Grid x:Name="Arquivo" Width="800" Margin="240,84,240,32" Background="#33000000" Visibility="Hidden">
             <Button x:Name="BuscarArquivo" Style="{StaticResource NoMouseOverButtonStyle}"  Width="200" Height="50" Margin="0,485,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="{x:Null}" Click="BuscarArquivo_Click" MouseEnter="BuscarArquivo_MouseEnter" MouseLeave="BuscarArquivo_MouseLeave">
                 <Border x:Name="BorderBuscarArquivo" Background="#72D9D9D9" CornerRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock x:Name="TBBuscarArquivo" Text="Buscar" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Height="50" FontFamily="Elephant" FontSize="35" TextAlignment="Center" Foreground="#FF171049" Cursor="Hand"/>
                 </Border>
             </Button>
+            <TextBlock HorizontalAlignment="Center" Margin="0,36,0,0" TextWrapping="Wrap" Text="Carregar um arquivo" VerticalAlignment="Top" Foreground="White" FontSize="35" FontFamily="Bookman Old Style"/>
+            <GridSplitter HorizontalAlignment="Center" Height="2" Margin="0,88,0,0" VerticalAlignment="Top" Width="100" Foreground="{x:Null}" Background="#4C410067"/>
+            <TextBlock HorizontalAlignment="Center" Margin="0,165,0,0" TextWrapping="Wrap" Text="Para prosseguir nesse modo, clique no botão abaixo e informe um arquivo Excel que seja compatível." VerticalAlignment="Top" Foreground="White" FontSize="25" Width="670" TextAlignment="Justify" FontStyle="Italic" FontFamily="Artifakt Element"/>
         </Grid>
         <Label x:Name="verbose" Content="" HorizontalAlignment="Center" Margin="0,629,0,0" VerticalAlignment="Top" FontSize="15" FontFamily="Elephant" Foreground="#CCFFFFFF" Width="300" HorizontalContentAlignment="Center"/>
         <mah:ProgressRing x:Name="progress" Margin="0,658,0,0" VerticalAlignment="Top" Width="30" Height="30" Foreground="#FF0027FF" IsActive="False"/>
+        <Grid x:Name="ArquivoSelecionado" Margin="240,58,240,58" Width="800" Height="605" Background="#33000000" Visibility="Hidden">
+            <Rectangle HorizontalAlignment="Left" Height="40" Margin="70,85,0,0" VerticalAlignment="Top" Width="400" RadiusX="20" RadiusY="20" Fill="#66000000"/>
+            <Rectangle HorizontalAlignment="Right" Height="40" Margin="0,85,70,0" VerticalAlignment="Top" Width="250" RadiusX="20" RadiusY="20" Fill="#66000000"/>
+            <Rectangle HorizontalAlignment="Left" Height="70" Margin="70,201,0,0" VerticalAlignment="Top" Width="200" RadiusX="20" RadiusY="20" Fill="#66000000"/>
+            <Rectangle HorizontalAlignment="Center" Height="70" Margin="0,201,0,0" VerticalAlignment="Top" Width="200" RadiusX="20" RadiusY="20" Fill="#66000000"/>
+            <Rectangle HorizontalAlignment="Left" Height="70" Margin="530,201,0,0" VerticalAlignment="Top" Width="200" RadiusX="20" RadiusY="20" Fill="#66000000"/>
+            <Rectangle HorizontalAlignment="Left" Height="70" Margin="70,319,0,0" VerticalAlignment="Top" Width="200" RadiusX="20" RadiusY="20" Fill="#66000000"/>
+            <Rectangle HorizontalAlignment="Center" Height="70" Margin="0,319,0,0" VerticalAlignment="Top" Width="200" RadiusX="20" RadiusY="20" Fill="#66000000"/>
+            <Rectangle HorizontalAlignment="Left" Height="70" Margin="530,319,0,0" VerticalAlignment="Top" Width="200" RadiusX="20" RadiusY="20" Fill="#66000000"/>
+            <TextBlock x:Name="TBNome" HorizontalAlignment="Left" Margin="87,92,0,0" TextWrapping="Wrap" Text="Nome:" VerticalAlignment="Top" FontSize="20" Width="365" TextAlignment="Center" Foreground="#CCFFFFFF"/>
+            <TextBlock x:Name="TBLeituras" HorizontalAlignment="Left" Margin="495,92,0,0" TextWrapping="Wrap" Text="Leituras:" VerticalAlignment="Top" FontSize="20" Width="220" TextAlignment="Center" Foreground="#CCFFFFFF"/>
+            <TextBlock x:Name="TB1" HorizontalAlignment="Left" Margin="70,209,0,0" TextWrapping="Wrap" Text="Indutivo" VerticalAlignment="Top" FontSize="20" Width="200" TextAlignment="Center" Foreground="#CCFFFFFF"/>
+            <TextBlock x:Name="TB2" HorizontalAlignment="Center" Margin="0,209,0,0" TextWrapping="Wrap" Text="Resistivo" VerticalAlignment="Top" FontSize="20" Width="200" TextAlignment="Center" Foreground="#CCFFFFFF"/>
+            <TextBlock x:Name="TB3" HorizontalAlignment="Left" Margin="530,209,0,0" TextWrapping="Wrap" Text="Capacitivo" VerticalAlignment="Top" FontSize="20" Width="200" TextAlignment="Center" Foreground="#CCFFFFFF"/>
+            <TextBlock x:Name="TB4" HorizontalAlignment="Left" Margin="70,327,0,0" TextWrapping="Wrap" Text="Xs" VerticalAlignment="Top" FontSize="20" Width="200" TextAlignment="Center" Foreground="#CCFFFFFF"/>
+            <TextBlock x:Name="TB5" HorizontalAlignment="Center" Margin="0,327,0,0" TextWrapping="Wrap" Text="Ia Máximo" VerticalAlignment="Top" FontSize="20" Width="200" TextAlignment="Center" Foreground="#CCFFFFFF"/>
+            <TextBlock x:Name="TB6" HorizontalAlignment="Left" Margin="530,327,0,0" TextWrapping="Wrap" Text="Va Máximo" VerticalAlignment="Top" FontSize="20" Width="200" TextAlignment="Center" Foreground="#CCFFFFFF"/>
+            <TextBlock x:Name="TBXs" HorizontalAlignment="Left" Margin="70,354,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="20" Width="200" TextAlignment="Center" Foreground="#CCFFFFFF"/>
+            <TextBlock x:Name="TBIa" HorizontalAlignment="Center" Margin="0,354,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="20" Width="200" TextAlignment="Center" Foreground="#CCFFFFFF"/>
+            <TextBlock x:Name="TBVa" HorizontalAlignment="Left" Margin="530,354,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="20" Width="200" TextAlignment="Center" Foreground="#CCFFFFFF"/>
+            <TextBlock x:Name="TB4_Copiar" HorizontalAlignment="Left" Margin="70,327,0,0" TextWrapping="Wrap" Text="Xs" VerticalAlignment="Top" FontSize="20" Width="200" TextAlignment="Center" Foreground="#CCFFFFFF"/>
+            <TextBlock x:Name="TBIndutivo" HorizontalAlignment="Left" Margin="70,236,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="20" Width="200" TextAlignment="Center" Foreground="#CCFFFFFF"/>
+            <TextBlock x:Name="TBResistivo" HorizontalAlignment="Center" Margin="0,236,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="20" Width="200" TextAlignment="Center" Foreground="#CCFFFFFF"/>
+            <TextBlock x:Name="TBCapacitivo" HorizontalAlignment="Left" Margin="530,236,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="20" Width="200" TextAlignment="Center" Foreground="#CCFFFFFF"/>
+            <Button x:Name="BuscarArquivoNovo" Style="{StaticResource NoMouseOverButtonStyle}"  Width="200" Height="50" Margin="95,512,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="{x:Null}" Click="BuscarArquivo_Click">
+                <Border x:Name="BorderBuscarArquivoNovo" Background="#72D9D9D9" CornerRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock x:Name="TBBuscarArquivoNovo" Text="Buscar" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Height="50" FontFamily="Elephant" FontSize="35" TextAlignment="Center" Foreground="#FF171049" Cursor="Hand"/>
+                </Border>
+            </Button>
+            <Button x:Name="Seguir" Style="{StaticResource NoMouseOverButtonStyle}"  Width="200" Height="50" Margin="0,512,95,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Right" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="{x:Null}" Click="Seguir_Click">
+                <Border x:Name="BorderBuscarArquivoSeguir" Background="#72D9D9D9" CornerRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock x:Name="TBBuscarArquivoSeguir" Text="Seguir" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Height="50" FontFamily="Elephant" FontSize="35" TextAlignment="Center" Foreground="#FF171049" Cursor="Hand"/>
+                </Border>
+            </Button>
+            <TextBlock Margin="0,458,0,0" TextWrapping="Wrap" Text="Deseja seguir com esse arquivo ou buscar um novo?" VerticalAlignment="Top" Foreground="#CCFFFFFF" FontSize="18" HorizontalAlignment="Center"/>
+        </Grid>
     </Grid>
 </Page>

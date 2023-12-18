@@ -14,10 +14,16 @@ namespace CEESP
     internal class Arquivo
     {
         private List<ColectedData> dados;
+
         private float IaMax;
         private float VaMax;
         private float Xs;
+
         private int itens;
+        private int numIndutivo;
+        private int numResistivo;
+        private int numCapacitivo;
+
         private string nome;
         private bool compatible;
         
@@ -26,6 +32,10 @@ namespace CEESP
         {
             this.nome = archivePath;
             this.dados = new List<ColectedData>();
+            this.numResistivo = 0;
+            this.numCapacitivo = 0;
+            this.numIndutivo = 0;
+
             openArchive();
         }
 
@@ -50,18 +60,20 @@ namespace CEESP
                         this.compatible = false;
                    }  
                 }
-
                 return true;
             } else
-            {
                 return false;
-            }
+        }
 
+        public List<ColectedData> getDados()
+        {
+            return this.dados;
         }
 
         public string getNome()
         {
-            return this.nome;
+
+            return Path.GetFileName(this.nome);
         }
 
         public float getVaMax()
@@ -76,7 +88,7 @@ namespace CEESP
 
         public int getNumberItems()
         {
-            return this.dados.Count;
+            return this.itens;
         }
 
         public bool isCompatible()
@@ -87,6 +99,21 @@ namespace CEESP
         public float getXs()
         {
             return this.Xs;
+        }
+
+        public int getIndutivo()
+        {
+            return this.numIndutivo;
+        }
+
+        public int getResistivo()
+        {
+            return this.numResistivo;
+        }
+
+        public int getCapacitivo()
+        {
+            return this.numCapacitivo;
         }
 
         private bool verifyArchive(ExcelWorksheet worksheet)
@@ -134,16 +161,49 @@ namespace CEESP
 
                 // Obtem Ea
                 dado.setEa(float.TryParse(worksheet.Cells[lin, 4].Value?.ToString(), out float parsedValueEa) ? parsedValueEa : 0.0f, 0);
-
+                
                 // Obtem FP
+                dado.setFP(float.TryParse(worksheet.Cells[lin, 5].Value?.ToString(), out float parsedValueFP) ? parsedValueFP : 0.0f, 0);
 
+                // Obtem RPM
+                dado.setRPM(float.TryParse(worksheet.Cells[lin, 6].Value?.ToString(), out float parsedValueRPM) ? parsedValueRPM : 0.0f);
+
+                // Obtem a frequencia
+                dado.setFrequency(float.TryParse(worksheet.Cells[lin, 7].Value?.ToString(), out float parsedValueF) ? parsedValueF : 0.0f);
+
+                // Obtem e classifica o FP
+                string tipo = worksheet.Cells[lin, 8].Value.ToString();
+                char type = '?';
+
+                if (tipo == "Resistiva")
+                {
+                    type = 'r';
+                    this.numResistivo++;
+                }
+                else if (tipo == "Indutiva")
+                {
+                    type = 'i';
+                    this.numIndutivo++;
+                } else if (tipo == "Capacitiva")
+                {
+                    type = 'c';
+                    this.numCapacitivo++;
+                } else
+                    type = '?';
+
+                dado.setFPType(type, 0);
+
+                // Adiciona
                 this.dados.Add(dado);
             }
 
+            // Verifica o numero de itens
+            this.itens = dados.Count;
 
-            // Verifica o maior valor de Va e Ia e o numero de cada carga
+            // Verifica o maior valor de Va e Ia
             this.IaMax = 0;
             this.VaMax = 0;
+
             if (dados.Count > 0) {
                 foreach (ColectedData d in dados)
                 {

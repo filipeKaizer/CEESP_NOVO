@@ -19,18 +19,18 @@ namespace CEESP
         private bool autosizeEnable = true;
         private float zoomScale = 1;
         private bool spliterEnable = true;
+        private int index;
 
         public Grafico_Fasorial(MainWindow main)
         {
             InitializeComponent();
             this.main = main;
 
+            this.Width = ListData1.configData.getWidth();
+            this.Height = ListData1.configData.getHeigth();
 
-            this.Width = SystemParameters.WorkArea.Width;
-            this.Height = SystemParameters.WorkArea.Height;
-
-            Graph.Width = SystemParameters.WorkArea.Width;
-            Graph.Height = SystemParameters.WorkArea.Height;
+            Graph.Width = ListData1.configData.getWidth();
+            Graph.Height = ListData1.configData.getHeigth();
 
             Page.Width = SystemParameters.WorkArea.Width;
             Page.Height = SystemParameters.WorkArea.Height;
@@ -49,6 +49,8 @@ namespace CEESP
 
             InitializeTime(20, 4);
             Phase.SelectedIndex = 0;
+
+            this.index = 0;
         }
 
         public void drawLines()
@@ -65,7 +67,11 @@ namespace CEESP
             int index = Phase.SelectedIndex;
             List<ColectedData> data = ListData1.colectedData;
 
-            ColectedData valores = data[data.Count - 1]; //Pega o ultimo dado coletado
+            ColectedData valores;
+            if (ListData1.configData.getModuloAtivo())
+                valores = data[data.Count - 1]; //Pega o ultimo dado coletado
+            else
+                valores = data[this.index];
 
             if (autosizeEnable)
                 AutoSizeValue(valores, index);
@@ -90,7 +96,6 @@ namespace CEESP
             IaValue.Content = "Ia: " + Math.Round(valores.getIa(index), ListData1.configData.getDecimals()).ToString() + "∠" + Math.Round(angle, 1) + "º A";
             EaValue.Content = "Ea: " + Math.Round(valores.getEa(index), ListData1.configData.getDecimals()).ToString() + "V";
             XsIa.Content = "XsIa: " + Math.Abs(Math.Round((valores.getIa(index) * ListData1.configData.getXs()), ListData1.configData.getDecimals())).ToString() + "∠" + Math.Round(90 - angle, 1) + "º V";
-
 
             FPValue.Content = "Cos(φ): " + Math.Round(FPv, 2);
 
@@ -204,6 +209,46 @@ namespace CEESP
                 AutosizeButton.Content = "M";
 
             drawLines();
+        }
+
+        public void changeMode(bool isModuleOption)
+        {
+            if (!isModuleOption)
+            {
+                Phase.IsEnabled = false;
+                refresh.Visibility = Visibility.Collapsed;
+                CBTimes.Visibility = Visibility.Collapsed;
+                Itens.Visibility = Visibility.Visible;
+                TimeSelected.Visibility = Visibility.Collapsed;
+                drawLines();
+            }
+
+        }
+
+        private void plusItem_Click(object sender, RoutedEventArgs e)
+        {
+            int index = int.Parse(ItemText.Text);
+
+            if (index < ListData1.colectedData.Count - 1)
+            {
+                index++;
+                this.index = index;
+                ItemText.Text = index.ToString();
+                drawLines();
+            }
+        }
+
+        private void minusItem_Click(object sender, RoutedEventArgs e)
+        {
+            int index = int.Parse(ItemText.Text);
+
+            if (index - 1 != -1)
+            {
+                index--;
+                this.index = index;
+                ItemText.Text = index.ToString();
+                drawLines();
+            }
         }
     }
 }

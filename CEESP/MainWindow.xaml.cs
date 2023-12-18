@@ -34,7 +34,7 @@ namespace CEESP
 
             // Define o tamanho de tela e tipo
             this.WindowState = WindowState.Maximized;
-            this.WindowStyle = WindowStyle.ToolWindow;
+            this.WindowStyle = WindowStyle.None;
 
             this.Width = width;
             this.Height = height;
@@ -91,6 +91,19 @@ namespace CEESP
 
             if (menu)
                 change_menu();
+        }
+
+        public void selectOperationMode(bool isModularOption)
+        {
+            if (!isModularOption)
+            {
+                ListData1.configData.setModuloAtivo(false);
+                // Fasorial
+                graficos.getFasorial().changeMode(false);
+            } else
+            {
+                ListData1.configData.setModuloAtivo(true);
+            }
         }
 
         private void close_button_Click(object sender, RoutedEventArgs e)
@@ -178,6 +191,7 @@ namespace CEESP
                 menu_isVisible = true;
             }
         }
+
 
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {

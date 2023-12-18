@@ -107,6 +107,9 @@ namespace CEESP
                     main.getGraficos().AutoRefreshInit();
 
                 this.main.getSerial().actualizeSerialPort();
+                ListData1.configData.setModuloAtivo(true);
+                this.main.selectOperationMode(true);
+
                 main.SetPage(1, false);
             }
         }
@@ -141,7 +144,24 @@ namespace CEESP
 
             arquivo = new Arquivo((openFileDialog.ShowDialog() == true) ? openFileDialog.FileName : "" );
 
-           MessageBox.Show( arquivo.getVaMax().ToString());
+            if (arquivo.isCompatible())
+            {
+                Arquivo.Visibility = Visibility.Hidden;
+                ArquivoSelecionado.Visibility = Visibility.Visible;
+
+                TBNome.Text = "Nome: " + arquivo.getNome();
+                TBLeituras.Text = "Leituras: " + arquivo.getNumberItems().ToString();
+                TBXs.Text = arquivo.getXs().ToString() + "Ω";
+                TBVa.Text = arquivo.getVaMax().ToString() + "V";
+                TBIa.Text = arquivo.getIaMax().ToString() + "A";
+                TBIndutivo.Text = arquivo.getIndutivo().ToString();
+                TBResistivo.Text = arquivo.getResistivo().ToString();
+                TBCapacitivo.Text = arquivo.getCapacitivo().ToString();
+            } else
+            {
+                verbose.Content = "Arquivo não compatível.";
+            }
+
             progress.IsActive = false;
             verbose.Content = "";
         }
@@ -186,6 +206,22 @@ namespace CEESP
             hide_options.Begin();
             Arquivo.Visibility = Visibility.Visible;
         }
+
+        private void Seguir_Click(object sender, RoutedEventArgs e)
+        {
+            ListData1.configData.setModuloAtivo(false);
+            ListData1.colectedData = arquivo.getDados();
+            this.main.getGraficos().atualiza();
+
+            if (arquivo != null)
+                ListData1.configData.setXs(arquivo.getXs());
+
+            this.main.selectOperationMode(false);
+
+            this.main.SetPage(1, false);
+        }
+
+
 
         private void LPorts_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

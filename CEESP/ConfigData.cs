@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using ControlzEx.Standard;
+using System.Windows;
 
 namespace CEESP
 {
@@ -27,9 +28,8 @@ namespace CEESP
         private string UnFreq;
         private string UnTempo;
 
-
-
         private bool AdicionarUnidade;
+        private bool moduloAtivo;
 
 
         public ConfigData()
@@ -169,6 +169,16 @@ namespace CEESP
         public int getMaxItems()
         {
             return this.MaxReadItems;
+        }
+
+        public void setModuloAtivo(bool Status)
+        {
+            this.moduloAtivo = Status;
+        }
+
+        public bool getModuloAtivo()
+        {
+            return this.moduloAtivo;
         }
     }
 }

@@ -93,7 +93,8 @@ namespace CEESP
 
             setProgressRingStatus(true);
             // Realiza leitura no serialCOM e atualiza o colectedData
-            ListData1.colectedData.Add(await main.getSerial().readValues());
+            if (ListData1.configData.getModuloAtivo())
+                ListData1.colectedData.Add(await main.getSerial().readValues());
 
             // Atualiza o dataView da classe dados
             this.main.getDados().atualizaDados();

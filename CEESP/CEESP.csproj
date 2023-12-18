@@ -18,6 +18,7 @@
     <None Remove="refresh.png" />
     <None Remove="Timer.png" />
     <None Remove="Trash.png" />
+    <None Remove="typcn_minus.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,6 +43,7 @@
     <Resource Include="icons\refresh.png" />
     <Resource Include="icons\List.png" />
     <Resource Include="icons\plus.png" />
+    <Resource Include="icons\typcn_minus.png" />
   </ItemGroup>
 
 </Project>

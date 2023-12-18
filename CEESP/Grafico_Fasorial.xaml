@@ -25,9 +25,13 @@
     </Page.Resources>
 
     <Grid x:Name="Grid" Width="1280" Height="704" HorizontalAlignment="Left" VerticalAlignment="Top">
-        <Canvas x:Name="Graph" HorizontalAlignment="Left" Width="1280" Height="704" Background="#19000000" VerticalAlignment="Top" Cursor="Arrow"/>
-        <Label x:Name="TimeSelected" Content="2s" Background="{x:Null}" Foreground="#99DEDEDE" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="56,665,0,0"/>
-        <Button x:Name="refresh" Content="Button" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Margin="99,653,0,0" Cursor="Hand">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="391*"/>
+            <RowDefinition Height="313*"/>
+        </Grid.RowDefinitions>
+        <Canvas x:Name="Graph" HorizontalAlignment="Center" Width="1280" Height="704" Background="#19000000" VerticalAlignment="Top" Cursor="Arrow" Grid.RowSpan="2"/>
+        <Label x:Name="TimeSelected" Content="2s" Background="{x:Null}" Foreground="#99DEDEDE" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="56,274,0,0" Grid.Row="1"/>
+        <Button x:Name="refresh" Content="Button" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Margin="99,262,0,0" Cursor="Hand" Grid.Row="1">
             <Button.OpacityMask>
                 <ImageBrush ImageSource="/icons/refresh.png"/>
             </Button.OpacityMask>
@@ -35,7 +39,7 @@
                 <ImageBrush ImageSource="/icons/refresh.png"/>
             </Button.Background>
         </Button>
-        <ComboBox x:Name="CBTimes" Margin="34,653,0,0" Width="28" Height="28" BorderBrush="{x:Null}" Foreground="#FF17006D" HorizontalAlignment="Left" VerticalAlignment="Top" SelectionChanged="CBTimes_SelectionChanged" Cursor="Hand" RenderTransformOrigin="0.512,0.607">
+        <ComboBox x:Name="CBTimes" Margin="34,262,0,0" Width="28" Height="28" BorderBrush="{x:Null}" Foreground="#FF17006D" HorizontalAlignment="Left" VerticalAlignment="Top" SelectionChanged="CBTimes_SelectionChanged" Cursor="Hand" RenderTransformOrigin="0.512,0.607" Grid.Row="1">
             <ComboBox.OpacityMask>
                 <ImageBrush ImageSource="/icons/Timer.png"/>
             </ComboBox.OpacityMask>
@@ -43,7 +47,7 @@
                 <ImageBrush ImageSource="/icons/Timer.png"/>
             </ComboBox.Background>
         </ComboBox>
-        <Grid x:Name="Values" Height="30" Width="656" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="192,653,0,0">
+        <Grid x:Name="Values" Height="30" Width="656" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="192,262,0,0" Grid.Row="1">
             <Rectangle HorizontalAlignment="Center" VerticalAlignment="Center" RadiusX="5" RadiusY="5" Fill="#3F000000" Width="656" Height="30"/>
             <Rectangle x:Name="rtVa" Height="14" Width="15" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" Fill="#FF429743" RadiusX="2" RadiusY="2"/>
             <Label x:Name="VaValue" Content="Va: 0V" FontFamily="Arial Rounded MT Bold" Width="70" Foreground="#FFAFAFAF" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="25,0,0,0" Padding="2,0,0,0"/>
@@ -57,7 +61,7 @@
             <Label x:Name="FPValue" Content="Cos(φ): 90º" FontFamily="Arial Rounded MT Bold" Width="78" Foreground="#FFAFAFAF" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="463,0,0,0" Padding="2,0,0,0"/>
             <Label x:Name="type" Content="Indutivo" FontFamily="Arial Rounded MT Bold" Width="74" Foreground="#FFAFAFAF" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="572,0,0,0" Padding="2,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         </Grid>
-        <Grid x:Name="Zoom" Margin="0,653,230,0" Width="162" VerticalAlignment="Top" HorizontalAlignment="Right">
+        <Grid x:Name="Zoom" Margin="0,262,230,0" Width="162" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="3*"/>
@@ -67,12 +71,32 @@
             <Label x:Name="LabelZoom" Content="1x" HorizontalAlignment="Left" Margin="118,2,0,0" VerticalAlignment="Top" FontFamily="Algerian" Width="41" Foreground="#FFAFAFAF" HorizontalContentAlignment="Center" Grid.RowSpan="2"/>
             <Button x:Name="AutosizeButton" Style="{StaticResource NoMouseOverButtonStyle}" Content="M" Margin="-23,0,160,5" Height="30" Width="25" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFAFAFAF" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Corbel" FontSize="13" Click="AutosizeButton_Click" Cursor="Hand" AutomationProperties.HelpText="Autosize"/>
         </Grid>
-        <ComboBox x:Name="Phase" Canvas.Left="312" Canvas.Top="410" Width="176" Height="30" BorderBrush="{x:Null}" OpacityMask="#19000000" Background="#191E1E1E" Foreground="Black" Cursor="Hand" ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="1008,653,30,0" VerticalAlignment="Top" SelectionChanged="Phase_SelectionChanged" HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14">
+        <ComboBox x:Name="Phase" Width="176" Height="30" BorderBrush="{x:Null}" OpacityMask="#19000000" Background="#191E1E1E" Foreground="Black" Cursor="Hand" ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="0,262,30,0" VerticalAlignment="Top" SelectionChanged="Phase_SelectionChanged" HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14" Grid.Row="1">
             <ComboBoxItem Content="Media"/>
             <ComboBoxItem Cursor="Hand" Content="Fase A"/>
             <ComboBoxItem Content="Fase B"/>
             <ComboBoxItem Cursor="Hand" Content="Fase C"/>
         </ComboBox>
+        <Grid x:Name="Itens" Width="130" Height="30" Margin="30,262,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Collapsed" Grid.Row="1">
+            <Rectangle HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="130" Fill="#3F000000" RadiusX="5" RadiusY="5"/>
+            <Button x:Name="plusItem" Content="Button" HorizontalAlignment="Left" Margin="100,0,0,0" VerticalAlignment="Center" Width="20" Height="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="plusItem_Click">
+                <Button.OpacityMask>
+                    <ImageBrush ImageSource="/icons/plus.png"/>
+                </Button.OpacityMask>
+                <Button.Background>
+                    <ImageBrush ImageSource="/icons/plus.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="minusItem" Content="Button" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Width="20" Height="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="minusItem_Click">
+                <Button.OpacityMask>
+                    <ImageBrush ImageSource="/icons/typcn_minus.png"/>
+                </Button.OpacityMask>
+                <Button.Background>
+                    <ImageBrush ImageSource="/icons/typcn_minus.png"/>
+                </Button.Background>
+            </Button>
+            <TextBox x:Name="ItemText" BorderBrush="Transparent" Background="Transparent" HorizontalAlignment="Center" TextWrapping="Wrap" Text="1" VerticalAlignment="Center" Width="60" SelectionTextBrush="{x:Null}" Foreground="#FFAFAFAF" TextAlignment="Center" SelectionBrush="#330078D7"/>
+        </Grid>
 
 
     </Grid>

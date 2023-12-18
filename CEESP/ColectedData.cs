@@ -101,6 +101,16 @@ namespace CEESP
             }
         }
 
+        public void setFPType(char type, int index)
+        {
+            if (type == 'r')
+                this.CFP[index] = 0;
+            else if (type == 'i' || type == 'c')
+                this.CFP[index] = (type == 'i') ? 1 : 2;
+            else
+                this.CFP[index] = 3;
+        }
+
         public float getRPM()
         {
             return this.RPM;
