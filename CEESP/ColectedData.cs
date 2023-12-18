@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Numerics;
+using System.Windows;
 
 
 namespace CEESP
@@ -31,9 +32,9 @@ namespace CEESP
 
             for (int i = 0; i < 4; i++)
             {
-                if (CFP[i] == 1)
+                if (this.getFPType(i) == 'i')
                     EaValues[i] = (this.Xs * Ia[i]) + Va[i];
-                if (CFP[i] == 2)
+                if (this.getFPType(i) == 'c')
                     EaValues[i] = Va[i] - (this.Xs * Ia[i]);
             }
 
@@ -53,8 +54,19 @@ namespace CEESP
             this.CFP[0] = 1; //i
             this.RPM = 2000;
             this.frequency = 60;
-            this.Ea = new float[4];
             this.tempo = tempo;
+
+            float[] EaValues = { 0, 0, 0, 0 };
+
+            for (int i = 0; i < 4; i++)
+            {
+                if (this.getFPType(i) == 'i')
+                    EaValues[i] = (this.Xs * Ia[i]) + Va[i];
+                if (this.getFPType(i) == 'c')
+                    EaValues[i] = Va[i] - (this.Xs * Ia[i]);
+            }
+
+            this.Ea = EaValues;
         }
 
         public float getIa(int index)
@@ -160,6 +172,11 @@ namespace CEESP
         public void setXs(float Xs)
         {
             this.Xs = Xs;
+        }
+
+        public void setEa(float EaValue, int index)
+        {
+            this.Ea[index] = EaValue;
         }
 
 

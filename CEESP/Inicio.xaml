@@ -22,7 +22,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
         <Storyboard x:Key="show_ports">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="LPorts" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
                 <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0.171">
@@ -99,26 +99,39 @@
                 </EasingDoubleKeyFrame>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
+        <Storyboard x:Key="hide_Options">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Options" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuadraticEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.5000000" Value="-638.91">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuadraticEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Options" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuadraticEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.5000000" Value="15.264">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuadraticEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Options" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="00:00:00.5000000" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
     </Page.Resources>
 
     <Grid Width="1280" Height="720">
-        <ListBox x:Name="LPorts" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="490,360,490,180" Background="#1CA3A3A3" VerticalContentAlignment="Top" FontWeight="Bold" FontStyle="Italic" Foreground="#CCD0C9C9" Width="300" Height="180" FontSize="20" HorizontalContentAlignment="Center" RenderTransformOrigin="0.5,0.5" SelectionChanged="LPorts_SelectionChanged" Visibility="Hidden" Cursor="Hand">
-            <ListBox.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </ListBox.RenderTransform>
-            <ListBox.BorderBrush>
-                <LinearGradientBrush EndPoint="1,1" StartPoint="0,1" SpreadMethod="Pad" MappingMode="Absolute">
-                    <GradientStop Color="#990D4689"/>
-                    <GradientStop Color="#996B1379" Offset="1"/>
-                </LinearGradientBrush>
-            </ListBox.BorderBrush>
-        </ListBox>
-        <Label x:Name="verbose" Content="" HorizontalAlignment="Center" Margin="0,621,0,0" VerticalAlignment="Top" FontSize="15" FontFamily="Elephant" Foreground="#CCFFFFFF" Width="300" HorizontalContentAlignment="Center"/>
         <Grid x:Name="grid" Margin="540,752,540,-112" Width="200" RenderTransformOrigin="0.5,0.5">
             <Grid.RenderTransform>
                 <TransformGroup>
@@ -146,11 +159,71 @@
             </mah:NumericUpDown>
             <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="Xs:" VerticalAlignment="Center" FontSize="20" Foreground="#FFE6CFCF"/>
         </Grid>
-        <Button x:Name="Buscar" Style="{StaticResource NoMouseOverButtonStyle}"  Width="200" Height="50" Margin="0,566,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="{x:Null}" Click="Buscar_ClickAsync" MouseEnter="Buscar_MouseEnter" MouseLeave="Buscar_MouseLeave">
-            <Border x:Name="BorderButton" Background="#72D9D9D9" CornerRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock x:Name="TBBuscar" Text="Buscar" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Height="50" FontFamily="Elephant" FontSize="35" TextAlignment="Center" Foreground="#FF171049" Cursor="Hand"/>
-            </Border>
-        </Button>
-        <mah:ProgressRing x:Name="progress" Margin="0,650,0,20" VerticalAlignment="Bottom" Width="30" Height="30" Foreground="#FF0027FF" HorizontalAlignment="Center" IsActive="False"/>
+        <Grid x:Name="Options" Width="990" Height="540" Margin="145,81,145,99" RenderTransformOrigin="0.5,0.5" Visibility="Hidden">
+            <Grid.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Grid.RenderTransform>
+            <GridSplitter HorizontalAlignment="Center" Height="450" VerticalAlignment="Center" Width="1" Foreground="{x:Null}">
+                <GridSplitter.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#7F7B02C6"/>
+                        <GradientStop Color="#66012277" Offset="1"/>
+                    </LinearGradientBrush>
+                </GridSplitter.Background>
+            </GridSplitter>
+            <Rectangle x:Name="rtModulo" HorizontalAlignment="Left" Height="450" Margin="49,0,0,0" VerticalAlignment="Center" Width="400" RadiusX="40" RadiusY="40" Fill="#CC2B1998"/>
+            <TextBlock HorizontalAlignment="Left" Margin="129,95,0,0" TextWrapping="Wrap" Text="Conectar um módulo" VerticalAlignment="Top" FontSize="40" Height="125" Width="240" Foreground="#CCFFFFFF" TextAlignment="Center" FontFamily="Arial"/>
+            <TextBlock HorizontalAlignment="Left" Margin="76,225,0,0" TextWrapping="Wrap" Text="Faça o monitoramento em tempo real conectando um módulo RLC e defindo um Xs." VerticalAlignment="Top" Height="104" Width="346" FontSize="21" FontFamily="Arial" Foreground="#CCFFFFFF" TextAlignment="Justify"/>
+            <Button x:Name="btModulo" MouseEnter="btModulo_MouseEnter" MouseLeave="btModulo_MouseLeave" Style="{StaticResource NoMouseOverButtonStyle}"  Width="250" Height="50" Margin="124,420,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="{x:Null}" Click="btModulo_Click">
+                <Border x:Name="BorderButtonModulo" Background="#72D9D9D9" CornerRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250">
+                    <TextBlock x:Name="TBModulo" Text="Módulo❯" VerticalAlignment="Top" HorizontalAlignment="Center" Width="250" Height="50" FontFamily="Elephant" FontSize="35" TextAlignment="Center" Foreground="#FF171049" Cursor="Hand"/>
+                </Border>
+            </Button>
+            <Rectangle x:Name="rtArquivo" HorizontalAlignment="Left" Height="450" Margin="544,0,0,0" VerticalAlignment="Center" Width="400" RadiusX="40" RadiusY="40" Fill="#CC2B1998"/>
+            <TextBlock HorizontalAlignment="Left" Margin="624,95,0,0" TextWrapping="Wrap" Text="Carregar um arquivo" VerticalAlignment="Top" FontSize="40" Height="125" Width="240" Foreground="#CCFFFFFF" TextAlignment="Center" FontFamily="Arial"/>
+            <TextBlock HorizontalAlignment="Left" Margin="571,225,0,0" TextWrapping="Wrap" Text="Gere relatórios, gráficos de tempo e diagramas fasoriais usando um arquivo Excell." VerticalAlignment="Top" Height="104" Width="346" FontSize="21" FontFamily="Arial" Foreground="#CCFFFFFF" TextAlignment="Justify"/>
+            <Button x:Name="btArquivo" MouseEnter="btArquivo_MouseEnter" MouseLeave="btArquivo_MouseLeave" Style="{StaticResource NoMouseOverButtonStyle}"  Width="250" Height="50" Margin="624,420,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="{x:Null}" Click="btArquivo_Click">
+                <Border x:Name="BorderButtonArquivo" Background="#72D9D9D9" CornerRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250">
+                    <TextBlock x:Name="TBArquivo" Text="Arquivo❯" VerticalAlignment="Top" HorizontalAlignment="Center" Width="250" Height="50" FontFamily="Elephant" FontSize="35" TextAlignment="Center" Foreground="#FF171049" Cursor="Hand"/>
+                </Border>
+            </Button>
+        </Grid>
+        <Grid x:Name="Modulo" Width="800" Margin="240,84,240,32" Visibility="Hidden">
+            <Button x:Name="Buscar" Style="{StaticResource NoMouseOverButtonStyle}"  Width="200" Height="50" Margin="0,485,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="{x:Null}" Click="Buscar_ClickAsync" MouseEnter="Buscar_MouseEnter" MouseLeave="Buscar_MouseLeave">
+                <Border x:Name="BorderButton" Background="#72D9D9D9" CornerRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock x:Name="TBBuscar" Text="Buscar" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Height="50" FontFamily="Elephant" FontSize="35" TextAlignment="Center" Foreground="#FF171049" Cursor="Hand"/>
+                </Border>
+            </Button>
+            <ListBox x:Name="LPorts" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="265,256,235,168" Background="#1CA3A3A3" VerticalContentAlignment="Top" FontWeight="Bold" FontStyle="Italic" Foreground="#CCD0C9C9" Width="300" Height="180" FontSize="20" HorizontalContentAlignment="Center" RenderTransformOrigin="0.5,0.5" SelectionChanged="LPorts_SelectionChanged" Cursor="Hand" Visibility="Hidden">
+                <ListBox.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </ListBox.RenderTransform>
+                <ListBox.BorderBrush>
+                    <LinearGradientBrush EndPoint="1,1" StartPoint="0,1" SpreadMethod="Pad" MappingMode="Absolute">
+                        <GradientStop Color="#990D4689"/>
+                        <GradientStop Color="#996B1379" Offset="1"/>
+                    </LinearGradientBrush>
+                </ListBox.BorderBrush>
+            </ListBox>
+        </Grid>
+        <Grid x:Name="Arquivo" Width="800" Margin="240,84,240,32">
+            <Button x:Name="BuscarArquivo" Style="{StaticResource NoMouseOverButtonStyle}"  Width="200" Height="50" Margin="0,485,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="{x:Null}" Click="BuscarArquivo_Click" MouseEnter="BuscarArquivo_MouseEnter" MouseLeave="BuscarArquivo_MouseLeave">
+                <Border x:Name="BorderBuscarArquivo" Background="#72D9D9D9" CornerRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock x:Name="TBBuscarArquivo" Text="Buscar" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Height="50" FontFamily="Elephant" FontSize="35" TextAlignment="Center" Foreground="#FF171049" Cursor="Hand"/>
+                </Border>
+            </Button>
+        </Grid>
+        <Label x:Name="verbose" Content="" HorizontalAlignment="Center" Margin="0,629,0,0" VerticalAlignment="Top" FontSize="15" FontFamily="Elephant" Foreground="#CCFFFFFF" Width="300" HorizontalContentAlignment="Center"/>
+        <mah:ProgressRing x:Name="progress" Margin="0,658,0,0" VerticalAlignment="Top" Width="30" Height="30" Foreground="#FF0027FF" IsActive="False"/>
     </Grid>
 </Page>

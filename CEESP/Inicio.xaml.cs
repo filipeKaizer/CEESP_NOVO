@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using Microsoft.Win32;
+using OfficeOpenXml;
 
 namespace CEESP
 {
@@ -16,6 +19,8 @@ namespace CEESP
 
         private Storyboard show_Xs;
         private Storyboard show_Ports;
+        private Storyboard hide_options;
+        private Arquivo arquivo;
 
         private Brush defaultColor;
 
@@ -31,6 +36,7 @@ namespace CEESP
 
             this.show_Xs = (Storyboard)FindResource("show_Xs");
             this.show_Ports = (Storyboard)FindResource("show_ports");
+            this.hide_options = (Storyboard)FindResource("hide_Options");
 
             this.defaultColor = BorderButton.Background;
         }
@@ -115,6 +121,71 @@ namespace CEESP
             BorderButton.Background = defaultColor;
         }
 
+        private void BuscarArquivo_MouseEnter(object sender, RoutedEventArgs e)
+        {
+            BorderBuscarArquivo.Background = Brushes.DarkCyan;
+        }
+
+        private void BuscarArquivo_MouseLeave(object sender, RoutedEventArgs e)
+        {
+            BorderBuscarArquivo.Background = defaultColor;
+        }
+
+        private void BuscarArquivo_Click(object sender, RoutedEventArgs e)
+        {
+            var openFileDialog = new OpenFileDialog
+            {
+                Filter = "Arquivos Excel|*.xlsx;*.xls",
+                Title = "Selecione o arquivo de máquinas elétricas"
+            };
+
+            arquivo = new Arquivo((openFileDialog.ShowDialog() == true) ? openFileDialog.FileName : "" );
+
+           MessageBox.Show( arquivo.getVaMax().ToString());
+            progress.IsActive = false;
+            verbose.Content = "";
+        }
+
+        private void btModulo_MouseEnter(object sender, RoutedEventArgs e)
+        {
+            BorderButtonModulo.BorderBrush = Brushes.DarkViolet;
+            rtModulo.StrokeThickness = 3;
+            rtModulo.Stroke = Brushes.DarkViolet;
+        }
+
+        private void btModulo_MouseLeave(object sender, RoutedEventArgs e)
+        {
+            BorderButtonModulo.Background = defaultColor;
+            rtModulo.StrokeThickness = 1;
+            rtModulo.Stroke = null;
+        }
+
+        private void btModulo_Click(object sender, RoutedEventArgs e)
+        {
+            hide_options.Begin();
+            Modulo.Visibility = Visibility.Visible;
+        }
+
+        private void btArquivo_MouseEnter(object sender, RoutedEventArgs e)
+        {
+
+            BorderButtonArquivo.BorderBrush = Brushes.DarkViolet;
+            rtArquivo.StrokeThickness = 3;
+            rtArquivo.Stroke = Brushes.DarkViolet;
+        }
+
+        private void btArquivo_MouseLeave(object sender, RoutedEventArgs e)
+        {
+            BorderButtonArquivo.Background = defaultColor;
+            rtArquivo.StrokeThickness = 1;
+            rtArquivo.Stroke = null;
+        }
+
+        private void btArquivo_Click(object sender, RoutedEventArgs e)
+        {
+            hide_options.Begin();
+            Arquivo.Visibility = Visibility.Visible;
+        }
 
         private void LPorts_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
