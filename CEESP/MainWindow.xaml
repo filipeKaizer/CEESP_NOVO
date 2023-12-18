@@ -148,7 +148,7 @@
             </TabItem>
 
         </TabControl>
-        <Button x:Name="menu_button" Content="Button" Margin="10,10,0,0" Height="45" Foreground="#00000000" BorderBrush="#00707070" RenderTransformOrigin="0.5,0.5" Cursor="Hand" Click="menu_button_Click" HorizontalAlignment="Left" Width="45" VerticalAlignment="Top">
+        <Button x:Name="menu_button" Content="Button" Margin="5,5,0,0" Height="45" Foreground="#00000000" BorderBrush="#00707070" RenderTransformOrigin="0.5,0.5" Cursor="Hand" Click="menu_button_Click" HorizontalAlignment="Left" Width="45" VerticalAlignment="Top">
             <Button.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -162,6 +162,14 @@
             </Button.OpacityMask>
             <Button.Background>
                 <ImageBrush ImageSource="/icons/menu.png"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="Close" Content="Button" Margin="0,5,5,0" Width="45" Height="45" Grid.Column="1" BorderBrush="{x:Null}" Foreground="{x:Null}" RenderTransformOrigin="-0.222,0.534" Click="Close_Click" Cursor="Hand" HorizontalAlignment="Right" VerticalAlignment="Top">
+            <Button.OpacityMask>
+                <ImageBrush ImageSource="/icons/close.png"/>
+            </Button.OpacityMask>
+            <Button.Background>
+                <ImageBrush ImageSource="/icons/close.png"/>
             </Button.Background>
         </Button>
         <Grid x:Name="menu_lateral" Margin="-180,77,0,0" Width="180" Height="200" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Top">

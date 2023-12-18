@@ -32,23 +32,29 @@ namespace CEESP
             FrameFasorial.Navigate(this.grafico_Fasorial);
             FrameTemporal.Navigate(this.grafico_Temporal);
 
-            this.Width = main.getWidth();
-            this.Height = main.getHeigth();
+            this.Width = ListData1.configData.getWidth();
+            this.Height = ListData1.configData.getHeigth();
 
-            Page.Width = SystemParameters.WorkArea.Width;
-            Page.Height = SystemParameters.WorkArea.Height;
+            Page.Width = ListData1.configData.getWidth();
+            Page.Height = ListData1.configData.getHeigth();
 
-            Grid.Width = SystemParameters.WorkArea.Width;
-            Grid.Height = SystemParameters.WorkArea.Height;
+            Grid.Width = ListData1.configData.getWidth();
+            Grid.Height = ListData1.configData.getHeigth();
 
-            Graficos_View.Width = SystemParameters.WorkArea.Width;
-            Graficos_View.Height = SystemParameters.WorkArea.Height;
+            Graficos_View.Width = ListData1.configData.getWidth();
+            Graficos_View.Height = ListData1.configData.getHeigth();
 
-            FrameFasorial.Height = SystemParameters.WorkArea.Height;
-            FrameFasorial.Width = SystemParameters.WorkArea.Width;
+            FrameFasorial.Height = ListData1.configData.getHeigth();
+            FrameFasorial.Width = ListData1.configData.getWidth();
 
-            FrameTemporal.Width = SystemParameters.WorkArea.Width;
-            FrameTemporal.Height = SystemParameters.WorkArea.Height;
+            FrameTemporal.Width = ListData1.configData.getWidth();
+            FrameTemporal.Height = ListData1.configData.getHeigth();
+
+            TabFasorial.Width = ListData1.configData.getWidth();
+            TabFasorial.Height = ListData1.configData.getHeigth();
+
+            TabTemporal.Width = ListData1.configData.getWidth();
+            TabTemporal.Height = ListData1.configData.getHeigth();
 
             Color baseColor = Color.FromArgb(102, 0, 0, 0);
             selectedColor = new SolidColorBrush(baseColor);

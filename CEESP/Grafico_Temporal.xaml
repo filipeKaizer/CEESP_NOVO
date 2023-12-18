@@ -76,7 +76,7 @@
 
     <Grid x:Name="Grid" Width="1280" Height="704" HorizontalAlignment="Left" VerticalAlignment="Top">
 
-        <oxy:PlotView x:Name="PlotGraph" HorizontalAlignment="Left" VerticalAlignment="Top" Height="704" Width="1280" Background="#19000000" Padding="0,0,0,0">
+        <oxy:PlotView x:Name="PlotGraph" HorizontalAlignment="Center" VerticalAlignment="Top" Height="648" Width="1280" Background="#19000000" Padding="0,0,0,0" Margin="0,56,0,0">
             <oxy:PlotView.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black"/>
@@ -84,7 +84,7 @@
                 </LinearGradientBrush>
             </oxy:PlotView.Foreground>
         </oxy:PlotView>
-        <Button x:Name="btLegenda" Content="Button" HorizontalAlignment="Left" Margin="28,642,0,0" VerticalAlignment="Top" Foreground="{x:Null}" BorderBrush="{x:Null}" Width="40" Height="40" HorizontalContentAlignment="Left" Padding="2,1,1,1" VerticalContentAlignment="Top" Cursor="Hand" Click="btLegenda_Click">
+        <Button x:Name="btLegenda" Content="Button" HorizontalAlignment="Left" Margin="10,0,0,10" Foreground="{x:Null}" BorderBrush="{x:Null}" Width="40" Height="40" HorizontalContentAlignment="Left" Padding="2,1,1,1" VerticalContentAlignment="Top" Cursor="Hand" Click="btLegenda_Click" VerticalAlignment="Bottom">
             <Button.OpacityMask>
                 <ImageBrush ImageSource="/icons/List.png"/>
             </Button.OpacityMask>
@@ -92,7 +92,7 @@
                 <ImageBrush ImageSource="/icons/List.png"/>
             </Button.Background>
         </Button>
-        <Grid x:Name="Checks" Height="40" Margin="-468,642,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="" RenderTransformOrigin="0.5,0.5">
+        <Grid x:Name="Checks" Height="40" Margin="-468,642,0,10" HorizontalAlignment="Left" VerticalAlignment="Bottom" Cursor="" RenderTransformOrigin="0.5,0.5">
             <Grid.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>

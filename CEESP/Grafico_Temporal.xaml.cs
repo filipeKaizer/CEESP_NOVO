@@ -23,17 +23,17 @@ namespace CEESP
             InitializeComponent();
             this.main = main;
 
-            this.Width = SystemParameters.WorkArea.Width;
-            this.Height = SystemParameters.WorkArea.Height;
+            this.Width = ListData1.configData.getWidth();
+            this.Height = ListData1.configData.getHeigth();
 
-            PlotGraph.Width = SystemParameters.WorkArea.Width;
-            PlotGraph.Height = SystemParameters.WorkArea.Height;
+            PlotGraph.Width = ListData1.configData.getWidth();
+            PlotGraph.Height = ListData1.configData.getHeigth() - 55;
 
-            Page.Width = SystemParameters.WorkArea.Width;
-            Page.Height = SystemParameters.WorkArea.Height;
+            Page.Width = ListData1.configData.getWidth();
+            Page.Height = ListData1.configData.getHeigth();
 
-            Grid.Width = SystemParameters.WorkArea.Width;
-            Grid.Height = SystemParameters.WorkArea.Height;
+            Grid.Width = ListData1.configData.getWidth();
+            Grid.Height = ListData1.configData.getHeigth();
 
             this.show_Checks = (Storyboard)FindResource("show_Checks");
             this.hide_Ckechs = (Storyboard)FindResource("esconde_Checks");

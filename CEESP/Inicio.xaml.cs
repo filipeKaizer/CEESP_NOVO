@@ -31,8 +31,14 @@ namespace CEESP
             InitializeComponent();
             this.main = main;
 
-            this.Width = main.getWidth();
-            this.Height = main.getHeigth();
+            this.Width = ListData1.configData.getWidth();
+            this.Height = ListData1.configData.getHeigth();
+
+            this.Page.Width = ListData1.configData.getWidth();
+            this.Page.Height = ListData1.configData.getHeigth();
+
+            this.Grid.Width = ListData1.configData.getWidth();
+            this.Grid.Height = ListData1.configData.getHeigth();
 
             this.show_Xs = (Storyboard)FindResource("show_Xs");
             this.show_Ports = (Storyboard)FindResource("show_ports");

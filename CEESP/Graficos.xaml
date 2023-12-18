@@ -31,7 +31,7 @@
                 <ItemsPanelTemplate/>
             </TabControl.ItemsPanel>
 
-            <TabItem x:Name="TabFasorial" Header="Fasorial" IsEnabled="False" Visibility="Collapsed" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0" Width="1350" Height="704" Padding="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Cursor="">
+            <TabItem x:Name="TabFasorial" Header="Fasorial" IsEnabled="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0" Width="1350" Height="704" Padding="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Cursor="" Visibility="Collapsed">
                 <Frame x:Name="FrameFasorial" NavigationUIVisibility="Hidden" Width="1280" Height="704" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </TabItem>
 

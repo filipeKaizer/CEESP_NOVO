@@ -32,11 +32,11 @@ namespace CEESP
             Graph.Width = ListData1.configData.getWidth();
             Graph.Height = ListData1.configData.getHeigth();
 
-            Page.Width = SystemParameters.WorkArea.Width;
-            Page.Height = SystemParameters.WorkArea.Height;
+            Page.Width = ListData1.configData.getWidth();
+            Page.Height = ListData1.configData.getHeigth();
 
-            Grid.Width = SystemParameters.WorkArea.Width;
-            Grid.Height = SystemParameters.WorkArea.Height;
+            Grid.Width = ListData1.configData.getWidth();
+            Grid.Height = ListData1.configData.getHeigth();
 
             this.plot = new plot(ListData1.configData.getCenterX(), ListData1.configData.getCenterY(), ListData1.configData.getXs());
 

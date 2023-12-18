@@ -12,6 +12,7 @@
     <None Remove="close.png" />
     <None Remove="Download.png" />
     <None Remove="Edit.png" />
+    <None Remove="icons\close.png" />
     <None Remove="List.png" />
     <None Remove="menu.png" />
     <None Remove="plus.png" />

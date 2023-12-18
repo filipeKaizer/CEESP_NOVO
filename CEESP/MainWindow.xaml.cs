@@ -232,5 +232,10 @@ namespace CEESP
         {
             return this.serial;
         }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
