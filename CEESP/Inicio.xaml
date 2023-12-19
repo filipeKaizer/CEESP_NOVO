@@ -157,7 +157,7 @@
                     </LinearGradientBrush>
                 </mah:NumericUpDown.BorderBrush>
             </mah:NumericUpDown>
-            <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="Xs:" VerticalAlignment="Center" FontSize="20" Foreground="#FFE6CFCF"/>
+            <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="Xs:" VerticalAlignment="Center" FontSize="20" Foreground="#FFE6CFCF" Cursor=""/>
         </Grid>
         <Grid x:Name="Options" Width="990" Height="540" Margin="145,81,145,99" RenderTransformOrigin="0.5,0.5">
             <Grid.RenderTransform>
@@ -177,7 +177,7 @@
                 </GridSplitter.Background>
             </GridSplitter>
             <Rectangle x:Name="rtModulo" HorizontalAlignment="Left" Height="450" Margin="49,0,0,0" VerticalAlignment="Center" Width="400" RadiusX="40" RadiusY="40" Fill="#CC2B1998"/>
-            <TextBlock HorizontalAlignment="Left" Margin="129,95,0,0" TextWrapping="Wrap" Text="Conectar um módulo" VerticalAlignment="Top" FontSize="40" Height="125" Width="240" Foreground="#CCFFFFFF" TextAlignment="Center" FontFamily="Arial"/>
+            <TextBlock HorizontalAlignment="Left" Margin="114,95,0,0" TextWrapping="Wrap" Text="Monitoramento real time" VerticalAlignment="Top" FontSize="40" Height="125" Width="270" Foreground="#CCFFFFFF" TextAlignment="Center" FontFamily="Arial"/>
             <TextBlock HorizontalAlignment="Left" Margin="76,225,0,0" TextWrapping="Wrap" Text="Faça o monitoramento em tempo real conectando um módulo RLC e defindo um Xs." VerticalAlignment="Top" Height="104" Width="346" FontSize="21" FontFamily="Arial" Foreground="#CCFFFFFF" TextAlignment="Justify"/>
             <Button x:Name="btModulo" MouseEnter="btModulo_MouseEnter" MouseLeave="btModulo_MouseLeave" Style="{StaticResource NoMouseOverButtonStyle}"  Width="250" Height="50" Margin="124,420,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="{x:Null}" Click="btModulo_Click">
                 <Border x:Name="BorderButtonModulo" Background="#72D9D9D9" CornerRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250">
@@ -185,8 +185,8 @@
                 </Border>
             </Button>
             <Rectangle x:Name="rtArquivo" HorizontalAlignment="Left" Height="450" Margin="544,0,0,0" VerticalAlignment="Center" Width="400" RadiusX="40" RadiusY="40" Fill="#CC2B1998"/>
-            <TextBlock HorizontalAlignment="Left" Margin="624,95,0,0" TextWrapping="Wrap" Text="Carregar um arquivo" VerticalAlignment="Top" FontSize="40" Height="125" Width="240" Foreground="#CCFFFFFF" TextAlignment="Center" FontFamily="Arial"/>
-            <TextBlock HorizontalAlignment="Left" Margin="571,225,0,0" TextWrapping="Wrap" Text="Gere relatórios, gráficos de tempo e diagramas fasoriais usando um arquivo Excel compatível." VerticalAlignment="Top" Height="104" Width="346" FontSize="21" FontFamily="Arial" Foreground="#CCFFFFFF" TextAlignment="Justify"/>
+            <TextBlock HorizontalAlignment="Left" Margin="624,95,0,0" TextWrapping="Wrap" Text="Analise offline" VerticalAlignment="Top" FontSize="40" Height="125" Width="240" Foreground="#CCFFFFFF" TextAlignment="Center" FontFamily="Arial"/>
+            <TextBlock HorizontalAlignment="Left" Margin="571,225,0,0" TextWrapping="Wrap" Text="Visualização e analise de dados das grandezas eletricas de um gerador sincrono de ensaios anteriores. " VerticalAlignment="Top" Height="104" Width="346" FontSize="21" FontFamily="Arial" Foreground="#CCFFFFFF" TextAlignment="Justify"/>
             <Button x:Name="btArquivo" MouseEnter="btArquivo_MouseEnter" MouseLeave="btArquivo_MouseLeave" Style="{StaticResource NoMouseOverButtonStyle}"  Width="250" Height="50" Margin="624,420,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="{x:Null}" Click="btArquivo_Click">
                 <Border x:Name="BorderButtonArquivo" Background="#72D9D9D9" CornerRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250">
                     <TextBlock x:Name="TBArquivo" Text="Arquivo❯" VerticalAlignment="Top" HorizontalAlignment="Center" Width="250" Height="50" FontFamily="Elephant" FontSize="35" TextAlignment="Center" Foreground="#FF171049" Cursor="Hand"/>
@@ -215,8 +215,8 @@
                     </LinearGradientBrush>
                 </ListBox.BorderBrush>
             </ListBox>
-            <TextBlock x:Name="TBBuscarModulo" HorizontalAlignment="Center" Margin="0,36,0,0" TextWrapping="Wrap" Text="Buscar um módulo" VerticalAlignment="Top" Foreground="White" FontSize="35" FontFamily="Bookman Old Style"/>
-            <TextBlock x:Name="TBBuscarModuloText" HorizontalAlignment="Center" Margin="0,163,0,0" TextWrapping="Wrap" Text="Para prosseguir nesse modo, conecte um módulo RLC ao seu computador e selecione o botão abaixo para buscá-lo." VerticalAlignment="Top" Foreground="White" FontSize="25" Width="670" TextAlignment="Justify" FontStyle="Italic" FontFamily="Artifakt Element"/>
+            <TextBlock x:Name="TBBuscarModulo" HorizontalAlignment="Center" Margin="0,36,0,0" TextWrapping="Wrap" Text="Buscar um dispositivo compatível" VerticalAlignment="Top" Foreground="White" FontSize="35" FontFamily="Bookman Old Style"/>
+            <TextBlock x:Name="TBBuscarModuloText" HorizontalAlignment="Center" Margin="0,163,0,0" TextWrapping="Wrap" Text="Para prosseguir nesse modo, conecte um modulo de monitoramento de grandezas eletricas de um gerador sincrono (MOSIN)." VerticalAlignment="Top" Foreground="White" FontSize="25" Width="670" TextAlignment="Justify" FontStyle="Italic" FontFamily="Artifakt Element"/>
             <TextBlock x:Name="TBSelecioneUmaPorta" HorizontalAlignment="Center" Margin="0,189,0,0" TextWrapping="Wrap" Text="Selecione uma porta" VerticalAlignment="Top" Foreground="White" FontSize="25" Width="270" TextAlignment="Center" FontStyle="Italic" FontFamily="Artifakt Element" Visibility="Hidden"/>
         </Grid>
         <Grid x:Name="Arquivo" Width="800" Margin="240,84,240,32" Background="#33000000" Visibility="Hidden">
@@ -227,7 +227,7 @@
             </Button>
             <TextBlock HorizontalAlignment="Center" Margin="0,36,0,0" TextWrapping="Wrap" Text="Carregar um arquivo" VerticalAlignment="Top" Foreground="White" FontSize="35" FontFamily="Bookman Old Style"/>
             <GridSplitter HorizontalAlignment="Center" Height="2" Margin="0,88,0,0" VerticalAlignment="Top" Width="100" Foreground="{x:Null}" Background="#4C410067"/>
-            <TextBlock HorizontalAlignment="Center" Margin="0,165,0,0" TextWrapping="Wrap" Text="Para prosseguir nesse modo, clique no botão abaixo e informe um arquivo Excel que seja compatível." VerticalAlignment="Top" Foreground="White" FontSize="25" Width="670" TextAlignment="Justify" FontStyle="Italic" FontFamily="Artifakt Element"/>
+            <TextBlock HorizontalAlignment="Center" Margin="0,165,0,0" TextWrapping="Wrap" Text="Para prosseguir nesse modo, clique no botão abaixo e insira um arquivo excel de outro experimento." VerticalAlignment="Top" Foreground="White" FontSize="25" Width="670" TextAlignment="Justify" FontStyle="Italic" FontFamily="Artifakt Element"/>
         </Grid>
         <Label x:Name="verbose" Content="" HorizontalAlignment="Center" Margin="0,643,0,45" VerticalAlignment="Bottom" FontSize="15" FontFamily="Elephant" Foreground="#CCFFFFFF" Width="300" HorizontalContentAlignment="Center"/>
         <mah:ProgressRing x:Name="progress" Margin="0,672,0,10" VerticalAlignment="Bottom" Width="30" Height="30" Foreground="#FF0027FF" IsActive="False"/>
@@ -267,5 +267,13 @@
             </Button>
             <TextBlock Margin="0,458,0,0" TextWrapping="Wrap" Text="Deseja seguir com esse arquivo ou buscar um novo?" VerticalAlignment="Top" Foreground="#CCFFFFFF" FontSize="18" HorizontalAlignment="Center"/>
         </Grid>
+        <Button x:Name="Back" Content="" HorizontalAlignment="Left" Margin="155,314,0,0" VerticalAlignment="Top" Width="70" Height="70" Foreground="{x:Null}" BorderBrush="{x:Null}" Click="Back_Click" Visibility="Hidden" Cursor="Hand">
+            <Button.OpacityMask>
+                <ImageBrush ImageSource="/icons/back.png"/>
+            </Button.OpacityMask>
+            <Button.Background>
+                <ImageBrush ImageSource="/icons/back.png"/>
+            </Button.Background>
+        </Button>
     </Grid>
 </Page>

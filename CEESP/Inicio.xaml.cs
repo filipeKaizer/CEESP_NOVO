@@ -195,6 +195,7 @@ namespace CEESP
         {
             hide_options.Begin();
             Modulo.Visibility = Visibility.Visible;
+            Back.Visibility = Visibility.Visible;
         }
 
         private void btArquivo_MouseEnter(object sender, RoutedEventArgs e)
@@ -216,6 +217,7 @@ namespace CEESP
         {
             hide_options.Begin();
             Arquivo.Visibility = Visibility.Visible;
+            Back.Visibility = Visibility.Visible;
         }
 
         private void Seguir_Click(object sender, RoutedEventArgs e)
@@ -232,6 +234,18 @@ namespace CEESP
             this.main.SetPage(1, false);
         }
 
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            Modulo.Visibility = Visibility.Hidden;
+            Arquivo.Visibility = Visibility.Hidden;
+            ArquivoSelecionado.Visibility = Visibility.Hidden;
+            this.XsValue = 5;
+            this.main.getSerial().setPort("");
+            hide_options.Stop();
+            Options.Visibility = Visibility.Visible;
+            Back.Visibility = Visibility.Hidden;
+        }
+
         private void LPorts_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             TBBuscar.Text = "Iniciar";
@@ -242,7 +256,7 @@ namespace CEESP
             LPorts.Visibility = Visibility.Hidden;
             portSelected = true;
             main.getSerial().setPort(LPorts.SelectedItem.ToString());
-            TBSelecioneUmaPorta.Text = "Informe o valor de Xs";
+            TBSelecioneUmaPorta.Text = "Informe um valor para a reatância sincrona (Xs)";
         }
     }
 }

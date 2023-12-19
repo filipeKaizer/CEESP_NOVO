@@ -10,6 +10,7 @@
   <ItemGroup>
     <None Remove="add.png" />
     <None Remove="Anterior.png" />
+    <None Remove="back.png" />
     <None Remove="close.png" />
     <None Remove="Download.png" />
     <None Remove="Edit.png" />
@@ -35,6 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="icons\back.png" />
     <Resource Include="icons\Anterior.png" />
     <Resource Include="icons\add.png" />
     <Resource Include="icons\Download.png" />
