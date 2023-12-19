@@ -19,7 +19,9 @@ namespace CEESP
         private bool autosizeEnable = true;
         private float zoomScale = 1;
         private bool spliterEnable = true;
+        private bool deleteLastDado = false;
         private int index;
+        private ColectedData dado;
 
         public Grafico_Fasorial(MainWindow main)
         {
@@ -47,8 +49,12 @@ namespace CEESP
             else 
                 AutosizeButton.Content = "M";
 
-            InitializeTime(20, 4);
+            InitializeTime(30, 6);
             Phase.SelectedIndex = 0;
+
+            Salvar.Visibility = Visibility.Hidden;
+            rtSalvar.Visibility = Visibility.Hidden;
+            saveMode.Content = "Autosave";
 
             this.index = 0;
         }
@@ -67,40 +73,52 @@ namespace CEESP
             int index = Phase.SelectedIndex;
             List<ColectedData> data = ListData1.colectedData;
 
-            ColectedData valores;
             if (ListData1.configData.getModuloAtivo())
-                valores = data[data.Count - 1]; //Pega o ultimo dado coletado
+            {
+                this.dado = data[data.Count - 1]; //Pega o ultimo dado coletado
+
+                if (saveMode.Content.ToString() != "Autosave")
+                {
+                    // Remove o valor corrente
+                    if (this.deleteLastDado)
+                        ListData1.colectedData.Remove(dado);
+                    this.deleteLastDado = true;
+                }
+
+            }
             else
-                valores = data[this.index];
+            {
+                this.dado = data[this.index];
+            }
 
             if (autosizeEnable)
-                AutoSizeValue(valores, index);
+                AutoSizeValue(this.dado, index);
 
             List<Line> objects = new List<Line>
 
             {
-                plot.createVa(valores.getVa(index) * this.zoomScale), //Adiciona Va
-                plot.createIa(valores.getIa(index) * this.zoomScale, valores.getFP(index), valores.getFPType(index)), //Adiciona Ia
-                plot.createXs(valores.getIa(index) * this.zoomScale,valores.getFP(index), valores.getFPType(index)), //Adiciona Xs
+                plot.createVa(this.dado.getVa(index) * this.zoomScale), //Adiciona Va
+                plot.createIa(this.dado.getIa(index) * this.zoomScale, this.dado.getFP(index), this.dado.getFPType(index)), //Adiciona Ia
+                plot.createXs(this.dado.getIa(index) * this.zoomScale,this.dado.getFP(index), this.dado.getFPType(index)), //Adiciona Xs
             };
 
-            if (valores.getFP(index) != 0)
+            if (this.dado.getFP(index) != 0)
             {
                 objects.Add(plot.createEa());
             }
 
-            double FPv = valores.getFP(index);
+            double FPv = this.dado.getFP(index);
             double angle = Math.Acos(FPv) * 180 / Math.PI;
 
             // Atuliza tabela de valores
-            VaValue.Content = "Va: " + Math.Round(valores.getVa(index), ListData1.configData.getDecimals()).ToString() + "V";
-            IaValue.Content = "Ia: " + Math.Round(valores.getIa(index), ListData1.configData.getDecimals()).ToString() + "∠" + Math.Round(angle, 1) + "º A";
-            EaValue.Content = "Ea: " + Math.Round(valores.getEa(index), ListData1.configData.getDecimals()).ToString() + "V";
-            XsIa.Content = "XsIa: " + Math.Abs(Math.Round((valores.getIa(index) * ListData1.configData.getXs()), ListData1.configData.getDecimals())).ToString() + "∠" + Math.Round(90 - angle, 1) + "º V";
+            VaValue.Content = "Va: " + Math.Round(this.dado.getVa(index), ListData1.configData.getDecimals()).ToString() + "V";
+            IaValue.Content = "Ia: " + Math.Round(this.dado.getIa(index), ListData1.configData.getDecimals()).ToString() + "∠" + Math.Round(angle, 1) + "º A";
+            EaValue.Content = "Ea: " + Math.Round(this.dado.getEa(index), ListData1.configData.getDecimals()).ToString() + "V";
+            XsIa.Content = "XsIa: " + Math.Abs(Math.Round((this.dado.getIa(index) * ListData1.configData.getXs()), ListData1.configData.getDecimals())).ToString() + "∠" + Math.Round(90 - angle, 1) + "º V";
 
             FPValue.Content = "Cos(φ): " + Math.Round(FPv, 2);
 
-            type.Content = FPv.ToString() != "1" ? (valores.getFPType(index) == 'i') ? "Indutivo" : "Capacitivo" : (object)"Resistivo";
+            type.Content = FPv.ToString() != "1" ? (this.dado.getFPType(index) == 'i') ? "Indutivo" : "Capacitivo" : (object)"Resistivo";
 
             // Adiciona as linhas
             foreach (Line i in objects)
@@ -110,14 +128,13 @@ namespace CEESP
             oldLines = objects;
 
             this.spliterEnable = true;
-
         }
 
         public void InitializeTime(int max, int diference)
         {
             times.Add("Pause");
 
-            for (int i = 2; i < max; i += diference)
+            for (int i = 1; i < max; i += diference)
             {
                 times.Add(i + "s");
             }
@@ -161,7 +178,10 @@ namespace CEESP
                 this.zoomScale = (float)Slider.Value;
                 LabelZoom.Content = Math.Round(Slider.Value, 1) + "x";
                 if (ListData1.colectedData.Count > 0)
+                {
+                    this.deleteLastDado = false;
                     drawLines();
+                }
             }
         }
 
@@ -198,7 +218,10 @@ namespace CEESP
         private void Phase_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (ListData1.colectedData.Count != 0)
+            {
+                this.deleteLastDado = false;
                 drawLines();
+            }
         }
 
         private void AutosizeButton_Click(object sender, RoutedEventArgs e)
@@ -209,6 +232,7 @@ namespace CEESP
             else
                 AutosizeButton.Content = "M";
 
+            this.deleteLastDado = false;
             drawLines();
         }
 
@@ -216,39 +240,70 @@ namespace CEESP
         {
             if (!isModuleOption)
             {
-                refresh.Visibility = Visibility.Collapsed;
                 CBTimes.Visibility = Visibility.Collapsed;
                 Itens.Visibility = Visibility.Visible;
                 TimeSelected.Visibility = Visibility.Collapsed;
+                saveMode.Visibility = Visibility.Hidden;
+                rtSaveMode.Visibility = Visibility.Hidden;
+
+                this.deleteLastDado = false;
                 drawLines();
+            } else
+            {
+                CBTimes.Visibility = Visibility.Visible;
+                Itens.Visibility = Visibility.Hidden;
+                TimeSelected.Visibility = Visibility.Visible;
+                saveMode.Visibility = Visibility.Visible;
+                rtSaveMode.Visibility = Visibility.Visible;
             }
 
         }
 
         private void plusItem_Click(object sender, RoutedEventArgs e)
         {
-            int index = int.Parse(ItemText.Text);
-
-            if (index < ListData1.colectedData.Count - 1)
+            if (this.index < ListData1.colectedData.Count - 1)
             {
-                index++;
-                this.index = index;
-                ItemText.Text = index.ToString();
+                this.index++;
+                ItemText.Text = "Item: " + (index + 1).ToString();
                 drawLines();
             }
         }
 
         private void minusItem_Click(object sender, RoutedEventArgs e)
         {
-            int index = int.Parse(ItemText.Text);
-
-            if (index - 1 != -1)
+            if (this.index - 1 != -1)
             {
-                index--;
-                this.index = index;
-                ItemText.Text = index.ToString();
+                this.index--;
+                ItemText.Text = "Item: " + (index + 1).ToString();
                 drawLines();
             }
+        }
+
+        private void Salvar_Click(object sender, RoutedEventArgs e)
+        {
+            ListData1.colectedData.Add(this.dado);
+        }
+
+        private void SaveMode_Click(object sender, RoutedEventArgs e)
+        {
+           if (saveMode.Content.ToString() == "Autosave")
+           {
+                Salvar.Visibility = Visibility.Visible;
+                rtSalvar.Visibility = Visibility.Visible;
+                saveMode.Content = "Manual";
+                this.deleteLastDado = false;
+           } else
+            {
+                saveMode.Content = "Autosave";
+                Salvar.Visibility = Visibility.Hidden;
+                rtSalvar.Visibility = Visibility.Hidden;
+                this.deleteLastDado = true;
+            }
+        }
+
+        public void setDeleteLastDado (bool type)
+        {
+            this.deleteLastDado = type;
         }
     }
 }

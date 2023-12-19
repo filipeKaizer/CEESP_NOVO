@@ -37,6 +37,8 @@ namespace CEESP
 
             this.show_Checks = (Storyboard)FindResource("show_Checks");
             this.hide_Ckechs = (Storyboard)FindResource("esconde_Checks");
+
+            changeCheck();
         }
 
 

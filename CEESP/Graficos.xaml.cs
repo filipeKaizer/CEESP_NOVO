@@ -102,14 +102,16 @@ namespace CEESP
             if (ListData1.configData.getModuloAtivo())
                 ListData1.colectedData.Add(await main.getSerial().readValues());
 
-            // Atualiza o dataView da classe dados
-            this.main.getDados().atualizaDados();
+            if (this.grafico_Fasorial.saveMode.Content.ToString() == "Autosave")
+            {
+                // Atualiza o dataView da classe dados
+                this.main.getDados().atualizaDados();
 
-            // Atualiza o Graph
-            grafico_Temporal.atualizaGraph();
+                // Atualiza o Graph
+                grafico_Temporal.atualizaGraph();
 
-            // Atualiza o CBRelatorio
-
+                // Atualiza o CBRelatorio
+            }
 
             if (ListData1.colectedData.Count > 0)
             {

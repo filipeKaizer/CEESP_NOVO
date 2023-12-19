@@ -345,7 +345,7 @@ namespace CEESP
             ListData1.colectedData.Add(new ColectedData(tempo + 1));
 
             this.atualizaDados();
-
+            this.main.getGraficos().getFasorial().setDeleteLastDado(false);
             this.main.getGraficos().getFasorial().drawLines();
 
             this.main.saveCache();

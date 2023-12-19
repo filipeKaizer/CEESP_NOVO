@@ -30,16 +30,8 @@
             <RowDefinition Height="313*"/>
         </Grid.RowDefinitions>
         <Canvas x:Name="Graph" HorizontalAlignment="Center" Width="1280" Height="704" Background="#19000000" VerticalAlignment="Top" Cursor="Arrow" Grid.RowSpan="2"/>
-        <Label x:Name="TimeSelected" Content="2s" Background="{x:Null}" Foreground="#99DEDEDE" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="56,274,0,10" Grid.Row="1"/>
-        <Button x:Name="refresh" Content="Button" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" BorderBrush="{x:Null}" Foreground="{x:Null}" Margin="99,262,0,20" Cursor="Hand" Grid.Row="1">
-            <Button.OpacityMask>
-                <ImageBrush ImageSource="/icons/refresh.png"/>
-            </Button.OpacityMask>
-            <Button.Background>
-                <ImageBrush ImageSource="/icons/refresh.png"/>
-            </Button.Background>
-        </Button>
-        <ComboBox x:Name="CBTimes" Margin="34,262,0,20" Width="28" Height="28" BorderBrush="{x:Null}" Foreground="#FF17006D" HorizontalAlignment="Left" VerticalAlignment="Bottom" SelectionChanged="CBTimes_SelectionChanged" Cursor="Hand" RenderTransformOrigin="0.512,0.607" Grid.Row="1">
+        <Label x:Name="TimeSelected" Content="2s" Background="{x:Null}" Foreground="#99DEDEDE" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="27,0,0,11" Grid.Row="1"/>
+        <ComboBox x:Name="CBTimes" Margin="10,0,0,22" Width="28" Height="28" BorderBrush="{x:Null}" Foreground="#FF17006D" HorizontalAlignment="Left" VerticalAlignment="Bottom" SelectionChanged="CBTimes_SelectionChanged" Cursor="Hand" RenderTransformOrigin="0.512,0.607" Grid.Row="1">
             <ComboBox.OpacityMask>
                 <ImageBrush ImageSource="/icons/Timer.png"/>
             </ComboBox.OpacityMask>
@@ -71,8 +63,8 @@
             <Label x:Name="LabelZoom" Content="1x" HorizontalAlignment="Right" Margin="146,2,0,0" FontFamily="Algerian" Width="40" Foreground="#FFAFAFAF" HorizontalContentAlignment="Center" Grid.RowSpan="2" VerticalAlignment="Top"/>
             <Button x:Name="AutosizeButton" Style="{StaticResource NoMouseOverButtonStyle}" Content="M" Height="30" Width="30" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFAFAFAF" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Corbel" FontSize="13" Click="AutosizeButton_Click" Cursor="Hand" AutomationProperties.HelpText="Autosize"/>
         </Grid>
-        <ComboBox x:Name="Phase" Width="176" Height="30" BorderBrush="{x:Null}" OpacityMask="#19000000" Background="#191E1E1E" Foreground="Black" Cursor="Hand" ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="0,262,30,20" VerticalAlignment="Bottom" SelectionChanged="Phase_SelectionChanged" HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14" Grid.Row="1">
-            <ComboBoxItem Content="Media"/>
+        <ComboBox x:Name="Phase" Width="176" Height="30" BorderBrush="{x:Null}" Background="White" Foreground="Black" Cursor="Hand" ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="0,262,30,20" VerticalAlignment="Bottom" SelectionChanged="Phase_SelectionChanged" HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14" Grid.Row="1" OpacityMask="#66545454">
+            <ComboBoxItem Content="Media" Background="{x:Null}"/>
             <ComboBoxItem Cursor="Hand" Content="Fase A"/>
             <ComboBoxItem Content="Fase B"/>
             <ComboBoxItem Cursor="Hand" Content="Fase C"/>
@@ -95,7 +87,13 @@
                     <ImageBrush ImageSource="/icons/typcn_minus.png"/>
                 </Button.Background>
             </Button>
-            <TextBox x:Name="ItemText" BorderBrush="Transparent" Background="Transparent" HorizontalAlignment="Center" TextWrapping="Wrap" Text="1" VerticalAlignment="Center" Width="60" SelectionTextBrush="{x:Null}" Foreground="#FFAFAFAF" TextAlignment="Center" SelectionBrush="#330078D7"/>
+            <TextBox x:Name="ItemText" BorderBrush="Transparent" Background="Transparent" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Item: 1" VerticalAlignment="Center" Width="60" SelectionTextBrush="{x:Null}" Foreground="#FFAFAFAF" TextAlignment="Center" SelectionBrush="#330078D7" IsEnabled="False"/>
+        </Grid>
+        <Grid x:Name="SaveMode" Height="60" Width="130" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="52,0,0,20" Grid.Row="1">
+            <Rectangle x:Name="rtSalvar" Width="70" Height="30" Fill="#3F0FBF00" RadiusX="5" RadiusY="5" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,-1,0,0"/>
+            <Rectangle x:Name="rtSaveMode" Width="130" Height="30" HorizontalAlignment="Center" VerticalAlignment="Top" Fill="#3F000000" RadiusX="5" RadiusY="5" Margin="0,30,0,0"/>
+            <Button x:Name="saveMode" Style="{StaticResource NoMouseOverButtonStyle}" Content="Salvamento Automatico" HorizontalAlignment="Center" Margin="0,31,0,0" VerticalAlignment="Top" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFAFAFAF" VerticalContentAlignment="Center" Width="130" Cursor="Hand" Click="SaveMode_Click"/>
+            <Button x:Name="Salvar" Style="{StaticResource NoMouseOverButtonStyle}" Content="Salvar" HorizontalAlignment="Left" Margin="30,0,0,0" VerticalAlignment="Top" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFAFAFAF" VerticalContentAlignment="Center" Width="70" Cursor="Hand" Click="Salvar_Click"/>
         </Grid>
 
 

@@ -103,6 +103,7 @@ namespace CEESP
             } else
             {
                 ListData1.configData.setModuloAtivo(true);
+                graficos.getFasorial().changeMode(true);
             }
         }
 
