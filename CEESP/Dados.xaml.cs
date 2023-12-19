@@ -32,8 +32,10 @@ namespace CEESP
         public void atualizaDados()
         {
             ListViewItem item;
+            int index = Phase.SelectedIndex;
 
             ListData.Items.Clear();
+
 
             foreach (ColectedData i in ListData1.colectedData)
             {
@@ -41,13 +43,13 @@ namespace CEESP
                 item.Content = new
                 {
                     Tempo = i.getTempo() + "s",
-                    Va = Math.Round(i.getVa(0), 2),
-                    Ia = Math.Round(i.getIa(0), 2),
-                    Ea = Math.Round(i.getEa(0), 2),
-                    FP = Math.Round(i.getFP(0), 2).ToString(),
+                    Va = Math.Round(i.getVa(index), 2),
+                    Ia = Math.Round(i.getIa(index), 2),
+                    Ea = Math.Round(i.getEa(index), 2),
+                    FP = Math.Round(i.getFP(index), 2).ToString(),
                     RPM = Math.Round(i.getRPM(), 2),
                     F = Math.Round(i.getFrequency(), 2),
-                    Tipo = (i.getFP(0) == 1) ? "Resisitivo" : ((i.getFPType(0) == 'i') ? "Indutivo" : "Capacitivo")
+                    Tipo = (i.getFP(index) == 1) ? "Resisitivo" : ((i.getFPType(index) == 'i') ? "Indutivo" : "Capacitivo")
                 };
 
                 ListData.Items.Add(item);
@@ -60,10 +62,11 @@ namespace CEESP
             if (ListData.SelectedIndex != -1)
             {
                 int p = ListData1.configData.getDecimals();
+                int index = Phase.SelectedIndex;
 
-                float fp = ListData1.colectedData[ListData.SelectedIndex].getFP(0);
-                TBIa.Value = Math.Round(ListData1.colectedData[ListData.SelectedIndex].getIa(0), p);
-                TBVa.Value = Math.Round(ListData1.colectedData[ListData.SelectedIndex].getVa(0), p);
+                float fp = ListData1.colectedData[ListData.SelectedIndex].getFP(index);
+                TBIa.Value = Math.Round(ListData1.colectedData[ListData.SelectedIndex].getIa(index), p);
+                TBVa.Value = Math.Round(ListData1.colectedData[ListData.SelectedIndex].getVa(index), p);
                 TBFP.Value = Math.Round(fp, p);
                 TBRPM.Value = Math.Round(ListData1.colectedData[ListData.SelectedIndex].getRPM(), p);
                 TBF.Value = Math.Round(ListData1.colectedData[ListData.SelectedIndex].getFrequency(), p);
@@ -76,7 +79,7 @@ namespace CEESP
                 }
                 catch
                 {
-                    //MessageBox.Show("Falha no calculo de fp.");
+                    MessageBox.Show("Falha no calculo de fp.");
                 }
             }
         }
@@ -114,9 +117,11 @@ namespace CEESP
             {
                 try
                 {
-                    ListData1.colectedData[ListData.SelectedIndex].setIa((float)TBIa.Value, 0);
-                    ListData1.colectedData[ListData.SelectedIndex].setVa((float)TBVa.Value, 0);
-                    ListData1.colectedData[ListData.SelectedIndex].setFP((float)TBFP.Value, 0);
+                    int index = Phase.SelectedIndex;
+
+                    ListData1.colectedData[ListData.SelectedIndex].setIa((float)TBIa.Value, index);
+                    ListData1.colectedData[ListData.SelectedIndex].setVa((float)TBVa.Value, index);
+                    ListData1.colectedData[ListData.SelectedIndex].setFP((float)TBFP.Value, index);
                     ListData1.colectedData[ListData.SelectedIndex].setRPM((float)TBRPM.Value);
                     ListData1.colectedData[ListData.SelectedIndex].setFrequency((float)TBF.Value);
 
@@ -207,13 +212,28 @@ namespace CEESP
 
                         // Adiciona os cabeçalhos
                         worksheet.Cells[2, 1].Value = "Tempo";
-                        worksheet.Cells[2, 2].Value = "Va";
-                        worksheet.Cells[2, 3].Value = "Ia";
-                        worksheet.Cells[2, 4].Value = "Ea";
-                        worksheet.Cells[2, 5].Value = "FP";
-                        worksheet.Cells[2, 6].Value = "RPM";
-                        worksheet.Cells[2, 7].Value = "Freq.";
+                        worksheet.Cells[2, 2].Value = "RPM";
+                        worksheet.Cells[2, 3].Value = "Freq.";
+                        worksheet.Cells[2, 4].Value = "Va";
+                        worksheet.Cells[2, 5].Value = "Ia";
+                        worksheet.Cells[2, 6].Value = "Ea";
+                        worksheet.Cells[2, 7].Value = "FP";
                         worksheet.Cells[2, 8].Value = "Tipo";
+                        worksheet.Cells[2, 9].Value = "VaA";
+                        worksheet.Cells[2, 10].Value = "IaA";
+                        worksheet.Cells[2, 11].Value = "EaA";
+                        worksheet.Cells[2, 12].Value = "FPA";
+                        worksheet.Cells[2, 13].Value = "TipoA";
+                        worksheet.Cells[2, 14].Value = "VaB";
+                        worksheet.Cells[2, 15].Value = "IaB";
+                        worksheet.Cells[2, 16].Value = "EaB";
+                        worksheet.Cells[2, 17].Value = "FPB";
+                        worksheet.Cells[2, 18].Value = "TipoB";
+                        worksheet.Cells[2, 19].Value = "VaC";
+                        worksheet.Cells[2, 20].Value = "IaC";
+                        worksheet.Cells[2, 21].Value = "EaC";
+                        worksheet.Cells[2, 22].Value = "FPC";
+                        worksheet.Cells[2, 23].Value = "TipoC";
 
                         // Adiciona os dados
                         int i = 0;
@@ -238,23 +258,28 @@ namespace CEESP
                         foreach (ColectedData data in dados)
                         {
                             int p = c.getDecimals();
-                            //       LINHA/COLUNA -> Valor    | Valor do DB     | Adiciona Unidade se u = true
-                            worksheet.Cells[i + 3, 1].Value = data.getTempo();
-                            worksheet.Cells[i + 3, 2].Value = Math.Round(data.getVa(0), p);
-                            worksheet.Cells[i + 3, 3].Value = Math.Round(data.getIa(0), p);
-                            worksheet.Cells[i + 3, 4].Value = Math.Round(data.getEa(0), p);
-                            worksheet.Cells[i + 3, 5].Value = Math.Round(data.getFP(0), p);
-                            worksheet.Cells[i + 3, 6].Value = Math.Round(data.getRPM(), p);
-                            worksheet.Cells[i + 3, 7].Value = Math.Round(data.getFrequency(), p);
 
-                            if (data.getFP(0) == 1)
-                                worksheet.Cells[i + 2, 8].Value = "Resistiva";
-                            else if (data.getFPType(0) == 'i')
-                                worksheet.Cells[i + 2, 8].Value = "Indutiva";
-                            else if (data.getFPType(0) == 'c')
-                                worksheet.Cells[i + 2, 8].Value = "Capacitiva";
-                            else if (data.getFPType(0) == '?')
-                                worksheet.Cells[i + 2, 8].Value = "Inválido";
+                            // Adiciona os valores comuns
+                            worksheet.Cells[i + 3, 1].Value = data.getTempo();
+                            worksheet.Cells[i + 3, 2].Value = Math.Round(data.getRPM(), 2);
+                            worksheet.Cells[i + 3, 3].Value = Math.Round(data.getFrequency(), 2);
+
+                            for (int index = 0; index < 4; index++)
+                            {
+                                worksheet.Cells[i + 3, index * 5 + 4].Value = Math.Round(data.getVa(index), p);
+                                worksheet.Cells[i + 3, index * 5 + 5].Value = Math.Round(data.getIa(index), p);
+                                worksheet.Cells[i + 3, index * 5 + 6].Value = Math.Round(data.getEa(index), p);
+                                worksheet.Cells[i + 3, index * 5 + 7].Value = Math.Round(data.getFP(index), p);
+
+                                if (data.getFP(index) == 1)
+                                    worksheet.Cells[i + 3, index * 5 + 8].Value = "Resistiva";
+                                else if (data.getFPType(index) == 'i')
+                                    worksheet.Cells[i + 3, index * 5 + 8].Value = "Indutiva";
+                                else if (data.getFPType(index) == 'c')
+                                    worksheet.Cells[i + 3, index * 5 + 8].Value = "Capacitiva";
+                                else if (data.getFPType(index) == '?')
+                                    worksheet.Cells[i + 3, index * 5 + 8].Value = "Inválido";
+                            }
 
                             i++;
                         }
@@ -302,6 +327,11 @@ namespace CEESP
             this.main.getGraficos().getFasorial().drawLines();
 
             this.main.saveCache();
+        }
+
+        private void Phase_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            atualizaDados();
         }
     }
 }

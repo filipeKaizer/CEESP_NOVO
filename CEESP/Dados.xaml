@@ -142,5 +142,11 @@
                 <ImageBrush ImageSource="/icons/add.png"/>
             </Button.Background>
         </Button>
+        <ComboBox x:Name="Phase" Width="176" Height="30" BorderBrush="{x:Null}" OpacityMask="#19000000" Background="#191E1E1E" Foreground="Black" Cursor="Hand" ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="0,0,726,605" VerticalAlignment="Bottom" SelectionChanged="Phase_SelectionChanged" HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14" SelectedIndex="0">
+            <ComboBoxItem Content="Media"/>
+            <ComboBoxItem Cursor="Hand" Content="Fase A"/>
+            <ComboBoxItem Content="Fase B"/>
+            <ComboBoxItem Cursor="Hand" Content="Fase C"/>
+        </ComboBox>
     </Grid>
 </Page>

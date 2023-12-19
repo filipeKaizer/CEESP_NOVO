@@ -144,7 +144,7 @@ namespace CEESP
                 zoom = (this.Width - (2 * ListData1.configData.getCenterX())) / X;
             this.zoomScale = (float)zoom;
 
-            Slider.Value = zoom;
+            Slider.Value = (zoom != null) ? zoom : 1;
             LabelZoom.Content = Math.Round(this.zoomScale, 1) + "x";
         }
 
@@ -216,7 +216,6 @@ namespace CEESP
         {
             if (!isModuleOption)
             {
-                Phase.IsEnabled = false;
                 refresh.Visibility = Visibility.Collapsed;
                 CBTimes.Visibility = Visibility.Collapsed;
                 Itens.Visibility = Visibility.Visible;

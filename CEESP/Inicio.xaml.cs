@@ -232,8 +232,6 @@ namespace CEESP
             this.main.SetPage(1, false);
         }
 
-
-
         private void LPorts_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             TBBuscar.Text = "Iniciar";

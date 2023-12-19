@@ -150,49 +150,53 @@ namespace CEESP
             {
                 // Obtem tempo e cria nova instancia de dados
                 int tempo = int.TryParse(worksheet.Cells[lin, 1].Value?.ToString(), out int parsedValueTempo) ? parsedValueTempo : 0;
-
                 ColectedData dado = new ColectedData(tempo);
 
-                // Obtem Va
-                dado.setVa(float.TryParse(worksheet.Cells[lin, 2].Value?.ToString(), out float parsedValueVa) ? parsedValueVa : 0.0f, 0);
-
-                // Obtem Ia
-                dado.setIa(float.TryParse(worksheet.Cells[lin, 3].Value?.ToString(), out float parsedValueIa) ? parsedValueIa : 0.0f, 0);
-
-                // Obtem Ea
-                dado.setEa(float.TryParse(worksheet.Cells[lin, 4].Value?.ToString(), out float parsedValueEa) ? parsedValueEa : 0.0f, 0);
-                
-                // Obtem FP
-                dado.setFP(float.TryParse(worksheet.Cells[lin, 5].Value?.ToString(), out float parsedValueFP) ? parsedValueFP : 0.0f, 0);
-
                 // Obtem RPM
-                dado.setRPM(float.TryParse(worksheet.Cells[lin, 6].Value?.ToString(), out float parsedValueRPM) ? parsedValueRPM : 0.0f);
+                dado.setRPM(float.TryParse(worksheet.Cells[lin, 2].Value?.ToString(), out float parsedValueRPM) ? parsedValueRPM : 0.0f);
 
                 // Obtem a frequencia
-                dado.setFrequency(float.TryParse(worksheet.Cells[lin, 7].Value?.ToString(), out float parsedValueF) ? parsedValueF : 0.0f);
+                dado.setFrequency(float.TryParse(worksheet.Cells[lin, 3].Value?.ToString(), out float parsedValueF) ? parsedValueF : 0.0f);
 
-                // Obtem e classifica o FP
-                string tipo = worksheet.Cells[lin, 8].Value.ToString();
-                char type = '?';
-
-                if (tipo == "Resistiva")
+                for (int i = 0; i < 4; i++)
                 {
-                    type = 'r';
-                    this.numResistivo++;
+                    // Obtem Va
+                    dado.setVa(float.TryParse(worksheet.Cells[lin, i * 5 + 4].Value?.ToString(), out float parsedValueVa) ? parsedValueVa : 0.0f, i);
+
+                    // Obtem Ia
+                    dado.setIa(float.TryParse(worksheet.Cells[lin, i * 5 + 5].Value?.ToString(), out float parsedValueIa) ? parsedValueIa : 0.0f, i);
+
+                    // Obtem Ea
+                    dado.setEa(float.TryParse(worksheet.Cells[lin, i * 5 + 6].Value?.ToString(), out float parsedValueEa) ? parsedValueEa : 0.0f, i);
+
+                    // Obtem FP
+                    dado.setFP(float.TryParse(worksheet.Cells[lin, i * 5 + 7].Value?.ToString(), out float parsedValueFP) ? parsedValueFP : 0.0f, i);
+
+                    
+                    // Obtem e classifica o FP
+                    string tipo = worksheet.Cells[lin, i * 5 + 8].Value.ToString();
+                    char type = '?';
+
+                    if (tipo == "Resistiva")
+                    {
+                        type = 'r';
+                        this.numResistivo++;
+                    }
+                    else if (tipo == "Indutiva")
+                    {
+                        type = 'i';
+                        this.numIndutivo++;
+                    }
+                    else if (tipo == "Capacitiva")
+                    {
+                        type = 'c';
+                        this.numCapacitivo++;
+                    }
+                    else
+                        type = '?';
+
+                    dado.setFPType(type, i);
                 }
-                else if (tipo == "Indutiva")
-                {
-                    type = 'i';
-                    this.numIndutivo++;
-                } else if (tipo == "Capacitiva")
-                {
-                    type = 'c';
-                    this.numCapacitivo++;
-                } else
-                    type = '?';
-
-                dado.setFPType(type, 0);
-
                 // Adiciona
                 this.dados.Add(dado);
             }
