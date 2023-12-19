@@ -100,7 +100,6 @@ namespace CEESP
             }
             else
             {
-                TBSelecioneUmaPorta.Text = "Informe o valor de Xs";
                 if (Xs.Value != 0 && Xs.Value.HasValue)
                 {
                     verbose.Visibility = Visibility.Hidden;
@@ -245,6 +244,7 @@ namespace CEESP
             LPorts.Visibility = Visibility.Hidden;
             portSelected = true;
             main.getSerial().setPort(LPorts.SelectedItem.ToString());
+            TBSelecioneUmaPorta.Text = "Informe o valor de Xs";
         }
     }
 }

@@ -114,7 +114,15 @@
         <TextBlock HorizontalAlignment="Left" Margin="956,345,0,0" TextWrapping="Wrap" Text="Freq:" VerticalAlignment="Top" FontSize="25" Foreground="#CCB0ABA0" FontFamily="Segoe UI Black"/>
         <TextBlock HorizontalAlignment="Left" Margin="989,433,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="25" Foreground="#CCB0ABA0" FontFamily="Segoe UI Black" Text="Φ:"/>
 
-        <mah:NumericUpDown x:Name="TBIa" HorizontalAlignment="Left" Margin="1046,156,0,0" VerticalAlignment="Top" Width="158" Foreground="#CCABABAB" IsEnabled="False" Speedup="False" TextAlignment="Center"/>
+        <mah:NumericUpDown x:Name="TBIa" HorizontalAlignment="Left" Margin="1046,156,0,0" VerticalAlignment="Top" Width="158" Foreground="#CCABABAB" IsEnabled="False" Speedup="False" TextAlignment="Center">
+            <mah:NumericUpDown.Resources>
+                <Style TargetType="RepeatButton" BasedOn="{StaticResource {x:Type RepeatButton}}">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Foreground" Value="Transparent" />
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                </Style>
+            </mah:NumericUpDown.Resources>
+        </mah:NumericUpDown>
         <mah:NumericUpDown x:Name="TBVa" HorizontalAlignment="Left" Margin="1046,204,0,0" VerticalAlignment="Top" Width="158" Foreground="#CCB7B7B7" IsEnabled="False" TextAlignment="Center" Interval="20" Maximum="14000"/>
         <mah:NumericUpDown x:Name="TBFP" HorizontalAlignment="Left" Margin="1046,251,0,0" VerticalAlignment="Top" Width="158" Foreground="#CCB7B7B7" IsEnabled="False" TextAlignment="Center" Interval="0.05"/>
         <mah:NumericUpDown x:Name="TBRPM" HorizontalAlignment="Left" Margin="1046,299,0,0" VerticalAlignment="Top" Width="158" Foreground="#CCB7B7B7" IsEnabled="False" TextAlignment="Center" Interval="200" />
@@ -132,16 +140,6 @@
             </Button.OpacityMask>
             <Button.Background>
                 <ImageBrush ImageSource="/icons/add.png"/>
-            </Button.Background>
-        </Button>
-        <Rectangle HorizontalAlignment="Left" Height="40" Margin="1046,397,0,0" VerticalAlignment="Top" Width="180" RadiusX="20" RadiusY="20" Fill="#3F000000" Stroke="#05002173"/>
-        <Rectangle HorizontalAlignment="Left" Height="30" Margin="1086,402,0,0" VerticalAlignment="Top" Width="100" RadiusX="15" RadiusY="15" Fill="#19888888"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="1055,407,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="20" Height="20">
-            <Button.OpacityMask>
-                <ImageBrush ImageSource="/icons/plus.png"/>
-            </Button.OpacityMask>
-            <Button.Background>
-                <ImageBrush ImageSource="/icons/plus.png"/>
             </Button.Background>
         </Button>
     </Grid>

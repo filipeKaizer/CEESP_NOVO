@@ -91,6 +91,7 @@ namespace CEESP
 
             double FPv = valores.getFP(index);
             double angle = Math.Acos(FPv) * 180 / Math.PI;
+
             // Atuliza tabela de valores
             VaValue.Content = "Va: " + Math.Round(valores.getVa(index), ListData1.configData.getDecimals()).ToString() + "V";
             IaValue.Content = "Ia: " + Math.Round(valores.getIa(index), ListData1.configData.getDecimals()).ToString() + "∠" + Math.Round(angle, 1) + "º A";
