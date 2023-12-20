@@ -68,6 +68,9 @@ namespace CEESP
                         TextNItens.Text = "Itens: " + ListData1.colectedData.Count;
                     }
                 }
+
+                // Autoscroll
+                ListData.ScrollIntoView(ListData.Items[ListData.Items.Count - 1]);
             }
         }
 

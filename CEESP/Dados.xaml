@@ -26,7 +26,7 @@
     </Page.Resources>
 
     <Grid Width="1280" Height="720" HorizontalAlignment="Left" VerticalAlignment="Top">
-        <ListView x:Name="ListData" d:ItemsSource="{d:SampleData ItemCount=5}" Width="760" Height="450" Margin="86,120,0,0" Background="#3F0C0B0B" HorizontalAlignment="Left" VerticalAlignment="Top" SelectionChanged="ListData_SelectionChanged" Foreground="White" VerticalContentAlignment="Top" HorizontalContentAlignment="Center">
+        <ListView x:Name="ListData" d:ItemsSource="{d:SampleData ItemCount=5}" Width="760" Height="450" Margin="86,120,0,0" Background="#3F0C0B0B" HorizontalAlignment="Left" VerticalAlignment="Top" SelectionChanged="ListData_SelectionChanged" Foreground="White" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <ListView.BorderBrush>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#990A007F"/>

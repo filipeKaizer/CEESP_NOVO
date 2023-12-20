@@ -63,7 +63,7 @@ namespace CEESP
             else 
                 AutosizeButton.Content = "M";
 
-            InitializeTime(30, 6);
+            InitializeTime(30, 3);
             Phase.SelectedIndex = 0;
 
             saveMode.Content = "Autosave";
@@ -125,6 +125,8 @@ namespace CEESP
             {
                 times.Add(i + "s");
             }
+
+            times.Add(2 + "s");
 
             CBTimes.ItemsSource = times;
         }
@@ -248,7 +250,7 @@ namespace CEESP
             if (this.index < ListData1.colectedData.Count - 1)
             {
                 this.index++;
-                ItemText.Text = "Item: " + (index + 1).ToString();
+                ItemText.Text = "Item: " + (index + 1).ToString() + "/" + ListData1.colectedData.Count.ToString();
 
                 this.setDado(ListData1.colectedData[this.index]);
                 drawLines();
@@ -260,7 +262,7 @@ namespace CEESP
             if (this.index - 1 != -1)
             {
                 this.index--;
-                ItemText.Text = "Item: " + (index + 1).ToString();
+                ItemText.Text = "Item: " + (index + 1).ToString() + "/" + ListData1.colectedData.Count.ToString();
 
                 this.setDado(ListData1.colectedData[this.index]);
                 drawLines();
@@ -303,6 +305,7 @@ namespace CEESP
         public void setDado(ColectedData dado)
         {
             this.dado = dado;
+           
         }
 
         public void clearGraph()

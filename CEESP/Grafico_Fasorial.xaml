@@ -151,7 +151,7 @@
         </ComboBox>
         <Grid x:Name="Itens" Width="130" Height="30" Margin="30,262,0,20" HorizontalAlignment="Left" VerticalAlignment="Bottom" Visibility="Collapsed" Grid.Row="1">
             <Rectangle HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="130" Fill="#3F000000" RadiusX="5" RadiusY="5"/>
-            <Button x:Name="plusItem" Content="Button" HorizontalAlignment="Left" Margin="100,0,0,0" VerticalAlignment="Center" Width="20" Height="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="plusItem_Click">
+            <Button x:Name="plusItem" Content="Button" HorizontalAlignment="Left" Margin="100,0,0,0" VerticalAlignment="Center" Width="20" Height="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="plusItem_Click" Cursor="Hand">
                 <Button.OpacityMask>
                     <ImageBrush ImageSource="/icons/plus.png"/>
                 </Button.OpacityMask>
@@ -159,7 +159,7 @@
                     <ImageBrush ImageSource="/icons/plus.png"/>
                 </Button.Background>
             </Button>
-            <Button x:Name="minusItem" Content="Button" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Width="20" Height="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="minusItem_Click">
+            <Button x:Name="minusItem" Content="Button" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Width="20" Height="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="minusItem_Click" Cursor="Hand">
                 <Button.OpacityMask>
                     <ImageBrush ImageSource="/icons/typcn_minus.png"/>
                 </Button.OpacityMask>

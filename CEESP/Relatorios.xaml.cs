@@ -140,7 +140,7 @@ namespace CEESP
                 float Ia = (float)Math.Round(dado.getIa(0), 0);
                 float FP = (float)Math.Round(dado.getFP(0), 2);
 
-                TBCargaSelecionada.Text = "Amostra " + (this.index + 1).ToString() +
+                TBCargaSelecionada.Text = "Amostra " + (this.index + 1).ToString() + "/" + dadosSelecionados.Count.ToString() +
                                           " (Va: " + Va.ToString() + "V, Ia: " 
                                           + Ia.ToString() + "A, FP: " + FP.ToString() + ")";
                 valorSelecionado = dado;
