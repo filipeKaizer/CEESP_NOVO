@@ -3,6 +3,7 @@ using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq.Expressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -17,6 +18,14 @@ namespace CEESP
         private MainWindow main;
         private Brush defaultColor;
 
+        private float IaValue;
+        private float VaValue;
+        private float FPValue;
+        private float RPMValue;
+        private float FValue;
+        private char Type;
+
+
         bool edit = true;
         public Dados(MainWindow main)
         {
@@ -25,6 +34,7 @@ namespace CEESP
 
             this.defaultColor = BorderButton.Background;
 
+            this.Type = '?';
             changeVisibility();
         }
 
@@ -71,11 +81,14 @@ namespace CEESP
                     int index = Phase.SelectedIndex;
 
                     float fp = ListData1.colectedData[ListData.SelectedIndex].getFP(index);
-                    TBIa.Value = Math.Round(ListData1.colectedData[ListData.SelectedIndex].getIa(index), p);
-                    TBVa.Value = Math.Round(ListData1.colectedData[ListData.SelectedIndex].getVa(index), p);
-                    TBFP.Value = Math.Round(fp, p);
-                    TBRPM.Value = Math.Round(ListData1.colectedData[ListData.SelectedIndex].getRPM(), p);
-                    TBF.Value = Math.Round(ListData1.colectedData[ListData.SelectedIndex].getFrequency(), p);
+                    IaValue = (float)Math.Round(ListData1.colectedData[ListData.SelectedIndex].getIa(index), p);
+                    VaValue = (float)Math.Round(ListData1.colectedData[ListData.SelectedIndex].getVa(index), p);
+                    FPValue = (float)Math.Round(fp, p);
+                    RPMValue = (float)Math.Round(ListData1.colectedData[ListData.SelectedIndex].getRPM(), p);
+                    FValue = (float)Math.Round(ListData1.colectedData[ListData.SelectedIndex].getFrequency(), p);
+                    Type = ListData1.colectedData[ListData.SelectedIndex].getFPType(index);
+
+                    this.refreshValores();
 
                     try
                     {
@@ -96,7 +109,7 @@ namespace CEESP
 
         private void btEdit_Click(object sender, RoutedEventArgs e)
         {
-            if (ListData.SelectedIndex != -1)
+            if (ListData.SelectedIndex != -1 && ListData1.colectedData.Count > 0)
                 changeVisibility();
         }
 
@@ -120,11 +133,11 @@ namespace CEESP
 
         private void LegendaDefault()
         {
-            TBIa.Value = 0;
-            TBVa.Value = 0;
-            TBFP.Value = 0;
-            TBRPM.Value = 0;
-            TBF.Value = 0;
+            TBIa.Text = "0";
+            TBVa.Text = "0";
+            TBFP.Text = "0";
+            TBRPM.Text = "0";
+            TBF.Text = "0";
             TBAngle.Text = "0º";
         }
 
@@ -137,11 +150,12 @@ namespace CEESP
                 {
                     int index = Phase.SelectedIndex;
 
-                    ListData1.colectedData[ListData.SelectedIndex].setIa((float)TBIa.Value, index);
-                    ListData1.colectedData[ListData.SelectedIndex].setVa((float)TBVa.Value, index);
-                    ListData1.colectedData[ListData.SelectedIndex].setFP((float)TBFP.Value, index);
-                    ListData1.colectedData[ListData.SelectedIndex].setRPM((float)TBRPM.Value);
-                    ListData1.colectedData[ListData.SelectedIndex].setFrequency((float)TBF.Value);
+                    ListData1.colectedData[ListData.SelectedIndex].setIa((float)IaValue, index);
+                    ListData1.colectedData[ListData.SelectedIndex].setVa((float)VaValue, index);
+                    ListData1.colectedData[ListData.SelectedIndex].setFP((float)FPValue, index);
+                    ListData1.colectedData[ListData.SelectedIndex].setRPM((float)RPMValue);
+                    ListData1.colectedData[ListData.SelectedIndex].setFrequency((float)FValue);
+                    ListData1.colectedData[ListData.SelectedIndex].setFPType(Type, index);
 
                     atualizaDados();
                     this.main.getGraficos().getFasorial().drawLines();
@@ -332,9 +346,15 @@ namespace CEESP
 
         private void btSaveAfterEdit_Click(object sender, RoutedEventArgs e)
         {
-            this.main.getGraficos().getFasorial().setDado(ListData1.colectedData[ListData1.colectedData.Count - 1]);
-            this.main.getGraficos().getFasorial().drawLines();
-            atualizaBaseDeDados();
+            try
+            {
+                this.main.getGraficos().getFasorial().setDado(ListData1.colectedData[ListData1.colectedData.Count - 1]);
+                this.main.getGraficos().getFasorial().drawLines();
+                atualizaBaseDeDados();
+            } catch
+            {
+
+            }
         }
 
         private void Buscar_MouseEnter(object sender, RoutedEventArgs e)
@@ -353,9 +373,8 @@ namespace CEESP
             SalvarArquivo();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Add_Click(object sender, RoutedEventArgs e)
         {
-            // Temporário, remover na versão final
             int tempo = 0;
             if (ListData1.colectedData.Count > 0)
             {
@@ -380,9 +399,129 @@ namespace CEESP
             this.main.saveCache();
         }
 
+        private void refreshValores()
+        {
+            TBIa.Text = Math.Round(IaValue, 1).ToString() + "A";
+            TBVa.Text = Math.Round(VaValue, 1).ToString() + "V";
+            TBFP.Text = Math.Round(FPValue, 2).ToString();
+            TBRPM.Text = Math.Round(RPMValue, 0).ToString();
+            TBF.Text = Math.Round(FValue, 0).ToString() + "Hz";
+
+            if (Type == 'r')
+                TBType.Text = "Resistivo";
+            else
+                TBType.Text = (Type == 'i') ? "Indutivo" : "Capacitivo";
+        }
+
         private void Phase_SelectionChanged(object sender, RoutedEventArgs e)
         {
             atualizaDados();
         }
+
+        private void minusIa_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.IaValue > 0)
+            {
+                this.IaValue--;
+                refreshValores();
+            }
+        }
+
+        private void plusIa_Click(object sender, RoutedEventArgs e)
+        {
+           if (this.IaValue < 300)
+            {
+                this.IaValue++;
+                refreshValores();
+            }
+        }
+
+        private void minusVa_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.VaValue - 20 > 0)
+            {
+                this.VaValue -= 20;
+                refreshValores();
+            }
+        }
+
+        private void plusVa_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.VaValue + 20 < 6000)
+            {
+                this.VaValue += 20;
+                refreshValores();
+            }
+        }
+
+        private void minusFP_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.FPValue > 0)
+            {
+                this.FPValue -= 0.05f;
+                refreshValores();
+            }
+        }
+
+        private void plusFP_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.FPValue + 0.05f <= 1)
+            {
+                this.FPValue += 0.05f;
+                refreshValores();
+            }
+        }
+
+        private void minusRPM_Click(object sender, RoutedEventArgs e)
+        {
+            if(this.RPMValue - 200 > 0)
+            {
+                this.RPMValue -= 200;
+                refreshValores();
+            } 
+        }
+
+        private void plusRPM_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.RPMValue < 10000)
+            {
+                this.RPMValue += 200;
+                refreshValores();
+            }
+        }
+
+
+        private void minusF_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.FValue - 20 > 0)
+            {
+                this.FValue -= 20;
+                refreshValores();
+            }
+        }
+
+        private void plusF_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.FValue < 360)
+            {
+                this.FValue += 20;
+                refreshValores();
+            }
+        }
+
+        private void minusType_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.Type == 'r')
+            {
+                this.Type = 'i';
+            }
+            else
+            {
+                this.Type = (this.Type == 'i') ? 'c' : 'r';
+            }
+            refreshValores();
+        }
+
+
     }
 }
