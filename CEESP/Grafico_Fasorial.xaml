@@ -22,6 +22,86 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Storyboard x:Key="show_salvar">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="GridSalvar" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <SineEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.4000000" Value="-99">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <SineEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="GridSalvar" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="00:00:00.4000000" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="GridSalvar" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0.1"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.4000000" Value="0.999999775"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="GridSalvar" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.4000000" Value="3"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="hide_salvar">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="GridSalvar" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="-80">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <SineEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.4000000" Value="20">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <SineEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="GridSalvar" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="-1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <SineEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.4000000" Value="3">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <SineEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="GridSalvar" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.4000000" Value="0.1"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="show_information">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="information" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.6000000" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="00:00:02" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="00:00:02.6000000" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
     </Page.Resources>
 
     <Grid x:Name="Grid" Width="1280" Height="704" HorizontalAlignment="Left" VerticalAlignment="Top">
@@ -89,11 +169,32 @@
             </Button>
             <TextBox x:Name="ItemText" BorderBrush="Transparent" Background="Transparent" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Item: 1" VerticalAlignment="Center" Width="60" SelectionTextBrush="{x:Null}" Foreground="#FFAFAFAF" TextAlignment="Center" SelectionBrush="#330078D7" IsEnabled="False"/>
         </Grid>
-        <Grid x:Name="SaveMode" Height="60" Width="130" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="52,0,0,20" Grid.Row="1">
-            <Rectangle x:Name="rtSalvar" Width="70" Height="30" Fill="#3F0FBF00" RadiusX="5" RadiusY="5" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,-1,0,0"/>
-            <Rectangle x:Name="rtSaveMode" Width="130" Height="30" HorizontalAlignment="Center" VerticalAlignment="Top" Fill="#3F000000" RadiusX="5" RadiusY="5" Margin="0,30,0,0"/>
-            <Button x:Name="saveMode" Style="{StaticResource NoMouseOverButtonStyle}" Content="Salvamento Automatico" HorizontalAlignment="Center" Margin="0,31,0,0" VerticalAlignment="Top" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFAFAFAF" VerticalContentAlignment="Center" Width="130" Cursor="Hand" Click="SaveMode_Click"/>
-            <Button x:Name="Salvar" Style="{StaticResource NoMouseOverButtonStyle}" Content="Salvar" HorizontalAlignment="Left" Margin="30,0,0,0" VerticalAlignment="Top" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFAFAFAF" VerticalContentAlignment="Center" Width="70" Cursor="Hand" Click="Salvar_Click"/>
+        <Grid x:Name="SaveMode" Height="80" Width="130" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="52,0,0,20" Grid.Row="1">
+            <Grid x:Name="GridSalvar" Margin="27,106,33,-56" Width="70" Height="30" RenderTransformOrigin="0.5,0.5">
+                <Grid.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Grid.RenderTransform>
+                <Rectangle x:Name="rtSalvar" Width="70" Height="30" Fill="#3F11D800" RadiusX="5" RadiusY="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button x:Name="Salvar" Style="{StaticResource NoMouseOverButtonStyle}" Content="Salvar" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFAFAFAF" VerticalContentAlignment="Center" Width="70" Cursor="Hand" Click="Salvar_Click"/>
+            </Grid>
+            <Rectangle x:Name="rtSaveMode" Width="130" Height="30" HorizontalAlignment="Center" VerticalAlignment="Bottom" Fill="#3F000000" RadiusX="5" RadiusY="5" Margin="0,50,0,0"/>
+            <Button x:Name="saveMode" Style="{StaticResource NoMouseOverButtonStyle}" Content="Salvamento Automatico" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Bottom" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFAFAFAF" VerticalContentAlignment="Center" Width="130" Cursor="Hand" Click="SaveMode_Click"/>
+        </Grid>
+        <Grid x:Name="information" Width="50" Height="20" Opacity="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,336,0,0">
+            <Rectangle x:Name="rtInformation" HorizontalAlignment="Center" Height="20" VerticalAlignment="Center" Width="50" Fill="#66FFFF00" RadiusX="5" RadiusY="5" Cursor=""/>
+            <TextBlock x:Name="TBInformation" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Salvo" VerticalAlignment="Center" Height="16" Width="50" TextAlignment="Center" FontFamily="Bookman Old Style">
+                <TextBlock.Foreground>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="White"/>
+                        <GradientStop Color="White" Offset="1"/>
+                    </LinearGradientBrush>
+                </TextBlock.Foreground>
+            </TextBlock>
         </Grid>
 
 

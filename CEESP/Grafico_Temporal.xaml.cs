@@ -102,8 +102,11 @@ namespace CEESP
 
             foreach (ColectedData i in ListData1.colectedData)
             {
-                if (i.getVa(0) != 0)
-                    data.Add(i);
+                if (i != null)
+                {
+                    if (i.getVa(0) != 0)
+                        data.Add(i);
+                }
             }
 
             for (int i = 0; i < data.Count; i++)

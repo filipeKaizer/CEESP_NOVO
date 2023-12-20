@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+
 
 namespace CEESP
 {
@@ -15,13 +17,21 @@ namespace CEESP
 
         private List<String> times;
         private plot plot;
-        private List<Line> oldLines;
-        private bool autosizeEnable = true;
+        private List<Line> oldLines;      
+        private ColectedData dado;
+
+        private Storyboard show_salvar;
+        private Storyboard hide_salvar;
+        private Storyboard show_information;
+
         private float zoomScale = 1;
+
+        private bool autosizeEnable = true;
         private bool spliterEnable = true;
         private bool deleteLastDado = false;
+
         private int index;
-        private ColectedData dado;
+
 
         public Grafico_Fasorial(MainWindow main)
         {
@@ -44,6 +54,10 @@ namespace CEESP
 
             this.times = new List<String>();
 
+            this.show_salvar = (Storyboard)FindResource("show_salvar");
+            this.hide_salvar = (Storyboard)FindResource("hide_salvar");
+            this.show_information = (Storyboard)FindResource("show_information");
+
             if (autosizeEnable)
                 AutosizeButton.Content = "A";
             else 
@@ -52,8 +66,6 @@ namespace CEESP
             InitializeTime(30, 6);
             Phase.SelectedIndex = 0;
 
-            Salvar.Visibility = Visibility.Hidden;
-            rtSalvar.Visibility = Visibility.Hidden;
             saveMode.Content = "Autosave";
 
             this.index = 0;
@@ -126,6 +138,8 @@ namespace CEESP
                 Graph.Children.Add(i);
             }
             oldLines = objects;
+
+            this.main.getDados().atualizaDados();
 
             this.spliterEnable = true;
         }
@@ -281,22 +295,35 @@ namespace CEESP
 
         private void Salvar_Click(object sender, RoutedEventArgs e)
         {
+            if (ListData1.colectedData.Count == 0)
+            {
+                TBInformation.Text = "Erro";
+            } else
+            {
+                TBInformation.Text = "Salvo";
+            }
+
+            this.show_information.Stop();
+            this.show_information.Begin();
+
             ListData1.colectedData.Add(this.dado);
+            this.main.getDados().atualizaDados();
+            this.main.getGraficos().getTemporal().atualizaGraph();
         }
 
         private void SaveMode_Click(object sender, RoutedEventArgs e)
         {
            if (saveMode.Content.ToString() == "Autosave")
            {
-                Salvar.Visibility = Visibility.Visible;
-                rtSalvar.Visibility = Visibility.Visible;
+                this.hide_salvar.Stop();
+                this.show_salvar.Begin();
                 saveMode.Content = "Manual";
                 this.deleteLastDado = false;
            } else
             {
+                this.show_salvar.Stop();
+                this.hide_salvar.Begin();
                 saveMode.Content = "Autosave";
-                Salvar.Visibility = Visibility.Hidden;
-                rtSalvar.Visibility = Visibility.Hidden;
                 this.deleteLastDado = true;
             }
         }

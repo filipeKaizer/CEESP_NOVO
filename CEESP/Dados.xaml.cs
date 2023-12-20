@@ -36,24 +36,29 @@ namespace CEESP
 
             ListData.Items.Clear();
 
-
-            foreach (ColectedData i in ListData1.colectedData)
+            if (ListData1.colectedData.Count > 0)
             {
-                item = new ListViewItem();
-                item.Content = new
+                foreach (ColectedData i in ListData1.colectedData)
                 {
-                    Tempo = i.getTempo() + "s",
-                    Va = Math.Round(i.getVa(index), 2),
-                    Ia = Math.Round(i.getIa(index), 2),
-                    Ea = Math.Round(i.getEa(index), 2),
-                    FP = Math.Round(i.getFP(index), 2).ToString(),
-                    RPM = Math.Round(i.getRPM(), 2),
-                    F = Math.Round(i.getFrequency(), 2),
-                    Tipo = (i.getFP(index) == 1) ? "Resisitivo" : ((i.getFPType(index) == 'i') ? "Indutivo" : "Capacitivo")
-                };
+                    if (i != null)
+                    {
+                        item = new ListViewItem();
+                        item.Content = new
+                        {
+                            Tempo = i.getTempo() + "s",
+                            Va = Math.Round(i.getVa(index), 2),
+                            Ia = Math.Round(i.getIa(index), 2),
+                            Ea = Math.Round(i.getEa(index), 2),
+                            FP = Math.Round(i.getFP(index), 2).ToString(),
+                            RPM = Math.Round(i.getRPM(), 2),
+                            F = Math.Round(i.getFrequency(), 2),
+                            Tipo = (i.getFP(index) == 1) ? "Resisitivo" : ((i.getFPType(index) == 'i') ? "Indutivo" : "Capacitivo")
+                        };
 
-                ListData.Items.Add(item);
-                TextNItens.Text = "Itens: " + ListData1.colectedData.Count;
+                        ListData.Items.Add(item);
+                        TextNItens.Text = "Itens: " + ListData1.colectedData.Count;
+                    }
+                }
             }
         }
 
@@ -61,25 +66,31 @@ namespace CEESP
         {
             if (ListData.SelectedIndex != -1)
             {
-                int p = ListData1.configData.getDecimals();
-                int index = Phase.SelectedIndex;
-
-                float fp = ListData1.colectedData[ListData.SelectedIndex].getFP(index);
-                TBIa.Value = Math.Round(ListData1.colectedData[ListData.SelectedIndex].getIa(index), p);
-                TBVa.Value = Math.Round(ListData1.colectedData[ListData.SelectedIndex].getVa(index), p);
-                TBFP.Value = Math.Round(fp, p);
-                TBRPM.Value = Math.Round(ListData1.colectedData[ListData.SelectedIndex].getRPM(), p);
-                TBF.Value = Math.Round(ListData1.colectedData[ListData.SelectedIndex].getFrequency(), p);
-
                 try
                 {
-                    TBAngle.Value = fp <= 0
-                        ? (double?)90
-                        : fp >= 1 ? (double?)0 : Math.Round((float)(Math.Acos((float)fp) * 180) / Math.PI, ListData1.configData.getDecimals());
-                }
-                catch
+                    int p = ListData1.configData.getDecimals();
+                    int index = Phase.SelectedIndex;
+
+                    float fp = ListData1.colectedData[ListData.SelectedIndex].getFP(index);
+                    TBIa.Value = Math.Round(ListData1.colectedData[ListData.SelectedIndex].getIa(index), p);
+                    TBVa.Value = Math.Round(ListData1.colectedData[ListData.SelectedIndex].getVa(index), p);
+                    TBFP.Value = Math.Round(fp, p);
+                    TBRPM.Value = Math.Round(ListData1.colectedData[ListData.SelectedIndex].getRPM(), p);
+                    TBF.Value = Math.Round(ListData1.colectedData[ListData.SelectedIndex].getFrequency(), p);
+
+                    try
+                    {
+                        TBAngle.Value = fp <= 0
+                            ? (double?)90
+                            : fp >= 1 ? (double?)0 : Math.Round((float)(Math.Acos((float)fp) * 180) / Math.PI, ListData1.configData.getDecimals());
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Falha no calculo de fp.");
+                    }
+                } catch (Exception erro)
                 {
-                    MessageBox.Show("Falha no calculo de fp.");
+                    MessageBox.Show("Erro: " + erro.Message + "\nValor de index: " + ListData.SelectedIndex);
                 }
             }
         }
@@ -338,7 +349,16 @@ namespace CEESP
             // Temporário, remover na versão final
             int tempo = 0;
             if (ListData1.colectedData.Count > 0)
-                tempo = ListData1.colectedData[ListData1.colectedData.Count - 1].getTempo();
+            {
+                try
+                {
+                    tempo = ListData1.colectedData[ListData1.colectedData.Count - 1].getTempo();
+                } catch
+                {
+                    tempo = 0;
+                }
+            }
+
             else if (ListData1.cache.Count > 0)
                 tempo = ListData1.cache[ListData1.cache.Count - 1].getTempo();
 

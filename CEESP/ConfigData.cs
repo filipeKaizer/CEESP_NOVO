@@ -1,5 +1,6 @@
 ﻿using ControlzEx.Standard;
 using System.Windows;
+using System.Windows.Forms;
 
 namespace CEESP
 {
@@ -43,6 +44,8 @@ namespace CEESP
             this.centerX = (float)SystemParameters.WorkArea.Width * (float)0.1;
             this.centerY = (float)SystemParameters.WorkArea.Height / 2;
             this.LarguraLinha = 2;
+
+            // Monitor
             this.HEIGTH = SystemParameters.PrimaryScreenHeight;
             this.WIDTH = SystemParameters.PrimaryScreenWidth;
 
