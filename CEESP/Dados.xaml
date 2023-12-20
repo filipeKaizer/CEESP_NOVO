@@ -127,11 +127,10 @@
         <mah:NumericUpDown x:Name="TBFP" HorizontalAlignment="Left" Margin="1046,251,0,0" VerticalAlignment="Top" Width="158" Foreground="#CCB7B7B7" IsEnabled="False" TextAlignment="Center" Interval="0.05"/>
         <mah:NumericUpDown x:Name="TBRPM" HorizontalAlignment="Left" Margin="1046,299,0,0" VerticalAlignment="Top" Width="158" Foreground="#CCB7B7B7" IsEnabled="False" TextAlignment="Center" Interval="200" />
         <mah:NumericUpDown x:Name="TBF" HorizontalAlignment="Left" Margin="1046,349,0,0" VerticalAlignment="Top" Width="158" Foreground="#CCB7B7B7" IsEnabled="False" TextAlignment="Center" Interval="20"/>
-        <mah:NumericUpDown x:Name="TBAngle" HorizontalAlignment="Left" Margin="1046,437,0,0" VerticalAlignment="Top" Width="158" Foreground="#CCB7B7B7" IsEnabled="False" TextAlignment="Center"/>
-        
+
         <Button x:Name="btSaveAfterEdit" Style="{StaticResource NoMouseOverButtonStyle}" Width="200" Height="50" Margin="989,503,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="{x:Null}" Click="btSaveAfterEdit_Click" MouseEnter="Buscar_MouseEnter" MouseLeave="Buscar_MouseLeave">
             <Border x:Name="BorderButton" Background="#72D9D9D9" CornerRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock x:Name="TBBuscar" Text="Salvar" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Height="50" FontFamily="Elephant" FontSize="35" TextAlignment="Center" Foreground="#FF171049" Cursor="Hand"/>
+                <TextBlock x:Name="TBBuscar" Text="Salvar" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Height="50" FontFamily="Elephant" FontSize="35" TextAlignment="Center" Foreground="#FF05002B" Cursor="Hand"/>
             </Border>
         </Button>
         <Button Content="Button" HorizontalAlignment="Left" Margin="86,626,0,0" VerticalAlignment="Top" Foreground="{x:Null}" BorderBrush="{x:Null}" Width="40" Height="40" Click="Button_Click">
@@ -142,11 +141,12 @@
                 <ImageBrush ImageSource="/icons/add.png"/>
             </Button.Background>
         </Button>
-        <ComboBox x:Name="Phase" Width="176" Height="30" BorderBrush="{x:Null}" Background="#19FFFFFF" Foreground="Black" Cursor="Hand" ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="0,0,726,605" VerticalAlignment="Bottom" SelectionChanged="Phase_SelectionChanged" HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14" SelectedIndex="0" OpacityMask="#7F6F6F6F">
+        <ComboBox x:Name="Phase" Width="176" Height="30" BorderBrush="{x:Null}" Background="#19FFFFFF" Foreground="Black" Cursor="Hand" ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="0,0,726,605" VerticalAlignment="Bottom" SelectionChanged="Phase_SelectionChanged" HorizontalAlignment="Right" FontSize="20" SelectedIndex="0" OpacityMask="#7F6F6F6F" HorizontalContentAlignment="Center" Padding="0,0,0,0" ScrollViewer.CanContentScroll="True" VerticalContentAlignment="Center">
             <ComboBoxItem Cursor="Hand" Content="Media"/>
             <ComboBoxItem Cursor="Hand" Content="Fase A"/>
             <ComboBoxItem Cursor="Hand" Content="Fase B"/>
             <ComboBoxItem Cursor="Hand" Content="Fase C"/>
         </ComboBox>
+        <TextBlock x:Name="TBAngle" HorizontalAlignment="Left" Margin="1040,443,0,0" TextWrapping="Wrap" Text="0º" VerticalAlignment="Top" Width="95" Foreground="#CCC5C3C1" FontFamily="Segoe UI Black" FontSize="14"/>
     </Grid>
 </Page>

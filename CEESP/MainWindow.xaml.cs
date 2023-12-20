@@ -93,20 +93,6 @@ namespace CEESP
                 change_menu();
         }
 
-        public void selectOperationMode(bool isModularOption)
-        {
-            if (!isModularOption)
-            {
-                ListData1.configData.setModuloAtivo(false);
-                // Fasorial
-                graficos.getFasorial().changeMode(false);
-            } else
-            {
-                ListData1.configData.setModuloAtivo(true);
-                graficos.getFasorial().changeMode(true);
-            }
-        }
-
         private void close_button_Click(object sender, RoutedEventArgs e)
         {
 

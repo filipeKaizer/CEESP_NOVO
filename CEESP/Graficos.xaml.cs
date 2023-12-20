@@ -118,7 +118,7 @@ namespace CEESP
                     grafico_Temporal.atualizaGraph();
 
                     // Atualiza o CBRelatorio
-            }
+                }
             }
 
             setProgressRingStatus(false);

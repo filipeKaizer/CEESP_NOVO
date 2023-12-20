@@ -209,7 +209,7 @@
                     </TransformGroup>
                 </ListBox.RenderTransform>
                 <ListBox.BorderBrush>
-                    <LinearGradientBrush EndPoint="1,1" StartPoint="0,1" SpreadMethod="Pad" MappingMode="Absolute">
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0" SpreadMethod="Pad" MappingMode="RelativeToBoundingBox">
                         <GradientStop Color="#990D4689"/>
                         <GradientStop Color="#996B1379" Offset="1"/>
                     </LinearGradientBrush>

@@ -28,7 +28,6 @@ namespace CEESP
             changeVisibility();
         }
 
-
         public void atualizaDados()
         {
             ListViewItem item;
@@ -80,9 +79,9 @@ namespace CEESP
 
                     try
                     {
-                        TBAngle.Value = fp <= 0
+                        TBAngle.Text = (fp <= 0
                             ? (double?)90
-                            : fp >= 1 ? (double?)0 : Math.Round((float)(Math.Acos((float)fp) * 180) / Math.PI, ListData1.configData.getDecimals());
+                            : fp >= 1 ? (double?)0 : Math.Round((float)(Math.Acos((float)fp) * 180) / Math.PI, ListData1.configData.getDecimals())).ToString() + "º";
                     }
                     catch
                     {
@@ -108,6 +107,14 @@ namespace CEESP
                 ListData1.colectedData.Remove(ListData1.colectedData[ListData.SelectedIndex]);
                 LegendaDefault();
                 atualizaDados();
+
+                if (ListData1.colectedData.Count > 0) {
+                    this.main.getGraficos().getFasorial().setDado(ListData1.colectedData[ListData1.colectedData.Count - 1]);
+                    this.main.getGraficos().getFasorial().drawLines();
+                } else
+                {
+                    this.main.getGraficos().getFasorial().clearGraph();
+                }
             }
         }
 
@@ -118,7 +125,7 @@ namespace CEESP
             TBFP.Value = 0;
             TBRPM.Value = 0;
             TBF.Value = 0;
-            TBAngle.Value = 0;
+            TBAngle.Text = "0º";
         }
 
 

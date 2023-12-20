@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 
 
 namespace CEESP
@@ -72,17 +73,9 @@ namespace CEESP
 
         public void drawLines()
         {
-            /*Remove linhas antigas*/
-            if (oldLines != null)
-            {
-                foreach (Line i in oldLines)
-                {
-                    Graph.Children.Remove(i);
-                }
-            }
+            this.clearGraph();
 
             int index = Phase.SelectedIndex;
-            List<ColectedData> data = ListData1.colectedData;
 
 
             if (autosizeEnable)
@@ -237,8 +230,6 @@ namespace CEESP
                 TimeSelected.Visibility = Visibility.Collapsed;
                 saveMode.Visibility = Visibility.Hidden;
                 rtSaveMode.Visibility = Visibility.Hidden;
-
-                drawLines();
             } else
             {
                 CBTimes.Visibility = Visibility.Visible;
@@ -248,6 +239,8 @@ namespace CEESP
                 rtSaveMode.Visibility = Visibility.Visible;
             }
 
+            ListData1.configData.setModuloAtivo(isModuleOption);
+
         }
 
         private void plusItem_Click(object sender, RoutedEventArgs e)
@@ -256,6 +249,8 @@ namespace CEESP
             {
                 this.index++;
                 ItemText.Text = "Item: " + (index + 1).ToString();
+
+                this.setDado(ListData1.colectedData[this.index]);
                 drawLines();
             }
         }
@@ -266,6 +261,8 @@ namespace CEESP
             {
                 this.index--;
                 ItemText.Text = "Item: " + (index + 1).ToString();
+
+                this.setDado(ListData1.colectedData[this.index]);
                 drawLines();
             }
         }
@@ -306,6 +303,17 @@ namespace CEESP
         public void setDado(ColectedData dado)
         {
             this.dado = dado;
+        }
+
+        public void clearGraph()
+        {
+            if (oldLines != null)
+            {
+                foreach (Line i in oldLines)
+                {
+                    Graph.Children.Remove(i);
+                }
+            }
         }
     }
 }

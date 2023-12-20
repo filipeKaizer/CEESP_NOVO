@@ -117,8 +117,8 @@ namespace CEESP
                     main.getGraficos().AutoRefreshInit();
 
                 this.main.getSerial().actualizeSerialPort();
-                ListData1.configData.setModuloAtivo(true);
-                this.main.selectOperationMode(true);
+
+                this.main.getGraficos().getFasorial().changeMode(true);
 
 
                 main.SetPage(1, false);
@@ -224,12 +224,23 @@ namespace CEESP
         {
             ListData1.configData.setModuloAtivo(false);
             ListData1.colectedData = arquivo.getDados();
-            this.main.getGraficos().atualiza();
 
             if (arquivo != null)
                 ListData1.configData.setXs(arquivo.getXs());
 
-            this.main.selectOperationMode(false);
+            this.main.getGraficos().getFasorial().changeMode(false);
+
+            if (ListData1.colectedData.Count > 0)
+            {
+                this.main.getGraficos().getFasorial().setDado(ListData1.colectedData[ListData1.colectedData.Count - 1]);
+                this.main.getGraficos().getFasorial().drawLines();
+            }
+
+            // Atualiza dados
+            this.main.getDados().atualizaDados();
+
+            // Atualiza grafico temporal
+            this.main.getGraficos().getTemporal().atualizaGraph();
 
             this.main.SetPage(1, false);
         }
@@ -238,12 +249,18 @@ namespace CEESP
         {
             Modulo.Visibility = Visibility.Hidden;
             Arquivo.Visibility = Visibility.Hidden;
-            ArquivoSelecionado.Visibility = Visibility.Hidden;
+            ArquivoSelecionado.Visibility = Visibility.Hidden;        
+            Back.Visibility = Visibility.Hidden;
+            Options.Visibility = Visibility.Visible;
+
             this.XsValue = 5;
             this.main.getSerial().setPort("");
+
+            show_Xs.Stop();
+            show_Ports.Stop();
             hide_options.Stop();
-            Options.Visibility = Visibility.Visible;
-            Back.Visibility = Visibility.Hidden;
+
+
         }
 
         private void LPorts_SelectionChanged(object sender, SelectionChangedEventArgs e)
