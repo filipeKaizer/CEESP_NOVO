@@ -99,30 +99,26 @@ namespace CEESP
 
             setProgressRingStatus(true);
             // Realiza leitura no serialCOM e atualiza o colectedData
-            if (ListData1.configData.getModuloAtivo())
-                ListData1.colectedData.Add(await main.getSerial().readValues());
+            ColectedData novo;
+            if (ListData1.configData.getModuloAtivo()) { 
+               novo = await main.getSerial().readValues();
 
-            if (this.grafico_Fasorial.saveMode.Content.ToString() == "Autosave")
-            {
-                // Atualiza o dataView da classe dados
-                this.main.getDados().atualizaDados();
+                if (novo != null)
+                {
+                    this.grafico_Fasorial.setDado(novo);
+                    this.grafico_Fasorial.drawLines();
+                }
+                if (this.grafico_Fasorial.saveMode.Content.ToString() == "Autosave")
+                {
+                    ListData1.colectedData.Add(novo);
+                    // Atualiza o dataView da classe dados
+                    this.main.getDados().atualizaDados();
 
-                // Atualiza o Graph
-                grafico_Temporal.atualizaGraph();
+                    // Atualiza o Graph
+                    grafico_Temporal.atualizaGraph();
 
-                // Atualiza o CBRelatorio
+                    // Atualiza o CBRelatorio
             }
-
-            if (ListData1.colectedData.Count > 0)
-            {
-                try
-                {
-                    grafico_Fasorial.drawLines();
-                }
-                catch (Exception)
-                {
-                    //MessageBox.Show("Dados inválidos. Verifique se o módulo está conectado e ativo. \n" + error.Message);
-                }
             }
 
             setProgressRingStatus(false);

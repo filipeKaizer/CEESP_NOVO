@@ -13,8 +13,6 @@ namespace CEESP
 
         private float FinalX;
         private float FinalY;
-        private bool indutivo;
-        private float FP;
 
         private SolidColorBrush ActualBrush;
         public plot(float centerXv, float centerYv, float Xs)
@@ -22,6 +20,8 @@ namespace CEESP
             this.centerX = centerXv;
             this.centerY = centerYv;
             this.XSValue = Xs;
+
+            this.ActualBrush = new SolidColorBrush(Color.FromRgb(231, 23, 23));
         }
 
 
@@ -166,21 +166,6 @@ namespace CEESP
             return path;
 
         }
-
-        public Polygon createArrow()
-        {
-
-
-            Polygon arrowHead = new Polygon
-            {
-                Points = new PointCollection { new Point(FinalX, FinalY - 5), new Point(FinalX, FinalY + 5), new Point(FinalX + 10, FinalY) },
-                Fill = ActualBrush
-            };
-
-            return arrowHead;
-
-        }
-
 
         public void setXs(float XsValue)
         {

@@ -325,6 +325,8 @@ namespace CEESP
 
         private void btSaveAfterEdit_Click(object sender, RoutedEventArgs e)
         {
+            this.main.getGraficos().getFasorial().setDado(ListData1.colectedData[ListData1.colectedData.Count - 1]);
+            this.main.getGraficos().getFasorial().drawLines();
             atualizaBaseDeDados();
         }
 
@@ -365,7 +367,7 @@ namespace CEESP
             ListData1.colectedData.Add(new ColectedData(tempo + 1));
 
             this.atualizaDados();
-            this.main.getGraficos().getFasorial().setDeleteLastDado(false);
+            this.main.getGraficos().getFasorial().setDado(ListData1.colectedData[ListData1.colectedData.Count - 1]);
             this.main.getGraficos().getFasorial().drawLines();
 
             this.main.saveCache();

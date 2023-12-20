@@ -28,7 +28,6 @@ namespace CEESP
 
         private bool autosizeEnable = true;
         private bool spliterEnable = true;
-        private bool deleteLastDado = false;
 
         private int index;
 
@@ -85,23 +84,6 @@ namespace CEESP
             int index = Phase.SelectedIndex;
             List<ColectedData> data = ListData1.colectedData;
 
-            if (ListData1.configData.getModuloAtivo())
-            {
-                this.dado = data[data.Count - 1]; //Pega o ultimo dado coletado
-
-                if (saveMode.Content.ToString() != "Autosave")
-                {
-                    // Remove o valor corrente
-                    if (this.deleteLastDado)
-                        ListData1.colectedData.Remove(dado);
-                    this.deleteLastDado = true;
-                }
-
-            }
-            else
-            {
-                this.dado = data[this.index];
-            }
 
             if (autosizeEnable)
                 AutoSizeValue(this.dado, index);
@@ -139,8 +121,6 @@ namespace CEESP
             }
             oldLines = objects;
 
-            this.main.getDados().atualizaDados();
-
             this.spliterEnable = true;
         }
 
@@ -175,7 +155,7 @@ namespace CEESP
                 zoom = (this.Width - (2 * ListData1.configData.getCenterX())) / X;
             this.zoomScale = (float)zoom;
 
-            Slider.Value = (zoom != null) ? zoom : 1;
+            Slider.Value = (zoom != 0) ? zoom : 1;
             LabelZoom.Content = Math.Round(this.zoomScale, 1) + "x";
         }
 
@@ -191,9 +171,8 @@ namespace CEESP
 
                 this.zoomScale = (float)Slider.Value;
                 LabelZoom.Content = Math.Round(Slider.Value, 1) + "x";
-                if (ListData1.colectedData.Count > 0)
+                if (this.dado != null)
                 {
-                    this.deleteLastDado = false;
                     drawLines();
                 }
             }
@@ -231,9 +210,8 @@ namespace CEESP
 
         private void Phase_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ListData1.colectedData.Count != 0)
+            if (this.dado != null)
             {
-                this.deleteLastDado = false;
                 drawLines();
             }
         }
@@ -246,7 +224,7 @@ namespace CEESP
             else
                 AutosizeButton.Content = "M";
 
-            this.deleteLastDado = false;
+            if (this.dado != null)
             drawLines();
         }
 
@@ -260,7 +238,6 @@ namespace CEESP
                 saveMode.Visibility = Visibility.Hidden;
                 rtSaveMode.Visibility = Visibility.Hidden;
 
-                this.deleteLastDado = false;
                 drawLines();
             } else
             {
@@ -318,19 +295,17 @@ namespace CEESP
                 this.hide_salvar.Stop();
                 this.show_salvar.Begin();
                 saveMode.Content = "Manual";
-                this.deleteLastDado = false;
            } else
             {
                 this.show_salvar.Stop();
                 this.hide_salvar.Begin();
                 saveMode.Content = "Autosave";
-                this.deleteLastDado = true;
             }
         }
 
-        public void setDeleteLastDado (bool type)
+        public void setDado(ColectedData dado)
         {
-            this.deleteLastDado = type;
+            this.dado = dado;
         }
     }
 }
