@@ -149,7 +149,7 @@
                     </LinearGradientBrush>
                 </Rectangle.Stroke>
             </Rectangle>
-            <mah:NumericUpDown x:Name="Xs" Width="110" Foreground="#D8D4D4D4" FontSize="15" FontFamily="AcadEref" Cursor="Hand" mah:TextBoxHelper.Watermark="Informe um valor de Xs" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#19FFFFFF">
+            <mah:NumericUpDown x:Name="Xs" Width="110" Foreground="#D8D4D4D4" FontSize="15" FontFamily="AcadEref" Cursor="Hand" mah:TextBoxHelper.Watermark="Informe um valor de Xs" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#19FFFFFF" ToolTip="Ajustar Xs">
                 <mah:NumericUpDown.BorderBrush>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#7F07014A"/>
@@ -181,7 +181,7 @@
             <TextBlock HorizontalAlignment="Left" Margin="76,225,0,0" TextWrapping="Wrap" Text="Faça o monitoramento em tempo real conectando um módulo RLC e defindo um Xs." VerticalAlignment="Top" Height="104" Width="346" FontSize="21" FontFamily="Arial" Foreground="#CCFFFFFF" TextAlignment="Justify"/>
             <Button x:Name="btModulo" MouseEnter="btModulo_MouseEnter" MouseLeave="btModulo_MouseLeave" Style="{StaticResource NoMouseOverButtonStyle}"  Width="250" Height="50" Margin="124,420,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="{x:Null}" Click="btModulo_Click">
                 <Border x:Name="BorderButtonModulo" Background="#72D9D9D9" CornerRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250">
-                    <TextBlock x:Name="TBModulo" Text="Módulo❯" VerticalAlignment="Top" HorizontalAlignment="Center" Width="250" Height="50" FontFamily="Elephant" FontSize="35" TextAlignment="Center" Foreground="#FF171049" Cursor="Hand"/>
+                    <TextBlock x:Name="TBModulo" Text="Módulo❯" VerticalAlignment="Top" HorizontalAlignment="Center" Width="250" Height="50" FontFamily="Elephant" FontSize="35" TextAlignment="Center" Foreground="#FF171049" Cursor="Hand" ToolTip="Usar módulo"/>
                 </Border>
             </Button>
             <Rectangle x:Name="rtArquivo" HorizontalAlignment="Left" Height="450" Margin="544,0,0,0" VerticalAlignment="Center" Width="400" RadiusX="40" RadiusY="40" Fill="#CC2B1998"/>
@@ -189,17 +189,17 @@
             <TextBlock HorizontalAlignment="Left" Margin="571,225,0,0" TextWrapping="Wrap" Text="Visualização e analise de dados das grandezas eletricas de um gerador sincrono de ensaios anteriores. " VerticalAlignment="Top" Height="104" Width="346" FontSize="21" FontFamily="Arial" Foreground="#CCFFFFFF" TextAlignment="Justify"/>
             <Button x:Name="btArquivo" MouseEnter="btArquivo_MouseEnter" MouseLeave="btArquivo_MouseLeave" Style="{StaticResource NoMouseOverButtonStyle}"  Width="250" Height="50" Margin="624,420,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="{x:Null}" Click="btArquivo_Click">
                 <Border x:Name="BorderButtonArquivo" Background="#72D9D9D9" CornerRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250">
-                    <TextBlock x:Name="TBArquivo" Text="Arquivo❯" VerticalAlignment="Top" HorizontalAlignment="Center" Width="250" Height="50" FontFamily="Elephant" FontSize="35" TextAlignment="Center" Foreground="#FF171049" Cursor="Hand"/>
+                    <TextBlock x:Name="TBArquivo" Text="Arquivo❯" VerticalAlignment="Top" HorizontalAlignment="Center" Width="250" Height="50" FontFamily="Elephant" FontSize="35" TextAlignment="Center" Foreground="#FF171049" Cursor="Hand" ToolTip="Usar arquivo"/>
                 </Border>
             </Button>
         </Grid>
         <Grid x:Name="Modulo" Width="800" Margin="240,104,240,12" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden">
-            <Button x:Name="Buscar" Style="{StaticResource NoMouseOverButtonStyle}"  Width="200" Height="50" Margin="0,485,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="{x:Null}" Click="Buscar_ClickAsync" MouseEnter="Buscar_MouseEnter" MouseLeave="Buscar_MouseLeave">
+            <Button x:Name="Buscar" Style="{StaticResource NoMouseOverButtonStyle}"  Width="200" Height="50" Margin="0,485,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="{x:Null}" Click="Buscar_ClickAsync" MouseEnter="Buscar_MouseEnter" MouseLeave="Buscar_MouseLeave" ToolTip="Buscar dispositivos">
                 <Border x:Name="BorderButton" Background="#72D9D9D9" CornerRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock x:Name="TBBuscar" Text="Buscar" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Height="50" FontFamily="Elephant" FontSize="35" TextAlignment="Center" Foreground="#FF171049" Cursor="Hand"/>
                 </Border>
             </Button>
-            <ListBox x:Name="LPorts" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="250,268,250,156" Background="#1CA3A3A3" VerticalContentAlignment="Top" FontWeight="Bold" FontStyle="Italic" Foreground="#CCD0C9C9" Width="300" Height="180" FontSize="20" HorizontalContentAlignment="Center" RenderTransformOrigin="0.5,0.5" SelectionChanged="LPorts_SelectionChanged" Cursor="Hand" Visibility="Hidden">
+            <ListBox x:Name="LPorts" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="250,268,250,156" Background="#1CA3A3A3" VerticalContentAlignment="Top" FontWeight="Bold" FontStyle="Italic" Foreground="#CCD0C9C9" Width="300" Height="180" FontSize="20" HorizontalContentAlignment="Center" RenderTransformOrigin="0.5,0.5" SelectionChanged="LPorts_SelectionChanged" Cursor="Hand" Visibility="Hidden" ToolTip="Dispositivos compátives ">
                 <ListBox.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -220,7 +220,7 @@
             <TextBlock x:Name="TBSelecioneUmaPorta" HorizontalAlignment="Center" Margin="0,189,0,0" TextWrapping="Wrap" Text="Selecione uma porta" VerticalAlignment="Top" Foreground="White" FontSize="25" Width="270" TextAlignment="Center" FontStyle="Italic" FontFamily="Artifakt Element" Visibility="Hidden"/>
         </Grid>
         <Grid x:Name="Arquivo" Width="800" Margin="240,84,240,32" Background="#33000000" Visibility="Hidden">
-            <Button x:Name="BuscarArquivo" Style="{StaticResource NoMouseOverButtonStyle}"  Width="200" Height="50" Margin="0,485,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="{x:Null}" Click="BuscarArquivo_Click" MouseEnter="BuscarArquivo_MouseEnter" MouseLeave="BuscarArquivo_MouseLeave">
+            <Button x:Name="BuscarArquivo" Style="{StaticResource NoMouseOverButtonStyle}"  Width="200" Height="50" Margin="0,485,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="{x:Null}" Click="BuscarArquivo_Click" MouseEnter="BuscarArquivo_MouseEnter" MouseLeave="BuscarArquivo_MouseLeave" ToolTip="Selecionar arquivo">
                 <Border x:Name="BorderBuscarArquivo" Background="#72D9D9D9" CornerRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock x:Name="TBBuscarArquivo" Text="Buscar" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Height="50" FontFamily="Elephant" FontSize="35" TextAlignment="Center" Foreground="#FF171049" Cursor="Hand"/>
                 </Border>
@@ -255,19 +255,19 @@
             <TextBlock x:Name="TBIndutivo" HorizontalAlignment="Left" Margin="70,236,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="20" Width="200" TextAlignment="Center" Foreground="#CCFFFFFF"/>
             <TextBlock x:Name="TBResistivo" HorizontalAlignment="Center" Margin="0,236,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="20" Width="200" TextAlignment="Center" Foreground="#CCFFFFFF"/>
             <TextBlock x:Name="TBCapacitivo" HorizontalAlignment="Left" Margin="530,236,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="20" Width="200" TextAlignment="Center" Foreground="#CCFFFFFF"/>
-            <Button x:Name="BuscarArquivoNovo" Style="{StaticResource NoMouseOverButtonStyle}"  Width="200" Height="50" Margin="95,512,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="{x:Null}" Click="BuscarArquivo_Click">
+            <Button x:Name="BuscarArquivoNovo" Style="{StaticResource NoMouseOverButtonStyle}"  Width="200" Height="50" Margin="95,512,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="{x:Null}" Click="BuscarArquivo_Click" ToolTip="Selecionar outro arquivo">
                 <Border x:Name="BorderBuscarArquivoNovo" Background="#72D9D9D9" CornerRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock x:Name="TBBuscarArquivoNovo" Text="Buscar" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Height="50" FontFamily="Elephant" FontSize="35" TextAlignment="Center" Foreground="#FF171049" Cursor="Hand"/>
                 </Border>
             </Button>
-            <Button x:Name="Seguir" Style="{StaticResource NoMouseOverButtonStyle}"  Width="200" Height="50" Margin="0,512,95,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Right" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="{x:Null}" Click="Seguir_Click">
+            <Button x:Name="Seguir" Style="{StaticResource NoMouseOverButtonStyle}"  Width="200" Height="50" Margin="0,512,95,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Right" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="{x:Null}" Click="Seguir_Click" ToolTip="Prosseguir com o arquivo lido">
                 <Border x:Name="BorderBuscarArquivoSeguir" Background="#72D9D9D9" CornerRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock x:Name="TBBuscarArquivoSeguir" Text="Seguir" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Height="50" FontFamily="Elephant" FontSize="35" TextAlignment="Center" Foreground="#FF171049" Cursor="Hand"/>
                 </Border>
             </Button>
             <TextBlock Margin="0,458,0,0" TextWrapping="Wrap" Text="Deseja seguir com esse arquivo ou buscar um novo?" VerticalAlignment="Top" Foreground="#CCFFFFFF" FontSize="18" HorizontalAlignment="Center"/>
         </Grid>
-        <Button x:Name="Back" Content="" HorizontalAlignment="Left" Margin="155,314,0,0" VerticalAlignment="Top" Width="70" Height="70" Foreground="{x:Null}" BorderBrush="{x:Null}" Click="Back_Click" Visibility="Hidden" Cursor="Hand">
+        <Button x:Name="Back" Content="" HorizontalAlignment="Left" Margin="155,314,0,0" VerticalAlignment="Top" Width="70" Height="70" Foreground="{x:Null}" BorderBrush="{x:Null}" Click="Back_Click" Visibility="Hidden" Cursor="Hand" ToolTip="Voltar para o inicio">
             <Button.OpacityMask>
                 <ImageBrush ImageSource="/icons/back.png"/>
             </Button.OpacityMask>

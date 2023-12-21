@@ -26,7 +26,7 @@
     </Page.Resources>
 
     <Grid Width="1280" Height="720" HorizontalAlignment="Left" VerticalAlignment="Top">
-        <ListView x:Name="ListData" d:ItemsSource="{d:SampleData ItemCount=5}" Width="760" Height="450" Margin="86,120,0,0" Background="#3F0C0B0B" HorizontalAlignment="Left" VerticalAlignment="Top" SelectionChanged="ListData_SelectionChanged" Foreground="White" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+        <ListView x:Name="ListData" d:ItemsSource="{d:SampleData ItemCount=5}" Width="760" Height="450" Margin="86,120,0,0" Background="#3F0C0B0B" HorizontalAlignment="Left" VerticalAlignment="Top" SelectionChanged="ListData_SelectionChanged" Foreground="White" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Auto" ToolTip="Lista de dados lidos">
             <ListView.BorderBrush>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#990A007F"/>
@@ -71,7 +71,7 @@
 
         <GridSplitter HorizontalAlignment="Left" Height="1" Margin="86,607,0,0" VerticalAlignment="Top" Width="760" Background="#7F8373B0"/>
 
-        <Button x:Name="btDelete" Content="Button" HorizontalAlignment="Left" Margin="816,628,0,0" VerticalAlignment="Top" Width="30" Height="35" BorderBrush="{x:Null}" Foreground="{x:Null}" Cursor="Hand" Click="btDelete_Click">
+        <Button x:Name="btDelete" Content="Button" HorizontalAlignment="Left" Margin="816,628,0,0" VerticalAlignment="Top" Width="30" Height="35" BorderBrush="{x:Null}" Foreground="{x:Null}" Cursor="Hand" Click="btDelete_Click" ToolTip="Excluir dado selecionado">
             <Button.OpacityMask>
                 <ImageBrush ImageSource="/icons/Trash.png"/>
             </Button.OpacityMask>
@@ -80,7 +80,7 @@
             </Button.Background>
         </Button>
 
-        <Button x:Name="btEdit" Content="Button" HorizontalAlignment="Left" Margin="765,626,0,0" VerticalAlignment="Top" Width="40" Height="40" BorderBrush="{x:Null}" Foreground="{x:Null}" Cursor="Hand" Click="btEdit_Click">
+        <Button x:Name="btEdit" Content="Button" HorizontalAlignment="Left" Margin="765,626,0,0" VerticalAlignment="Top" Width="40" Height="40" BorderBrush="{x:Null}" Foreground="{x:Null}" Cursor="Hand" Click="btEdit_Click" ToolTip="Editar dado selecionado">
             <Button.OpacityMask>
                 <ImageBrush ImageSource="/icons/Edit.png"/>
             </Button.OpacityMask>
@@ -89,7 +89,7 @@
             </Button.Background>
         </Button>
 
-        <Button x:Name="btSave" Content="Button" HorizontalAlignment="Left" Margin="720,626,0,0" VerticalAlignment="Top" Width="40" Height="41" BorderBrush="{x:Null}" Foreground="{x:Null}" Cursor="Hand" Click="btSave_Click">
+        <Button x:Name="btSave" Content="Button" HorizontalAlignment="Left" Margin="720,626,0,0" VerticalAlignment="Top" Width="40" Height="41" BorderBrush="{x:Null}" Foreground="{x:Null}" Cursor="Hand" Click="btSave_Click" ToolTip="Salvar dados lidos">
             <Button.OpacityMask>
                 <ImageBrush ImageSource="/icons/Download.png"/>
             </Button.OpacityMask>
@@ -111,7 +111,7 @@
             <TextBlock x:Name="ia" HorizontalAlignment="Left" Margin="53,23,0,0" TextWrapping="Wrap" Text="Ia:" VerticalAlignment="Top" FontSize="25" Foreground="#CCB0ABA0" FontFamily="Segoe UI Black"/>
             <Rectangle x:Name="rtIa" Width="160" VerticalAlignment="Top" Margin="106,26,0,0" Height="30" HorizontalAlignment="Left" Fill="#7F000000" RadiusX="5" RadiusY="5"
   />
-            <Button x:Name="minusIa"  Click="minusIa_Click" Content="" HorizontalAlignment="Left" Margin="108,31,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="20" Height="20" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Cursor="Hand">
+            <Button x:Name="minusIa"  Click="minusIa_Click" Content="" HorizontalAlignment="Left" Margin="108,31,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="20" Height="20" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Cursor="Hand" ToolTip="Decrementar Ia">
                 <Button.OpacityMask>
                     <ImageBrush ImageSource="/icons/typcn_minus.png" Stretch="Fill" TileMode="None"/>
                 </Button.OpacityMask>
@@ -119,7 +119,7 @@
                     <ImageBrush ImageSource="/icons/typcn_minus.png" Stretch="Fill"/>
                 </Button.Background>
             </Button>
-            <Button x:Name="plusIa"  Click="plusIa_Click" Content="" HorizontalAlignment="Left" Margin="243,31,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="20" Height="20" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Cursor="Hand">
+            <Button x:Name="plusIa"  Click="plusIa_Click" Content="" HorizontalAlignment="Left" Margin="243,31,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="20" Height="20" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Cursor="Hand" ToolTip="Incrementar Ia">
                 <Button.OpacityMask>
                     <ImageBrush ImageSource="/icons/plus.png" Stretch="Fill" TileMode="None"/>
                 </Button.OpacityMask>
@@ -131,7 +131,7 @@
             <TextBlock x:Name="va" HorizontalAlignment="Left" Margin="44,67,0,0" TextWrapping="Wrap" Text="Va:" VerticalAlignment="Top" FontSize="25" Foreground="#CCB0ABA0" FontFamily="Segoe UI Black"/>
             <Rectangle x:Name="rtVa" Width="160" VerticalAlignment="Top" Margin="106,70,0,0" Height="30" HorizontalAlignment="Left" Fill="#7F000000" RadiusX="5" RadiusY="5"
   />
-            <Button x:Name="minusVa" Click="minusVa_Click" HorizontalAlignment="Left" Margin="108,75,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="20" Height="20" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Cursor="Hand">
+            <Button x:Name="minusVa" Click="minusVa_Click" HorizontalAlignment="Left" Margin="108,75,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="20" Height="20" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Cursor="Hand" ToolTip="Decrementar Va">
                 <Button.OpacityMask>
                     <ImageBrush ImageSource="/icons/typcn_minus.png" Stretch="Fill" TileMode="None"/>
                 </Button.OpacityMask>
@@ -139,7 +139,7 @@
                     <ImageBrush ImageSource="/icons/typcn_minus.png" Stretch="Fill"/>
                 </Button.Background>
             </Button>
-            <Button x:Name="plusVa" Click="plusVa_Click" Content="" HorizontalAlignment="Left" Margin="243,75,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="20" Height="20" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Cursor="Hand">
+            <Button x:Name="plusVa" Click="plusVa_Click" Content="" HorizontalAlignment="Left" Margin="243,75,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="20" Height="20" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Cursor="Hand" ToolTip="Incrementar Va">
                 <Button.OpacityMask>
                     <ImageBrush ImageSource="/icons/plus.png" Stretch="Fill" TileMode="None"/>
                 </Button.OpacityMask>
@@ -151,7 +151,7 @@
             <TextBlock x:Name="fp" HorizontalAlignment="Left" Margin="46,116,0,0" TextWrapping="Wrap" Text="FP:" VerticalAlignment="Top" FontSize="25" Foreground="#CCB0ABA0" FontFamily="Segoe UI Black"/>
             <Rectangle x:Name="rtFP" Width="160" VerticalAlignment="Top" Margin="106,118,0,0" Height="30" HorizontalAlignment="Left" Fill="#7F000000" RadiusX="5" RadiusY="5"
   />
-            <Button x:Name="minusFP" Click="minusFP_Click" Content="" HorizontalAlignment="Left" Margin="108,123,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="20" Height="20" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Cursor="Hand">
+            <Button x:Name="minusFP" Click="minusFP_Click" Content="" HorizontalAlignment="Left" Margin="108,123,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="20" Height="20" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Cursor="Hand" ToolTip="Decrementar FP">
                 <Button.OpacityMask>
                     <ImageBrush ImageSource="/icons/typcn_minus.png" Stretch="Fill" TileMode="None"/>
                 </Button.OpacityMask>
@@ -159,7 +159,7 @@
                     <ImageBrush ImageSource="/icons/typcn_minus.png" Stretch="Fill"/>
                 </Button.Background>
             </Button>
-            <Button x:Name="plusFP" Click="plusFP_Click" Content="" HorizontalAlignment="Left" Margin="243,123,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="20" Height="20" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Cursor="Hand">
+            <Button x:Name="plusFP" Click="plusFP_Click" Content="" HorizontalAlignment="Left" Margin="243,123,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="20" Height="20" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Cursor="Hand" ToolTip="Incrementar FP">
                 <Button.OpacityMask>
                     <ImageBrush ImageSource="/icons/plus.png" Stretch="Fill" TileMode="None"/>
                 </Button.OpacityMask>
@@ -171,7 +171,7 @@
             <TextBlock x:Name="rpm" HorizontalAlignment="Left" Margin="18,162,0,0" TextWrapping="Wrap" Text="RPM:" VerticalAlignment="Top" FontSize="25" Foreground="#CCB0ABA0" FontFamily="Segoe UI Black"/>
             <Rectangle x:Name="rtRPM" Width="160" VerticalAlignment="Top" Margin="106,165,0,0" Height="30" HorizontalAlignment="Left" Fill="#7F000000" RadiusX="5" RadiusY="5"
   />
-            <Button x:Name="minusRPM" Click="minusRPM_Click" Content="" HorizontalAlignment="Left" Margin="108,170,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="20" Height="20" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Cursor="Hand">
+            <Button x:Name="minusRPM" Click="minusRPM_Click" Content="" HorizontalAlignment="Left" Margin="108,170,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="20" Height="20" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Cursor="Hand" ToolTip="Decrementar RPM">
                 <Button.OpacityMask>
                     <ImageBrush ImageSource="/icons/typcn_minus.png" Stretch="Fill" TileMode="None"/>
                 </Button.OpacityMask>
@@ -179,7 +179,7 @@
                     <ImageBrush ImageSource="/icons/typcn_minus.png" Stretch="Fill"/>
                 </Button.Background>
             </Button>
-            <Button x:Name="plusRPM" Click="plusRPM_Click" Content="" HorizontalAlignment="Left" Margin="243,170,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="20" Height="20" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Cursor="Hand">
+            <Button x:Name="plusRPM" Click="plusRPM_Click" Content="" HorizontalAlignment="Left" Margin="243,170,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="20" Height="20" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Cursor="Hand" ToolTip="Incrementar RPM">
                 <Button.OpacityMask>
                     <ImageBrush ImageSource="/icons/plus.png" Stretch="Fill" TileMode="None"/>
                 </Button.OpacityMask>
@@ -191,7 +191,7 @@
             <TextBlock x:Name="freq" HorizontalAlignment="Left" Margin="21,212,0,0" TextWrapping="Wrap" Text="Freq:" VerticalAlignment="Top" FontSize="25" Foreground="#CCB0ABA0" FontFamily="Segoe UI Black"/>
             <Rectangle x:Name="rtF" Width="160" VerticalAlignment="Top" Margin="106,215,0,0" Height="30" HorizontalAlignment="Left" Fill="#7F000000" RadiusX="5" RadiusY="5"
   />
-            <Button x:Name="minusF" Click="minusF_Click" Content="" HorizontalAlignment="Left" Margin="108,220,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="20" Height="20" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Cursor="Hand">
+            <Button x:Name="minusF" Click="minusF_Click" Content="" HorizontalAlignment="Left" Margin="108,220,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="20" Height="20" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Cursor="Hand" ToolTip="Decrementar Frequencia">
                 <Button.OpacityMask>
                     <ImageBrush ImageSource="/icons/typcn_minus.png" Stretch="Fill" TileMode="None"/>
                 </Button.OpacityMask>
@@ -199,7 +199,7 @@
                     <ImageBrush ImageSource="/icons/typcn_minus.png" Stretch="Fill"/>
                 </Button.Background>
             </Button>
-            <Button x:Name="plusF" Click="plusF_Click" Content="" HorizontalAlignment="Left" Margin="243,220,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="20" Height="20" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Cursor="Hand">
+            <Button x:Name="plusF" Click="plusF_Click" Content="" HorizontalAlignment="Left" Margin="243,220,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="20" Height="20" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Cursor="Hand" ToolTip="Incrementar Frequencia">
                 <Button.OpacityMask>
                     <ImageBrush ImageSource="/icons/plus.png" Stretch="Fill" TileMode="None"/>
                 </Button.OpacityMask>
@@ -210,7 +210,7 @@
             <TextBox x:Name="TBF" HorizontalAlignment="Left" Margin="156,220,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="60" Background="#99424242" BorderBrush="{x:Null}" SelectionBrush="#990476D0" Foreground="#FFADADAD" FontFamily="Arial" Height="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextAlignment="Center" IsEnabled="False"/>
             <Rectangle x:Name="rtType" Width="164" VerticalAlignment="Top" Margin="72,271,0,0" Height="30" HorizontalAlignment="Left" Fill="#7F000000" RadiusX="5" RadiusY="5"
   />
-            <Button x:Name="minusType" Click="minusType_Click" Content="" HorizontalAlignment="Left" Margin="210,276,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="20" Height="20" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Cursor="Hand">
+            <Button x:Name="minusType" Click="minusType_Click" Content="" HorizontalAlignment="Left" Margin="210,276,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="20" Height="20" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Cursor="Hand" ToolTip="Alterar tipo de carga">
                 <Button.OpacityMask>
                     <ImageBrush ImageSource="/icons/plus.png" Stretch="Fill" TileMode="None"/>
                 </Button.OpacityMask>
@@ -220,30 +220,33 @@
             </Button>
             <TextBox x:Name="TBType" HorizontalAlignment="Left" Margin="80,276,0,0" TextWrapping="Wrap" Text="Resistivo" VerticalAlignment="Top" Width="110" Background="#99424242" BorderBrush="{x:Null}" SelectionBrush="#990476D0" Foreground="#FFADADAD" FontFamily="Arial" Height="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextAlignment="Center" IsEnabled="False"/>
             <TextBlock x:Name="angulo" HorizontalAlignment="Left" Margin="103,328,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="25" Foreground="#CCB0ABA0" FontFamily="Segoe UI Black" Text="Φ:"/>
-            <TextBlock Width="70" VerticalAlignment="Top" Text="0º" TextWrapping="Wrap" x:Name="TBAngle" Margin="138,336,0,0" HorizontalAlignment="Left" FontSize="16" FontFamily="Segoe UI Black" Foreground="#CCC5C3C1" Height="30" IsEnabled="False"
+            <TextBlock Width="70" VerticalAlignment="Top" Text="0º" TextWrapping="Wrap" x:Name="TBAngle" Margin="138,336,0,0" HorizontalAlignment="Left" FontSize="16" FontFamily="Segoe UI Black" Foreground="#CCC5C3C1" Height="30" IsEnabled="False" ToolTip="Angulo de defasagem"
   />
             <Button Width="200" VerticalAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource NoMouseOverButtonStyle}" x:Name="btSaveAfterEdit" MouseLeave="Buscar_MouseLeave" MouseEnter="Buscar_MouseEnter" Margin="54,372,0,0" HorizontalContentAlignment="Left" Height="50" HorizontalAlignment="Left" Foreground="{x:Null}" Click="btSaveAfterEdit_Click" BorderBrush="{x:Null}" Background="{x:Null}"
    >
                 <Border VerticalAlignment="Center" x:Name="BorderButton" HorizontalAlignment="Center" CornerRadius="20" Background="#72D9D9D9"
    >
-                    <TextBlock Width="200" VerticalAlignment="Top" Text="Salvar" TextAlignment="Center" x:Name="TBBuscar" Height="50" HorizontalAlignment="Left" FontSize="35" FontFamily="Elephant" Foreground="#FF05002B" Cursor="Hand"
+                    <TextBlock Width="200" VerticalAlignment="Top" Text="Salvar" TextAlignment="Center" x:Name="TBBuscar" Height="50" HorizontalAlignment="Left" FontSize="35" FontFamily="Elephant" Foreground="#FF05002B" Cursor="Hand" ToolTip="Salvar alterações"
   />
                 </Border>
             </Button>
         </Grid>
-        <ComboBox x:Name="Phase" Width="176" Height="30" BorderBrush="{x:Null}" Background="White" Foreground="Black" Cursor="Hand" ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="0,0,726,615" VerticalAlignment="Bottom" SelectionChanged="Phase_SelectionChanged" HorizontalAlignment="Right" FontSize="18" OpacityMask="#66545454" SelectedIndex="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+        <ComboBox x:Name="Phase" Width="176" Height="30" BorderBrush="{x:Null}" Background="White" Foreground="Black" Cursor="Hand" ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="0,0,726,615" VerticalAlignment="Bottom" SelectionChanged="Phase_SelectionChanged" HorizontalAlignment="Right" FontSize="18" OpacityMask="#66545454" SelectedIndex="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ToolTip="Selecionar fase para analise">
             <ComboBoxItem Content="Media" Background="{x:Null}"/>
             <ComboBoxItem Cursor="Hand" Content="Fase A"/>
             <ComboBoxItem Content="Fase B"/>
             <ComboBoxItem Cursor="Hand" Content="Fase C"/>
         </ComboBox>
-        <Button Content="Button" Click="Add_Click" HorizontalAlignment="Left" Margin="86,626,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="40" Height="40">
+        <Button Content="Button" Cursor="Hand" Click="Add_Click" HorizontalAlignment="Left" Margin="86,626,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="40" Height="40">
             <Button.OpacityMask>
                 <ImageBrush ImageSource="/icons/add.png"/>
             </Button.OpacityMask>
             <Button.Background>
                 <ImageBrush ImageSource="/icons/add.png"/>
             </Button.Background>
+            <Button.ToolTip>
+                <ToolTip Content="Adicionar novo dado na tabela" />
+            </Button.ToolTip>
         </Button>
     </Grid>
 </Page>

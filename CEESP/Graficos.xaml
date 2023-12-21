@@ -40,7 +40,7 @@
             </TabItem>
 
         </TabControl>
-        <Button x:Name="selectTemporal"  Style="{StaticResource NoMouseOverButtonStyle}"  Content="Temporal" Margin="640,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="35" Background="{x:Null}" Foreground="#B2DDDDDD" FontSize="20" Cursor="Hand" Click="selectTemporal_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Top">
+        <Button x:Name="selectTemporal"  Style="{StaticResource NoMouseOverButtonStyle}"  Content="Temporal" Margin="640,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="35" Background="{x:Null}" Foreground="#B2DDDDDD" FontSize="20" Cursor="Hand" Click="selectTemporal_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" ToolTip="Mostrar gráfico temporal">
             <Button.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#99751697"/>
@@ -49,7 +49,7 @@
             </Button.BorderBrush>
         </Button>
 
-        <Button x:Name="selectFasores" Style="{StaticResource NoMouseOverButtonStyle}" Content="Fasorial" Margin="490,5,0,0" Width="150" Height="35" Foreground="#B2DDDDDD" Background="{x:Null}" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="Hand" Click="selectFasores_Click" HorizontalContentAlignment="Center">
+        <Button x:Name="selectFasores" Style="{StaticResource NoMouseOverButtonStyle}" Content="Fasorial" Margin="490,5,0,0" Width="150" Height="35" Foreground="#B2DDDDDD" Background="{x:Null}" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="Hand" Click="selectFasores_Click" HorizontalContentAlignment="Center" ToolTip="Mostrar gráfico fasorial">
             <Button.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#99751697"/>

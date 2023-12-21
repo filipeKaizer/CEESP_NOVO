@@ -84,7 +84,7 @@
                 </LinearGradientBrush>
             </oxy:PlotView.Foreground>
         </oxy:PlotView>
-        <Button x:Name="btLegenda" Content="Button" HorizontalAlignment="Left" Margin="10,0,0,10" Foreground="{x:Null}" BorderBrush="{x:Null}" Width="40" Height="40" HorizontalContentAlignment="Left" Padding="2,1,1,1" VerticalContentAlignment="Top" Cursor="Hand" Click="btLegenda_Click" VerticalAlignment="Bottom">
+        <Button x:Name="btLegenda" Content="Button" HorizontalAlignment="Left" Margin="10,0,0,10" Foreground="{x:Null}" BorderBrush="{x:Null}" Width="40" Height="40" HorizontalContentAlignment="Left" Padding="2,1,1,1" VerticalContentAlignment="Top" Cursor="Hand" Click="btLegenda_Click" VerticalAlignment="Bottom" ToolTip="Seleção de itens">
             <Button.OpacityMask>
                 <ImageBrush ImageSource="/icons/List.png"/>
             </Button.OpacityMask>

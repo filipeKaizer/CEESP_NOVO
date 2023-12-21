@@ -111,7 +111,7 @@
         </Grid.RowDefinitions>
         <Canvas x:Name="Graph" HorizontalAlignment="Center" Width="1280" Height="704" Background="#19000000" VerticalAlignment="Top" Cursor="Arrow" Grid.RowSpan="2"/>
         <Label x:Name="TimeSelected" Content="2s" Background="{x:Null}" Foreground="#99DEDEDE" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="27,0,0,11" Grid.Row="1"/>
-        <ComboBox x:Name="CBTimes" Margin="10,0,0,22" Width="28" Height="28" BorderBrush="{x:Null}" Foreground="#FF17006D" HorizontalAlignment="Left" VerticalAlignment="Bottom" SelectionChanged="CBTimes_SelectionChanged" Cursor="Hand" RenderTransformOrigin="0.512,0.607" Grid.Row="1">
+        <ComboBox x:Name="CBTimes" Margin="10,0,0,22" Width="28" Height="28" BorderBrush="{x:Null}" Foreground="#FF17006D" HorizontalAlignment="Left" VerticalAlignment="Bottom" SelectionChanged="CBTimes_SelectionChanged" Cursor="Hand" RenderTransformOrigin="0.512,0.607" Grid.Row="1" ToolTip="Ajustar intervalo de atualização">
             <ComboBox.OpacityMask>
                 <ImageBrush ImageSource="/icons/Timer.png"/>
             </ComboBox.OpacityMask>
@@ -130,8 +130,8 @@
             <Rectangle x:Name="rtXsIa" Height="14" Width="15" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="313,0,0,0" Fill="#FFC15100" RadiusX="2" RadiusY="2"/>
             <Label x:Name="XsIa" Content="XsIa: 0v" FontFamily="Arial Rounded MT Bold" Width="110" Foreground="#FFAFAFAF" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="328,0,0,0" Padding="2,0,0,0"/>
             <Rectangle x:Name="rtFP" Height="14" Width="15" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="443,0,0,0" Fill="#FF3D0D2C" RadiusX="2" RadiusY="2"/>
-            <Label x:Name="FPValue" Content="Cos(φ): 90º" FontFamily="Arial Rounded MT Bold" Width="78" Foreground="#FFAFAFAF" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="463,0,0,0" Padding="2,0,0,0"/>
-            <Label x:Name="type" Content="Indutivo" FontFamily="Arial Rounded MT Bold" Width="74" Foreground="#FFAFAFAF" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="572,0,0,0" Padding="2,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label x:Name="FPValue" Content="Cos(φ): 90º" FontFamily="Arial Rounded MT Bold" Width="78" Foreground="#FFAFAFAF" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="463,0,0,0" Padding="2,0,0,0" ToolTip="Angulo de defasagem"/>
+            <Label x:Name="type" Content="Indutivo" FontFamily="Arial Rounded MT Bold" Width="74" Foreground="#FFAFAFAF" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="572,0,0,0" Padding="2,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ToolTip="Tipo de carga"/>
         </Grid>
         <Grid x:Name="Zoom" Margin="0,262,230,20" Width="187" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Row="1">
             <Grid.RowDefinitions>
@@ -139,11 +139,11 @@
                 <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
             <Rectangle Height="30" Width="186" HorizontalAlignment="Center" VerticalAlignment="Top" RadiusX="5" RadiusY="5" Fill="#33000000" Grid.RowSpan="2"/>
-            <Slider x:Name="Slider" Margin="0,6,0,0" HorizontalAlignment="Center" Width="106" Height="20" ValueChanged="Slider_ValueChanged" Cursor="Hand" Grid.RowSpan="2" VerticalAlignment="Top"/>
+            <Slider x:Name="Slider" Margin="0,6,0,0" HorizontalAlignment="Center" Width="106" Height="20" ValueChanged="Slider_ValueChanged" Cursor="Hand" Grid.RowSpan="2" VerticalAlignment="Top" ToolTip="Ajustar Zoom"/>
             <Label x:Name="LabelZoom" Content="1x" HorizontalAlignment="Right" Margin="146,2,0,0" FontFamily="Algerian" Width="40" Foreground="#FFAFAFAF" HorizontalContentAlignment="Center" Grid.RowSpan="2" VerticalAlignment="Top"/>
-            <Button x:Name="AutosizeButton" Style="{StaticResource NoMouseOverButtonStyle}" Content="M" Height="30" Width="30" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFAFAFAF" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Corbel" FontSize="13" Click="AutosizeButton_Click" Cursor="Hand" AutomationProperties.HelpText="Autosize"/>
+            <Button x:Name="AutosizeButton" Style="{StaticResource NoMouseOverButtonStyle}" Content="M" Height="30" Width="30" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFAFAFAF" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Corbel" FontSize="13" Click="AutosizeButton_Click" Cursor="Hand" AutomationProperties.HelpText="Autosize" ToolTip="Ativar/Desativar Zoom Automático"/>
         </Grid>
-        <ComboBox x:Name="Phase" Width="176" Height="30" BorderBrush="{x:Null}" Background="White" Foreground="Black" Cursor="Hand" ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="0,262,30,20" VerticalAlignment="Bottom" SelectionChanged="Phase_SelectionChanged" HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14" Grid.Row="1" OpacityMask="#66545454">
+        <ComboBox x:Name="Phase" Width="176" Height="30" BorderBrush="{x:Null}" Background="White" Foreground="Black" Cursor="Hand" ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="0,262,30,20" VerticalAlignment="Bottom" SelectionChanged="Phase_SelectionChanged" HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14" Grid.Row="1" OpacityMask="#66545454" ToolTip="Trocar a fase">
             <ComboBoxItem Content="Media" Background="{x:Null}"/>
             <ComboBoxItem Cursor="Hand" Content="Fase A"/>
             <ComboBoxItem Content="Fase B"/>
@@ -151,7 +151,7 @@
         </ComboBox>
         <Grid x:Name="Itens" Width="130" Height="30" Margin="30,262,0,20" HorizontalAlignment="Left" VerticalAlignment="Bottom" Visibility="Collapsed" Grid.Row="1">
             <Rectangle HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="130" Fill="#3F000000" RadiusX="5" RadiusY="5"/>
-            <Button x:Name="plusItem" Content="Button" HorizontalAlignment="Left" Margin="100,0,0,0" VerticalAlignment="Center" Width="20" Height="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="plusItem_Click" Cursor="Hand">
+            <Button x:Name="plusItem" Content="Button" HorizontalAlignment="Left" Margin="100,0,0,0" VerticalAlignment="Center" Width="20" Height="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="plusItem_Click" Cursor="Hand" ToolTip="Próximo item">
                 <Button.OpacityMask>
                     <ImageBrush ImageSource="/icons/plus.png"/>
                 </Button.OpacityMask>
@@ -159,7 +159,7 @@
                     <ImageBrush ImageSource="/icons/plus.png"/>
                 </Button.Background>
             </Button>
-            <Button x:Name="minusItem" Content="Button" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Width="20" Height="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="minusItem_Click" Cursor="Hand">
+            <Button x:Name="minusItem" Content="Button" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Width="20" Height="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="minusItem_Click" Cursor="Hand" ToolTip="Item anterior">
                 <Button.OpacityMask>
                     <ImageBrush ImageSource="/icons/typcn_minus.png"/>
                 </Button.OpacityMask>
@@ -180,10 +180,10 @@
                     </TransformGroup>
                 </Grid.RenderTransform>
                 <Rectangle x:Name="rtSalvar" Width="70" Height="30" Fill="#3F11D800" RadiusX="5" RadiusY="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <Button x:Name="Salvar" Style="{StaticResource NoMouseOverButtonStyle}" Content="Salvar" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFAFAFAF" VerticalContentAlignment="Center" Width="70" Cursor="Hand" Click="Salvar_Click"/>
+                <Button x:Name="Salvar" Style="{StaticResource NoMouseOverButtonStyle}" Content="Salvar" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFAFAFAF" VerticalContentAlignment="Center" Width="70" Cursor="Hand" Click="Salvar_Click" ToolTip="Salvar dados visualizados"/>
             </Grid>
             <Rectangle x:Name="rtSaveMode" Width="130" Height="30" HorizontalAlignment="Center" VerticalAlignment="Bottom" Fill="#3F000000" RadiusX="5" RadiusY="5" Margin="0,50,0,0"/>
-            <Button x:Name="saveMode" Style="{StaticResource NoMouseOverButtonStyle}" Content="Salvamento Automatico" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Bottom" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFAFAFAF" VerticalContentAlignment="Center" Width="130" Cursor="Hand" Click="SaveMode_Click"/>
+            <Button x:Name="saveMode" Style="{StaticResource NoMouseOverButtonStyle}" Content="Salvamento Automatico" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Bottom" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFAFAFAF" VerticalContentAlignment="Center" Width="130" Cursor="Hand" Click="SaveMode_Click" ToolTip="Alterar modo de salvamento de dados"/>
         </Grid>
         <Grid x:Name="information" Width="50" Height="20" Opacity="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,336,0,0">
             <Rectangle x:Name="rtInformation" HorizontalAlignment="Center" Height="20" VerticalAlignment="Center" Width="50" Fill="#66FFFF00" RadiusX="5" RadiusY="5" Cursor=""/>
