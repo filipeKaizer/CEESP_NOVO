@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using Microsoft.Win32;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using Microsoft.Win32;
-using OfficeOpenXml;
 
 namespace CEESP
 {
@@ -153,7 +151,7 @@ namespace CEESP
                 Title = "Selecione o arquivo de máquinas elétricas"
             };
 
-            arquivo = new Arquivo((openFileDialog.ShowDialog() == true) ? openFileDialog.FileName : "" );
+            arquivo = new Arquivo((openFileDialog.ShowDialog() == true) ? openFileDialog.FileName : "");
 
             if (arquivo.isCompatible())
             {
@@ -168,13 +166,15 @@ namespace CEESP
                 TBIndutivo.Text = arquivo.getIndutivo().ToString();
                 TBResistivo.Text = arquivo.getResistivo().ToString();
                 TBCapacitivo.Text = arquivo.getCapacitivo().ToString();
-            } else
+                verbose.Content = "";
+            }
+            else
             {
+
                 verbose.Content = "Arquivo não compatível.";
             }
 
             progress.IsActive = false;
-            verbose.Content = "";
         }
 
         private void btModulo_MouseEnter(object sender, RoutedEventArgs e)
@@ -249,7 +249,7 @@ namespace CEESP
         {
             Modulo.Visibility = Visibility.Hidden;
             Arquivo.Visibility = Visibility.Hidden;
-            ArquivoSelecionado.Visibility = Visibility.Hidden;        
+            ArquivoSelecionado.Visibility = Visibility.Hidden;
             Back.Visibility = Visibility.Hidden;
             Options.Visibility = Visibility.Visible;
 

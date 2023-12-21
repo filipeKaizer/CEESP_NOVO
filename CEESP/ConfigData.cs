@@ -1,6 +1,4 @@
-﻿using ControlzEx.Standard;
-using System.Windows;
-using System.Windows.Forms;
+﻿using System.Windows;
 
 namespace CEESP
 {

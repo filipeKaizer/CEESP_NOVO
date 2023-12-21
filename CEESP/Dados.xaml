@@ -42,6 +42,7 @@
                     <GridViewColumn Header="FP" Width="85" DisplayMemberBinding="{Binding FP}"/>
                     <GridViewColumn Header="RPM" Width="85" DisplayMemberBinding="{Binding RPM}"/>
                     <GridViewColumn Header="F" Width="35" DisplayMemberBinding="{Binding F}"/>
+                    <GridViewColumn Header="P" Width="80" DisplayMemberBinding="{Binding P}"/>
                     <GridViewColumn Header="Tipo" Width="100" DisplayMemberBinding="{Binding Tipo}"/>
                 </GridView>
             </ListView.View>

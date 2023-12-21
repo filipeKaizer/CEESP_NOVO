@@ -100,8 +100,9 @@ namespace CEESP
             setProgressRingStatus(true);
             // Realiza leitura no serialCOM e atualiza o colectedData
             ColectedData novo;
-            if (ListData1.configData.getModuloAtivo()) { 
-               novo = await main.getSerial().readValues();
+            if (ListData1.configData.getModuloAtivo())
+            {
+                novo = await main.getSerial().readValues();
 
                 if (novo != null)
                 {

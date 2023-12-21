@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using System.Xml.Linq;
 
 
 namespace CEESP
@@ -18,7 +17,7 @@ namespace CEESP
 
         private List<String> times;
         private plot plot;
-        private List<Line> oldLines;      
+        private List<Line> oldLines;
         private ColectedData dado;
 
         private Storyboard show_salvar;
@@ -58,10 +57,7 @@ namespace CEESP
             this.hide_salvar = (Storyboard)FindResource("hide_salvar");
             this.show_information = (Storyboard)FindResource("show_information");
 
-            if (autosizeEnable)
-                AutosizeButton.Content = "A";
-            else 
-                AutosizeButton.Content = "M";
+            AutosizeButton.Content = autosizeEnable ? "A" : (object)"M";
 
             InitializeTime(30, 3);
             Phase.SelectedIndex = 0;
@@ -138,13 +134,9 @@ namespace CEESP
             float X = 0;
 
             float angle = (float)Math.Acos(valores.getFP(index));
-            if (valores.getFP(index) != 0)
-            {
-                X = valores.getVa(index) + ((valores.getFPType(index) == 'i') ? valores.getIa(index) * ListData1.configData.getXs() * (float)Math.Cos(1.5708 - angle) : 0);
-            } else
-            {
-                X = valores.getVa(index);
-            }
+            X = valores.getFP(index) != 0
+                ? valores.getVa(index) + ((valores.getFPType(index) == 'i') ? valores.getIa(index) * ListData1.configData.getXs() * (float)Math.Cos(1.5708 - angle) : 0)
+                : valores.getVa(index);
 
             if (X != 0)
                 zoom = (this.Width - (2 * ListData1.configData.getCenterX())) / X;
@@ -214,13 +206,10 @@ namespace CEESP
         private void AutosizeButton_Click(object sender, RoutedEventArgs e)
         {
             this.autosizeEnable = !autosizeEnable;
-            if (this.autosizeEnable)
-                AutosizeButton.Content = "A";
-            else
-                AutosizeButton.Content = "M";
+            AutosizeButton.Content = this.autosizeEnable ? "A" : (object)"M";
 
             if (this.dado != null)
-            drawLines();
+                drawLines();
         }
 
         public void changeMode(bool isModuleOption)
@@ -232,7 +221,8 @@ namespace CEESP
                 TimeSelected.Visibility = Visibility.Collapsed;
                 saveMode.Visibility = Visibility.Hidden;
                 rtSaveMode.Visibility = Visibility.Hidden;
-            } else
+            }
+            else
             {
                 CBTimes.Visibility = Visibility.Visible;
                 Itens.Visibility = Visibility.Hidden;
@@ -271,13 +261,7 @@ namespace CEESP
 
         private void Salvar_Click(object sender, RoutedEventArgs e)
         {
-            if (ListData1.colectedData.Count == 0)
-            {
-                TBInformation.Text = "Erro";
-            } else
-            {
-                TBInformation.Text = "Salvo";
-            }
+            TBInformation.Text = ListData1.colectedData.Count == 0 ? "Erro" : "Salvo";
 
             this.show_information.Stop();
             this.show_information.Begin();
@@ -289,12 +273,13 @@ namespace CEESP
 
         private void SaveMode_Click(object sender, RoutedEventArgs e)
         {
-           if (saveMode.Content.ToString() == "Autosave")
-           {
+            if (saveMode.Content.ToString() == "Autosave")
+            {
                 this.hide_salvar.Stop();
                 this.show_salvar.Begin();
                 saveMode.Content = "Manual";
-           } else
+            }
+            else
             {
                 this.show_salvar.Stop();
                 this.hide_salvar.Begin();
@@ -305,7 +290,7 @@ namespace CEESP
         public void setDado(ColectedData dado)
         {
             this.dado = dado;
-           
+
         }
 
         public void clearGraph()

@@ -3,7 +3,6 @@ using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq.Expressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -61,6 +60,7 @@ namespace CEESP
                             FP = Math.Round(i.getFP(index), 2).ToString(),
                             RPM = Math.Round(i.getRPM(), 2),
                             F = Math.Round(i.getFrequency(), 2),
+                            P = Math.Round(i.getPotencia(index), 1),
                             Tipo = (i.getFP(index) == 1) ? "Resisitivo" : ((i.getFPType(index) == 'i') ? "Indutivo" : "Capacitivo")
                         };
 
@@ -103,7 +103,8 @@ namespace CEESP
                     {
                         MessageBox.Show("Falha no calculo de fp.");
                     }
-                } catch (Exception erro)
+                }
+                catch (Exception erro)
                 {
                     MessageBox.Show("Erro: " + erro.Message + "\nValor de index: " + ListData.SelectedIndex);
                 }
@@ -124,10 +125,12 @@ namespace CEESP
                 LegendaDefault();
                 atualizaDados();
 
-                if (ListData1.colectedData.Count > 0) {
+                if (ListData1.colectedData.Count > 0)
+                {
                     this.main.getGraficos().getFasorial().setDado(ListData1.colectedData[ListData1.colectedData.Count - 1]);
                     this.main.getGraficos().getFasorial().drawLines();
-                } else
+                }
+                else
                 {
                     this.main.getGraficos().getFasorial().clearGraph();
                 }
@@ -144,7 +147,6 @@ namespace CEESP
             TBAngle.Text = "0º";
         }
 
-
         private void atualizaBaseDeDados()
         {
             if (ListData.SelectedIndex != -1)
@@ -153,11 +155,11 @@ namespace CEESP
                 {
                     int index = Phase.SelectedIndex;
 
-                    ListData1.colectedData[ListData.SelectedIndex].setIa((float)IaValue, index);
-                    ListData1.colectedData[ListData.SelectedIndex].setVa((float)VaValue, index);
-                    ListData1.colectedData[ListData.SelectedIndex].setFP((float)FPValue, index);
-                    ListData1.colectedData[ListData.SelectedIndex].setRPM((float)RPMValue);
-                    ListData1.colectedData[ListData.SelectedIndex].setFrequency((float)FValue);
+                    ListData1.colectedData[ListData.SelectedIndex].setIa(IaValue, index);
+                    ListData1.colectedData[ListData.SelectedIndex].setVa(VaValue, index);
+                    ListData1.colectedData[ListData.SelectedIndex].setFP(FPValue, index);
+                    ListData1.colectedData[ListData.SelectedIndex].setRPM(RPMValue);
+                    ListData1.colectedData[ListData.SelectedIndex].setFrequency(FValue);
                     ListData1.colectedData[ListData.SelectedIndex].setFPType(Type, index);
 
                     atualizaDados();
@@ -179,7 +181,6 @@ namespace CEESP
                 }
             }
         }
-
         private void changeVisibility()
         {
             if (edit)
@@ -204,7 +205,6 @@ namespace CEESP
                 btSaveAfterEdit.IsEnabled = true;
             }
         }
-
         private void SalvarArquivo()
         {
             if (ListData1.colectedData.Count != 0)
@@ -346,7 +346,6 @@ namespace CEESP
                 }
             }
         }
-
         private void btSaveAfterEdit_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -354,12 +353,12 @@ namespace CEESP
                 this.main.getGraficos().getFasorial().setDado(ListData1.colectedData[ListData1.colectedData.Count - 1]);
                 this.main.getGraficos().getFasorial().drawLines();
                 atualizaBaseDeDados();
-            } catch
+            }
+            catch
             {
 
             }
         }
-
         private void Buscar_MouseEnter(object sender, RoutedEventArgs e)
         {
             BorderButton.Background = Brushes.DarkCyan;
@@ -369,7 +368,6 @@ namespace CEESP
         {
             BorderButton.Background = defaultColor;
         }
-
 
         private void btSave_Click(object sender, RoutedEventArgs e)
         {
@@ -384,7 +382,8 @@ namespace CEESP
                 try
                 {
                     tempo = ListData1.colectedData[ListData1.colectedData.Count - 1].getTempo();
-                } catch
+                }
+                catch
                 {
                     tempo = 0;
                 }
@@ -410,10 +409,7 @@ namespace CEESP
             TBRPM.Text = Math.Round(RPMValue, 0).ToString();
             TBF.Text = Math.Round(FValue, 0).ToString() + "Hz";
 
-            if (Type == 'r')
-                TBType.Text = "Resistivo";
-            else
-                TBType.Text = (Type == 'i') ? "Indutivo" : "Capacitivo";
+            TBType.Text = Type == 'r' ? "Resistivo" : (Type == 'i') ? "Indutivo" : "Capacitivo";
         }
 
         private void Phase_SelectionChanged(object sender, RoutedEventArgs e)
@@ -432,7 +428,7 @@ namespace CEESP
 
         private void plusIa_Click(object sender, RoutedEventArgs e)
         {
-           if (this.IaValue < 300)
+            if (this.IaValue < 300)
             {
                 this.IaValue++;
                 refreshValores();
@@ -477,11 +473,11 @@ namespace CEESP
 
         private void minusRPM_Click(object sender, RoutedEventArgs e)
         {
-            if(this.RPMValue - 200 > 0)
+            if (this.RPMValue - 200 > 0)
             {
                 this.RPMValue -= 200;
                 refreshValores();
-            } 
+            }
         }
 
         private void plusRPM_Click(object sender, RoutedEventArgs e)
@@ -514,17 +510,8 @@ namespace CEESP
 
         private void minusType_Click(object sender, RoutedEventArgs e)
         {
-            if (this.Type == 'r')
-            {
-                this.Type = 'i';
-            }
-            else
-            {
-                this.Type = (this.Type == 'i') ? 'c' : 'r';
-            }
+            this.Type = this.Type == 'r' ? 'i' : (this.Type == 'i') ? 'c' : 'r';
             refreshValores();
         }
-
-
     }
 }

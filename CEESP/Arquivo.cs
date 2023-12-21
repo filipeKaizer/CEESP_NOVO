@@ -1,13 +1,8 @@
-﻿using System;
+﻿using OfficeOpenXml;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using Microsoft.Win32;
-using OfficeOpenXml;
 
 namespace CEESP
 {
@@ -26,7 +21,7 @@ namespace CEESP
 
         private string nome;
         private bool compatible;
-        
+
 
         public Arquivo(String archivePath)
         {
@@ -50,18 +45,20 @@ namespace CEESP
                     ExcelWorksheet worksheet = package.Workbook.Worksheets[0]; // Assume que você está interessado na primeira planilha
 
                     // Verificar compatibilidade do arquivo
-                   if( verifyArchive(worksheet))
-                   {
+                    if (verifyArchive(worksheet))
+                    {
                         this.compatible = true;
                         this.readValues(worksheet);
 
-                   }else
-                   {
+                    }
+                    else
+                    {
                         this.compatible = false;
-                   }  
+                    }
                 }
                 return true;
-            } else
+            }
+            else
                 return false;
         }
 
@@ -124,13 +121,11 @@ namespace CEESP
             {
                 if (int.TryParse(worksheet.Cells[1, 2].Value?.ToString(), out B))
                 {
-                    if (int.TryParse(worksheet.Cells[1, 3].Value?.ToString(), out result)) {
+                    if (int.TryParse(worksheet.Cells[1, 3].Value?.ToString(), out result))
+                    {
                         int teste = (A % B) * (A + B);
 
-                        if (teste == result)
-                            return true;
-                        else 
-                            return false;
+                        return teste == result;
                     }
                 }
             }
@@ -172,29 +167,35 @@ namespace CEESP
                     // Obtem FP
                     dado.setFP(float.TryParse(worksheet.Cells[lin, i * 5 + 7].Value?.ToString(), out float parsedValueFP) ? parsedValueFP : 0.0f, i);
 
-                    
+
                     // Obtem e classifica o FP
-                    string tipo = worksheet.Cells[lin, i * 5 + 8].Value.ToString();
                     char type = '?';
+                    try
+                    {
+                        string tipo = worksheet.Cells[lin, i * 5 + 8].Value?.ToString();
+                        
 
-                    if (tipo == "Resistiva")
+                        if (tipo == "Resistiva")
+                        {
+                            type = 'r';
+                            this.numResistivo++;
+                        }
+                        else if (tipo == "Indutiva")
+                        {
+                            type = 'i';
+                            this.numIndutivo++;
+                        }
+                        else if (tipo == "Capacitiva")
+                        {
+                            type = 'c';
+                            this.numCapacitivo++;
+                        }
+                        else
+                            type = '?';
+                    } catch
                     {
-                        type = 'r';
-                        this.numResistivo++;
+                        MessageBox.Show("Problema de conversão"); 
                     }
-                    else if (tipo == "Indutiva")
-                    {
-                        type = 'i';
-                        this.numIndutivo++;
-                    }
-                    else if (tipo == "Capacitiva")
-                    {
-                        type = 'c';
-                        this.numCapacitivo++;
-                    }
-                    else
-                        type = '?';
-
                     dado.setFPType(type, i);
                 }
                 // Adiciona
@@ -208,10 +209,11 @@ namespace CEESP
             this.IaMax = 0;
             this.VaMax = 0;
 
-            if (dados.Count > 0) {
+            if (dados.Count > 0)
+            {
                 foreach (ColectedData d in dados)
                 {
-                    this.IaMax = (d.getIa(0) > IaMax) ? d.getIa(0) : this.IaMax; 
+                    this.IaMax = (d.getIa(0) > IaMax) ? d.getIa(0) : this.IaMax;
                     this.VaMax = (d.getVa(0) > VaMax) ? d.getVa(0) : this.VaMax;
                 }
             }

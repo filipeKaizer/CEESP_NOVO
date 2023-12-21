@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Shapes;
-using static OfficeOpenXml.ExcelErrorValue;
 
 namespace CEESP
 {
@@ -53,7 +50,7 @@ namespace CEESP
 
         private void Seguir_Click(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void Seguir_MouseEnter(object sender, RoutedEventArgs e)
@@ -69,12 +66,7 @@ namespace CEESP
         private void Carga_Click(object sender, RoutedEventArgs e)
         {
             // Atualiza o TBCarga
-            if (TBCarga.Text == "Indutivo")
-                TBCarga.Text = "Resistivo";
-            else if (TBCarga.Text == "Resistivo")
-                TBCarga.Text = "Capacitivo";
-            else
-                TBCarga.Text = "Indutivo";
+            TBCarga.Text = TBCarga.Text == "Indutivo" ? "Resistivo" : TBCarga.Text == "Resistivo" ? "Capacitivo" : "Indutivo";
 
             // Carrega apenas os compativeis
             if (TBCarga.Text == "Resistivo")
@@ -83,13 +75,7 @@ namespace CEESP
                 atualizaLista((TBCarga.Text == "Indutivo") ? 'i' : 'c');
 
             // Seleciona o primeiro
-            if (this.dadosSelecionados.Count > 0)
-            {
-                this.index = 0;
-            } else
-            {
-                this.index = -1;
-            }
+            this.index = this.dadosSelecionados.Count > 0 ? 0 : -1;
 
             showCargaSelecionada();
             drawLines();
@@ -120,7 +106,8 @@ namespace CEESP
         {
             dadosSelecionados.Clear();
 
-            foreach (ColectedData dado in ListData1.colectedData) { 
+            foreach (ColectedData dado in ListData1.colectedData)
+            {
                 if (dado.getFPType(0) == type)
                 {
                     dadosSelecionados.Add(dado);
@@ -133,7 +120,8 @@ namespace CEESP
             if (this.index == -1 || dadosSelecionados.Count == 0)
             {
                 TBCargaSelecionada.Text = "Nenhuma carga encontrada";
-            } else
+            }
+            else
             {
                 ColectedData dado = dadosSelecionados[this.index];
                 float Va = (float)Math.Round(dado.getVa(0), 0);
@@ -141,7 +129,7 @@ namespace CEESP
                 float FP = (float)Math.Round(dado.getFP(0), 2);
 
                 TBCargaSelecionada.Text = "Amostra " + (this.index + 1).ToString() + "/" + dadosSelecionados.Count.ToString() +
-                                          " (Va: " + Va.ToString() + "V, Ia: " 
+                                          " (Va: " + Va.ToString() + "V, Ia: "
                                           + Ia.ToString() + "A, FP: " + FP.ToString() + ")";
                 valorSelecionado = dado;
             }
@@ -158,7 +146,8 @@ namespace CEESP
                 }
             }
 
-            if (valorSelecionado != null) {
+            if (valorSelecionado != null)
+            {
                 float zoom = (float)calcularZoom();
 
                 List<Line> objects = new List<Line>
@@ -192,20 +181,15 @@ namespace CEESP
                 return 0;
 
             float angle = (float)Math.Acos(valorSelecionado.getFP(0));
-            if (valorSelecionado.getFP(0) != 0)
-            {
-                X = valorSelecionado.getVa(0) + ((valorSelecionado.getFPType(0) == 'i') ? valorSelecionado.getIa(0) * ListData1.configData.getXs() * (float)Math.Cos(1.5708 - angle) : 0);
-            }
-            else
-            {
-                X = valorSelecionado.getVa(0);
-            }
+            X = valorSelecionado.getFP(0) != 0
+                ? valorSelecionado.getVa(0) + ((valorSelecionado.getFPType(0) == 'i') ? valorSelecionado.getIa(0) * ListData1.configData.getXs() * (float)Math.Cos(1.5708 - angle) : 0)
+                : valorSelecionado.getVa(0);
             if (X != 0)
                 zoom = (Graph.Width * 0.8f) / X;
 
             return zoom;
         }
-         
+
         private void ProximoButton_Click(object sender, RoutedEventArgs e)
         {
 
