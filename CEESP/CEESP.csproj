@@ -15,13 +15,16 @@
     <None Remove="Download.png" />
     <None Remove="Edit.png" />
     <None Remove="icons\close.png" />
+    <None Remove="icons\Phase.png" />
     <None Remove="List.png" />
     <None Remove="menu.png" />
+    <None Remove="Phase.png" />
     <None Remove="plus.png" />
     <None Remove="refresh.png" />
     <None Remove="Timer.png" />
     <None Remove="Trash.png" />
     <None Remove="typcn_minus.png" />
+    <None Remove="USB.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,12 +46,14 @@
     <Resource Include="icons\Edit.png" />
     <Resource Include="icons\close.png" />
     <Resource Include="icons\menu.png" />
+    <Resource Include="icons\Phase.png" />
     <Resource Include="icons\Trash.png" />
     <Resource Include="icons\Timer.png" />
     <Resource Include="icons\refresh.png" />
     <Resource Include="icons\List.png" />
     <Resource Include="icons\plus.png" />
     <Resource Include="icons\typcn_minus.png" />
+    <Resource Include="icons\USB.png" />
   </ItemGroup>
 
 </Project>

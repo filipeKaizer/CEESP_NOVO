@@ -209,5 +209,13 @@ namespace CEESP
             this.P = Potencia;
         }
 
+        public bool getPhaseFail(int index)
+        {
+            if (this.Va[index] == 0 && this.Ia[index] == 0)
+                return true;
+            else 
+                return false;
+        }
+
     }
 }

@@ -109,7 +109,7 @@
             <RowDefinition Height="391*"/>
             <RowDefinition Height="313*"/>
         </Grid.RowDefinitions>
-        <Canvas x:Name="Graph" HorizontalAlignment="Center" Width="1280" Height="704" Background="#19000000" VerticalAlignment="Top" Cursor="Arrow" Grid.RowSpan="2"/>
+        <Canvas x:Name="Graph" HorizontalAlignment="Center" Width="1280" Height="704" Background="#19000000" VerticalAlignment="Top" Cursor="" Grid.RowSpan="2"/>
         <Label x:Name="TimeSelected" Content="2s" Background="{x:Null}" Foreground="#99DEDEDE" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="27,0,0,11" Grid.Row="1"/>
         <ComboBox x:Name="CBTimes" Margin="10,0,0,22" Width="28" Height="28" BorderBrush="{x:Null}" Foreground="#FF17006D" HorizontalAlignment="Left" VerticalAlignment="Bottom" SelectionChanged="CBTimes_SelectionChanged" Cursor="Hand" RenderTransformOrigin="0.512,0.607" Grid.Row="1" ToolTip="Ajustar intervalo de atualização">
             <ComboBox.OpacityMask>
@@ -195,6 +195,26 @@
                     </LinearGradientBrush>
                 </TextBlock.Foreground>
             </TextBlock>
+        </Grid>
+        <Grid x:Name="FaseA_Fault" Width="80" Height="20" Margin="5,196,1156,175" HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="" Visibility="Hidden">
+            <TextBlock x:Name="Phase_Text" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="52" Foreground="Red" Margin="18,0,0,0"><Run Language="pt-br" Text="Fase A"/></TextBlock>
+            <Image x:Name="Phase_A" Width="15" Height="16" Source="/icons/Phase.png" Margin="0,2,65,2" Stretch="Fill"/>
+        </Grid>
+        <Grid x:Name="FaseB_Fault" Width="80" Height="20" Margin="5,221,1156,150" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Hidden">
+            <TextBlock x:Name="Phase_Text_Copiar" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Fase B" VerticalAlignment="Center" Width="52" Foreground="Red" Margin="18,0,0,0" d:IsLocked="True"/>
+            <Image x:Name="Phase_B" Width="15" Height="16" Source="/icons/Phase.png" Margin="0,2,65,2" Stretch="Fill"/>
+        </Grid>
+        <Grid x:Name="FaseC_Fault" Width="80" Height="20" Margin="5,246,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Hidden">
+            <TextBlock x:Name="Phase_Text_Copiar1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Fase C" VerticalAlignment="Center" Width="52" Foreground="Red" Margin="18,0,0,0"/>
+            <Image x:Name="Phase_C" Width="15" Height="16" Source="/icons/Phase.png" Margin="0,2,65,2" Stretch="Fill"/>
+        </Grid>
+        <Grid x:Name="USB_Fault" Width="80" Height="20" Margin="5,296,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Hidden">
+            <Image x:Name="usb" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Center" Source="/icons/USB.png">
+                <Image.OpacityMask>
+                    <ImageBrush ImageSource="/icons/USB.png"/>
+                </Image.OpacityMask>
+            </Image>
+            <TextBlock x:Name="Phase_Text_Copiar2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Conexão" VerticalAlignment="Center" Width="47" Foreground="Yellow" Margin="18,0,0,0" FontSize="11"/>
         </Grid>
 
 

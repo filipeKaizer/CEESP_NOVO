@@ -103,6 +103,9 @@ namespace CEESP
 
             type.Content = FPv.ToString() != "1" ? (this.dado.getFPType(index) == 'i') ? "Indutivo" : "Capacitivo" : (object)"Resistivo";
 
+            // Atualiza demonstração de falhas
+            problems();
+
             // Adiciona as linhas
             foreach (Line i in objects)
             {
@@ -302,6 +305,29 @@ namespace CEESP
                     Graph.Children.Remove(i);
                 }
             }
+        }
+
+        private void problems()
+        {
+            FaseA_Fault.Visibility = Visibility.Hidden;
+            FaseB_Fault.Visibility = Visibility.Hidden;
+            FaseC_Fault.Visibility = Visibility.Hidden;
+
+            // Falta de fases
+            for (int i = 1; i < 4; i++)
+            {
+                bool problem = this.dado.getPhaseFail(i);
+                if (problem && i == 1)
+                    FaseA_Fault.Visibility = Visibility.Visible;
+
+                if (problem && i == 2)
+                    FaseB_Fault.Visibility = Visibility.Visible;
+
+                if (problem && i == 3)
+                    FaseC_Fault.Visibility = Visibility.Visible;
+            }
+
+
         }
     }
 }
