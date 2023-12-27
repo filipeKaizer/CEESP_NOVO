@@ -6,6 +6,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Threading.Tasks;
 
 namespace CEESP
 {
@@ -205,146 +206,149 @@ namespace CEESP
                 btSaveAfterEdit.IsEnabled = true;
             }
         }
-        private void SalvarArquivo()
+        private Task SalvarArquivo()
         {
-            if (ListData1.colectedData.Count != 0)
+            return Task.Run(() =>
             {
-
-                SaveFileDialog SaveWindow = new SaveFileDialog();
-                SaveWindow.Filter = "Arquivo Excel (*.xlsx)|*.xlsx";
-                SaveWindow.Title = "Escolher caminho do arquivo de dados";
-
-                if (SaveWindow.ShowDialog() == true)
+                if (ListData1.colectedData.Count != 0)
                 {
-                    string caminhoArquivo = SaveWindow.FileName;
 
-                    FileInfo fileInfo = new FileInfo(caminhoArquivo);
+                    SaveFileDialog SaveWindow = new SaveFileDialog();
+                    SaveWindow.Filter = "Arquivo Excel (*.xlsx)|*.xlsx";
+                    SaveWindow.Title = "Escolher caminho do arquivo de dados";
 
-                    ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-
-                    using (ExcelPackage excelPackage = new ExcelPackage(fileInfo))
+                    if (SaveWindow.ShowDialog() == true)
                     {
-                        ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("Dados");
+                        string caminhoArquivo = SaveWindow.FileName;
 
-                        // Adiciona numeros de verificação
-                        Random random = new Random();
-                        int A = random.Next(0, 101);
-                        int B = random.Next(0, 101);
+                        FileInfo fileInfo = new FileInfo(caminhoArquivo);
 
-                        int resposta = (A % B) * (A + B);
+                        ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
-                        worksheet.Cells[1, 1].Value = A;
-                        worksheet.Cells[1, 2].Value = B;
-                        worksheet.Cells[1, 3].Value = resposta;
-
-                        // Adiciona Xs
-                        worksheet.Cells[1, 4].Value = "Xs";
-                        worksheet.Cells[1, 5].Value = ListData1.configData.getXs();
-
-                        // Adiciona O numero de intens
-                        worksheet.Cells[1, 6].Value = "Itens";
-                        worksheet.Cells[1, 7].Value = ListData1.colectedData.Count;
-
-                        // Adiciona os cabeçalhos
-                        worksheet.Cells[2, 1].Value = "Tempo";
-                        worksheet.Cells[2, 2].Value = "RPM";
-                        worksheet.Cells[2, 3].Value = "Freq.";
-                        worksheet.Cells[2, 4].Value = "Va";
-                        worksheet.Cells[2, 5].Value = "Ia";
-                        worksheet.Cells[2, 6].Value = "Ea";
-                        worksheet.Cells[2, 7].Value = "FP";
-                        worksheet.Cells[2, 8].Value = "Tipo";
-                        worksheet.Cells[2, 9].Value = "VaA";
-                        worksheet.Cells[2, 10].Value = "IaA";
-                        worksheet.Cells[2, 11].Value = "EaA";
-                        worksheet.Cells[2, 12].Value = "FPA";
-                        worksheet.Cells[2, 13].Value = "TipoA";
-                        worksheet.Cells[2, 14].Value = "VaB";
-                        worksheet.Cells[2, 15].Value = "IaB";
-                        worksheet.Cells[2, 16].Value = "EaB";
-                        worksheet.Cells[2, 17].Value = "FPB";
-                        worksheet.Cells[2, 18].Value = "TipoB";
-                        worksheet.Cells[2, 19].Value = "VaC";
-                        worksheet.Cells[2, 20].Value = "IaC";
-                        worksheet.Cells[2, 21].Value = "EaC";
-                        worksheet.Cells[2, 22].Value = "FPC";
-                        worksheet.Cells[2, 23].Value = "TipoC";
-
-                        // Adiciona cores
-                        for (int col = 1; col < 8; col++)
+                        using (ExcelPackage excelPackage = new ExcelPackage(fileInfo))
                         {
-                            // Adicionar paterntype
-                            worksheet.Cells[1, col].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                        }
-                        worksheet.Cells[1, 1].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Yellow);
-                        worksheet.Cells[1, 2].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Yellow);
-                        worksheet.Cells[1, 3].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Yellow);
+                            ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("Dados");
 
-                        worksheet.Cells[1, 4].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Green);
-                        worksheet.Cells[1, 5].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Green);
+                            // Adiciona numeros de verificação
+                            Random random = new Random();
+                            int A = random.Next(0, 101);
+                            int B = random.Next(0, 101);
 
-                        worksheet.Cells[1, 6].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Blue);
-                        worksheet.Cells[1, 7].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Blue);
+                            int resposta = (A % B) * (A + B);
 
-                        for (int col = 1; col < 24; col++)
-                        {
-                            worksheet.Cells[2, col].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                            worksheet.Cells[2, col].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.BlueViolet);
-                        }
+                            worksheet.Cells[1, 1].Value = A;
+                            worksheet.Cells[1, 2].Value = B;
+                            worksheet.Cells[1, 3].Value = resposta;
 
-                        // Adiciona os dados
-                        int i = 0;
-                        bool u = ListData1.configData.getUnidade();
-                        ConfigData c = ListData1.configData;
-                        List<ColectedData> dados;
+                            // Adiciona Xs
+                            worksheet.Cells[1, 4].Value = "Xs";
+                            worksheet.Cells[1, 5].Value = ListData1.configData.getXs();
 
-                        if (ListData1.cache.Count > 0)
-                        {
-                            dados = ListData1.cache;
+                            // Adiciona O numero de intens
+                            worksheet.Cells[1, 6].Value = "Itens";
+                            worksheet.Cells[1, 7].Value = (ListData1.colectedData.Count + ListData1.cache.Count);
 
-                            foreach (ColectedData colect in ListData1.colectedData)
+                            // Adiciona os cabeçalhos
+                            worksheet.Cells[2, 1].Value = "Tempo";
+                            worksheet.Cells[2, 2].Value = "RPM";
+                            worksheet.Cells[2, 3].Value = "Freq.";
+                            worksheet.Cells[2, 4].Value = "Va";
+                            worksheet.Cells[2, 5].Value = "Ia";
+                            worksheet.Cells[2, 6].Value = "Ea";
+                            worksheet.Cells[2, 7].Value = "FP";
+                            worksheet.Cells[2, 8].Value = "Tipo";
+                            worksheet.Cells[2, 9].Value = "VaA";
+                            worksheet.Cells[2, 10].Value = "IaA";
+                            worksheet.Cells[2, 11].Value = "EaA";
+                            worksheet.Cells[2, 12].Value = "FPA";
+                            worksheet.Cells[2, 13].Value = "TipoA";
+                            worksheet.Cells[2, 14].Value = "VaB";
+                            worksheet.Cells[2, 15].Value = "IaB";
+                            worksheet.Cells[2, 16].Value = "EaB";
+                            worksheet.Cells[2, 17].Value = "FPB";
+                            worksheet.Cells[2, 18].Value = "TipoB";
+                            worksheet.Cells[2, 19].Value = "VaC";
+                            worksheet.Cells[2, 20].Value = "IaC";
+                            worksheet.Cells[2, 21].Value = "EaC";
+                            worksheet.Cells[2, 22].Value = "FPC";
+                            worksheet.Cells[2, 23].Value = "TipoC";
+
+                            // Adiciona cores
+                            for (int col = 1; col < 8; col++)
                             {
-                                dados.Add(colect);
+                                // Adicionar paterntype
+                                worksheet.Cells[1, col].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                             }
-                        }
-                        else
-                        {
-                            dados = ListData1.colectedData;
-                        }
+                            worksheet.Cells[1, 1].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Yellow);
+                            worksheet.Cells[1, 2].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Yellow);
+                            worksheet.Cells[1, 3].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Yellow);
 
-                        foreach (ColectedData data in dados)
-                        {
-                            int p = c.getDecimals();
+                            worksheet.Cells[1, 4].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Green);
+                            worksheet.Cells[1, 5].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Green);
 
-                            // Adiciona os valores comuns
-                            worksheet.Cells[i + 3, 1].Value = data.getTempo();
-                            worksheet.Cells[i + 3, 2].Value = Math.Round(data.getRPM(), 2);
-                            worksheet.Cells[i + 3, 3].Value = Math.Round(data.getFrequency(), 2);
+                            worksheet.Cells[1, 6].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Blue);
+                            worksheet.Cells[1, 7].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Blue);
 
-                            for (int index = 0; index < 4; index++)
+                            for (int col = 1; col < 24; col++)
                             {
-                                worksheet.Cells[i + 3, index * 5 + 4].Value = Math.Round(data.getVa(index), p);
-                                worksheet.Cells[i + 3, index * 5 + 5].Value = Math.Round(data.getIa(index), p);
-                                worksheet.Cells[i + 3, index * 5 + 6].Value = Math.Round(data.getEa(index), p);
-                                worksheet.Cells[i + 3, index * 5 + 7].Value = Math.Round(data.getFP(index), p);
-
-                                if (data.getFP(index) == 1)
-                                    worksheet.Cells[i + 3, index * 5 + 8].Value = "Resistiva";
-                                else if (data.getFPType(index) == 'i')
-                                    worksheet.Cells[i + 3, index * 5 + 8].Value = "Indutiva";
-                                else if (data.getFPType(index) == 'c')
-                                    worksheet.Cells[i + 3, index * 5 + 8].Value = "Capacitiva";
-                                else if (data.getFPType(index) == '?')
-                                    worksheet.Cells[i + 3, index * 5 + 8].Value = "Inválido";
+                                worksheet.Cells[2, col].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                worksheet.Cells[2, col].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.BlueViolet);
                             }
 
-                            i++;
-                        }
+                            // Adiciona os dados
+                            int i = 0;
+                            bool u = ListData1.configData.getUnidade();
+                            ConfigData c = ListData1.configData;
+                            List<ColectedData> dados;
 
-                        excelPackage.Save();
+                            if (ListData1.cache.Count > 0)
+                            {
+                                dados = ListData1.cache;
+
+                                foreach (ColectedData colect in ListData1.colectedData)
+                                {
+                                    dados.Add(colect);
+                                }
+                            }
+                            else
+                            {
+                                dados = ListData1.colectedData;
+                            }
+
+                            foreach (ColectedData data in dados)
+                            {
+                                int p = c.getDecimals();
+
+                                // Adiciona os valores comuns
+                                worksheet.Cells[i + 3, 1].Value = data.getTempo();
+                                worksheet.Cells[i + 3, 2].Value = Math.Round(data.getRPM(), 2);
+                                worksheet.Cells[i + 3, 3].Value = Math.Round(data.getFrequency(), 2);
+
+                                for (int index = 0; index < 4; index++)
+                                {
+                                    worksheet.Cells[i + 3, index * 5 + 4].Value = Math.Round(data.getVa(index), p);
+                                    worksheet.Cells[i + 3, index * 5 + 5].Value = Math.Round(data.getIa(index), p);
+                                    worksheet.Cells[i + 3, index * 5 + 6].Value = Math.Round(data.getEa(index), p);
+                                    worksheet.Cells[i + 3, index * 5 + 7].Value = Math.Round(data.getFP(index), p);
+
+                                    if (data.getFP(index) == 1)
+                                        worksheet.Cells[i + 3, index * 5 + 8].Value = "Resistiva";
+                                    else if (data.getFPType(index) == 'i')
+                                        worksheet.Cells[i + 3, index * 5 + 8].Value = "Indutiva";
+                                    else if (data.getFPType(index) == 'c')
+                                        worksheet.Cells[i + 3, index * 5 + 8].Value = "Capacitiva";
+                                    else if (data.getFPType(index) == '?')
+                                        worksheet.Cells[i + 3, index * 5 + 8].Value = "Inválido";
+                                }
+
+                                i++;
+                            }
+
+                            excelPackage.Save();
+                        }
                     }
                 }
-            }
+            });
         }
         private void btSaveAfterEdit_Click(object sender, RoutedEventArgs e)
         {
@@ -369,9 +373,9 @@ namespace CEESP
             BorderButton.Background = defaultColor;
         }
 
-        private void btSave_Click(object sender, RoutedEventArgs e)
+        private async void btSave_Click(object sender, RoutedEventArgs e)
         {
-            SalvarArquivo();
+            await SalvarArquivo();
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)

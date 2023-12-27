@@ -59,7 +59,7 @@ namespace CEESP
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show(e.Message);
+                        MessageBox.Show("Erro de teste:" + e.Message);
                     }
                 }
                 return comp;

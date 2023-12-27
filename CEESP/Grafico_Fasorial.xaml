@@ -149,9 +149,9 @@
             <ComboBoxItem Content="Fase B"/>
             <ComboBoxItem Cursor="Hand" Content="Fase C"/>
         </ComboBox>
-        <Grid x:Name="Itens" Width="130" Height="30" Margin="30,262,0,20" HorizontalAlignment="Left" VerticalAlignment="Bottom" Visibility="Collapsed" Grid.Row="1">
-            <Rectangle HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="130" Fill="#3F000000" RadiusX="5" RadiusY="5"/>
-            <Button x:Name="plusItem" Content="Button" HorizontalAlignment="Left" Margin="100,0,0,0" VerticalAlignment="Center" Width="20" Height="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="plusItem_Click" Cursor="Hand" ToolTip="Próximo item">
+        <Grid x:Name="Itens" Width="145" Height="30" Margin="30,262,0,20" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="1">
+            <Rectangle HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="145" Fill="#3F000000" RadiusX="5" RadiusY="5"/>
+            <Button x:Name="plusItem" Content="Button" HorizontalAlignment="Left" Margin="120,0,0,0" VerticalAlignment="Center" Width="20" Height="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="plusItem_Click" Cursor="Hand" ToolTip="Próximo item">
                 <Button.OpacityMask>
                     <ImageBrush ImageSource="/icons/plus.png"/>
                 </Button.OpacityMask>
@@ -159,7 +159,7 @@
                     <ImageBrush ImageSource="/icons/plus.png"/>
                 </Button.Background>
             </Button>
-            <Button x:Name="minusItem" Content="Button" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Width="20" Height="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="minusItem_Click" Cursor="Hand" ToolTip="Item anterior">
+            <Button x:Name="minusItem" Content="Button" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20" Height="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="minusItem_Click" Cursor="Hand" ToolTip="Item anterior" Margin="5,0,0,0">
                 <Button.OpacityMask>
                     <ImageBrush ImageSource="/icons/typcn_minus.png"/>
                 </Button.OpacityMask>
@@ -167,9 +167,9 @@
                     <ImageBrush ImageSource="/icons/typcn_minus.png"/>
                 </Button.Background>
             </Button>
-            <TextBox x:Name="ItemText" BorderBrush="Transparent" Background="Transparent" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Item: 1" VerticalAlignment="Center" Width="60" SelectionTextBrush="{x:Null}" Foreground="#FFAFAFAF" TextAlignment="Center" SelectionBrush="#330078D7" IsEnabled="False"/>
+            <TextBox x:Name="ItemText" BorderBrush="Transparent" Background="Transparent" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Item: 1" VerticalAlignment="Center" Width="84" SelectionTextBrush="{x:Null}" Foreground="#FFAFAFAF" TextAlignment="Center" SelectionBrush="#330078D7" IsEnabled="False"/>
         </Grid>
-        <Grid x:Name="SaveMode" Height="80" Width="130" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="52,0,0,20" Grid.Row="1">
+        <Grid x:Name="SaveMode" Height="80" Width="130" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="52,0,0,20" Grid.Row="1" Visibility="Hidden">
             <Grid x:Name="GridSalvar" Margin="27,106,33,-56" Width="70" Height="30" RenderTransformOrigin="0.5,0.5">
                 <Grid.RenderTransform>
                     <TransformGroup>

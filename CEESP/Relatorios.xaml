@@ -31,14 +31,14 @@
                     <TextBlock x:Name="TBSeguir" Text="Seguir" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Height="50" FontFamily="Elephant" FontSize="35" TextAlignment="Center" Foreground="#FF171049" Cursor="Hand" ToolTip="Prosseguir com a amostra selecionada"/>
                 </Border>
             </Button>
-            <Canvas x:Name="Graph" Width="570" Height="340" Margin="115,165,115,95" Background="#33000000"/>
-            <Button x:Name="Carga" Style="{StaticResource NoMouseOverButtonStyle}"  Width="165" Height="40" Margin="115,45,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="{x:Null}" Click="Carga_Click" ToolTip="Mudar tipo de carga">
-                <Border x:Name="BorderCarga" CornerRadius="15,15,15,15" HorizontalAlignment="Center" VerticalAlignment="Center" Width="162" Height="40" Background="#33D9D9D9">
-                    <TextBlock x:Name="TBCarga" Text="Indutivo" Width="160" Height="28" FontFamily="Elephant" FontSize="20" TextAlignment="Center" Foreground="White" Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Canvas x:Name="Graph" Width="570" Height="340" Margin="115,165,115,95" Background="#26000000"/>
+            <Button x:Name="Carga" Style="{StaticResource NoMouseOverButtonStyle}"  Width="150" Height="40" Margin="115,45,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="{x:Null}" Click="Carga_Click" ToolTip="Mudar tipo de carga">
+                <Border x:Name="BorderCarga" CornerRadius="15,15,15,15" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="40" Background="#33D9D9D9">
+                    <TextBlock x:Name="TBCarga" Text="Indutivo" Width="150" Height="28" FontFamily="Elephant" FontSize="20" TextAlignment="Center" Foreground="White" Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Border>
             </Button>
-            <Rectangle HorizontalAlignment="Left" Height="40" Margin="285,45,0,0" VerticalAlignment="Top" Width="400" Fill="#33D9D9D9" RadiusX="15" RadiusY="15"/>
-            <Button x:Name="AnteriorButton" Content="" Style="{StaticResource NoMouseOverButtonStyle}" HorizontalAlignment="Left" Margin="285,45,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="40" Height="40" Cursor="Hand" Click="Anterior_Click" ToolTip="Item anterior">
+            <Rectangle HorizontalAlignment="Left" Height="40" Margin="270,45,0,0" VerticalAlignment="Top" Width="415" Fill="#33D9D9D9" RadiusX="15" RadiusY="15"/>
+            <Button x:Name="AnteriorButton" Content="" Style="{StaticResource NoMouseOverButtonStyle}" HorizontalAlignment="Left" Margin="270,46,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="40" Height="40" Cursor="Hand" Click="Anterior_Click" ToolTip="Item anterior">
                 <Button.OpacityMask>
                     <ImageBrush ImageSource="/icons/Anterior.png"/>
                 </Button.OpacityMask>
@@ -72,7 +72,7 @@
                     </ImageBrush>
                 </Button.Background>
             </Button>
-            <TextBlock x:Name="TBCargaSelecionada" HorizontalAlignment="Left" Margin="330,56,0,0" TextWrapping="Wrap" Text="Item 1 (Va: 220v, Ia:10A, FP:0.79)" VerticalAlignment="Top" Foreground="#CCD2D2D2" FontFamily="Elephant" Width="310" FontSize="14" TextAlignment="Center"/>
+            <TextBlock x:Name="TBCargaSelecionada" HorizontalAlignment="Left" Margin="315,56,0,0" TextWrapping="Wrap" Text="Item 1 (Va: 220v, Ia:10A, FP:0.79)" VerticalAlignment="Top" Foreground="#CCD2D2D2" FontFamily="Elephant" Width="325" FontSize="14" TextAlignment="Center"/>
         </Grid>
 
     </Grid>

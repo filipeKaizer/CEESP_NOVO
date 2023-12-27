@@ -41,7 +41,7 @@ namespace CEESP
 
             this.index = 0;
 
-            this.atualizaLista('i');
+            this.atualizaLista();
             this.showCargaSelecionada();
             drawLines();
         }
@@ -68,11 +68,7 @@ namespace CEESP
             // Atualiza o TBCarga
             TBCarga.Text = TBCarga.Text == "Indutivo" ? "Resistivo" : TBCarga.Text == "Resistivo" ? "Capacitivo" : "Indutivo";
 
-            // Carrega apenas os compativeis
-            if (TBCarga.Text == "Resistivo")
-                atualizaLista('r');
-            else
-                atualizaLista((TBCarga.Text == "Indutivo") ? 'i' : 'c');
+            atualizaLista();
 
             // Seleciona o primeiro
             this.index = this.dadosSelecionados.Count > 0 ? 0 : -1;
@@ -102,8 +98,16 @@ namespace CEESP
 
         }
 
-        private void atualizaLista(char type)
+        public void atualizaLista()
         {
+            char type = 'i';
+            // Carrega apenas os compativeis
+            if (TBCarga.Text == "Resistivo")
+               type = 'r';
+            else
+                type = (TBCarga.Text == "Indutivo") ? 'i' : 'c';
+
+
             dadosSelecionados.Clear();
 
             foreach (ColectedData dado in ListData1.colectedData)
@@ -113,6 +117,9 @@ namespace CEESP
                     dadosSelecionados.Add(dado);
                 }
             }
+
+            this.index = 0;
+            showCargaSelecionada();
         }
 
         private void showCargaSelecionada()

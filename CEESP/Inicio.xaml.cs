@@ -259,6 +259,8 @@ namespace CEESP
             show_Xs.Stop();
             show_Ports.Stop();
             hide_options.Stop();
+            verbose.Visibility = Visibility.Hidden;
+            verbose.Content = "";
 
 
         }

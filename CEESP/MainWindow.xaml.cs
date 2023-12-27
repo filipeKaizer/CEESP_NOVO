@@ -156,6 +156,7 @@ namespace CEESP
         private void Relatorios_Click(object sender, RoutedEventArgs e)
         {
             this.SetPage(3);
+            this.relatorios.atualizaLista();
         }
 
         private void menu_button_Click(object sender, RoutedEventArgs e)
