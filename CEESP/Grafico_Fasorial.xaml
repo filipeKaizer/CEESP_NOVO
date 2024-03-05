@@ -208,13 +208,13 @@
             <TextBlock x:Name="Phase_Text_Copiar1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Fase C" VerticalAlignment="Center" Width="52" Foreground="Red" Margin="18,0,0,0"/>
             <Image x:Name="Phase_C" Width="15" Height="16" Source="/icons/Phase.png" Margin="0,2,65,2" Stretch="Fill"/>
         </Grid>
-        <Grid x:Name="USB_Fault" Width="80" Height="20" Margin="5,275,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <Grid x:Name="USB_Fault" Width="170" Height="20" Margin="5,275,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Image x:Name="usb" Width="15" Height="16" HorizontalAlignment="Left" VerticalAlignment="Center" Source="/icons/USB.png">
                 <Image.OpacityMask>
                     <ImageBrush ImageSource="/icons/USB.png"/>
                 </Image.OpacityMask>
             </Image>
-            <TextBlock x:Name="Phase_Text_Copiar2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="47" Foreground="Yellow" Margin="20,0,0,0" FontSize="11"><Run Language="pt-br" Text="USB"/></TextBlock>
+            <TextBlock x:Name="USBTextFault" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="140" Foreground="Yellow" Margin="20,0,0,0" FontSize="11"><Run Language="pt-br" Text="USB"/></TextBlock>
         </Grid>
 
 

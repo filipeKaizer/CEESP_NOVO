@@ -79,6 +79,7 @@ namespace CEESP
         {
             bool connected = false;
 
+            int errorCode = 0;
             float[] Va = new float[4];
             float[] Ia = new float[4];
             float[] FP = new float[4];
@@ -124,6 +125,9 @@ namespace CEESP
 
                         switch (separados[0])
                         {
+                            case "Erro":
+                                errorCode = (int)valor;
+                                break;
                             case "Vm":
                                 Va[0] = valor;
                                 break;
@@ -199,7 +203,7 @@ namespace CEESP
             }
             ColectedData colected;
 
-            colected = new ColectedData(Ia, Va, FP, CFP, RPM, frequency);
+            colected = new ColectedData(errorCode, Ia, Va, FP, CFP, RPM, frequency);
 
             colected.setTempo(tempoCorrente);
             colected.setXs(this.main.getInicio().getXs());

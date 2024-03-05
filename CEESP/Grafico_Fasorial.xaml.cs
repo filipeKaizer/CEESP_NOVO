@@ -274,7 +274,6 @@ namespace CEESP
 
         private void SaveMode_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Clicado");
             if (saveMode.Content.ToString() == "Autosave")
             {
                 this.hide_salvar.Stop();
@@ -331,6 +330,14 @@ namespace CEESP
             } else
             {
                 USB_Fault.Visibility = Visibility.Visible;
+
+                if (this.dado.getErrorCode() != 0)
+                {
+                    USBTextFault.Text = "Erro: " + this.dado.getErrorCode().ToString();
+                } else
+                {
+                    USBTextFault.Text = "Erro: alimentação";
+                }
             }
         }
     }

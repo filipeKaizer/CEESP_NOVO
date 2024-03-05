@@ -7,7 +7,7 @@ namespace CEESP
 {
     public class ColectedData
     {
-
+        private int errorCode;
         private float[] Ia;
         private float[] Va;
         private float[] Ea;
@@ -20,8 +20,9 @@ namespace CEESP
 
         private float Xs = 5;
 
-        public ColectedData(float[] Ia, float[] Va, float[] FP, float[] CFP, float RPM, float frequency)
+        public ColectedData(int errorCode, float[] Ia, float[] Va, float[] FP, float[] CFP, float RPM, float frequency)
         {
+            this.errorCode = errorCode;
             this.Ia = Ia;
             this.Va = Va;
             this.FP = FP;
@@ -226,6 +227,11 @@ namespace CEESP
             }
 
             return true;
+        }
+
+        public int getErrorCode()
+        {
+            return this.errorCode;
         }
 
     }
