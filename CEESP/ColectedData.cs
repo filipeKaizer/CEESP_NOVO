@@ -217,5 +217,16 @@ namespace CEESP
                 return false;
         }
 
+        public bool getNullFail()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                if (this.Va[i] != 0) 
+                    return false;
+            }
+
+            return true;
+        }
+
     }
 }

@@ -222,16 +222,14 @@ namespace CEESP
                 CBTimes.Visibility = Visibility.Collapsed;
                 Itens.Visibility = Visibility.Visible;
                 TimeSelected.Visibility = Visibility.Collapsed;
-                saveMode.Visibility = Visibility.Hidden;
-                rtSaveMode.Visibility = Visibility.Hidden;
+                SaveMode.Visibility = Visibility.Hidden;
             }
             else
             {
                 CBTimes.Visibility = Visibility.Visible;
                 Itens.Visibility = Visibility.Hidden;
                 TimeSelected.Visibility = Visibility.Visible;
-                saveMode.Visibility = Visibility.Visible;
-                rtSaveMode.Visibility = Visibility.Visible;
+                SaveMode.Visibility = Visibility.Visible;
             }
 
             ListData1.configData.setModuloAtivo(isModuleOption);
@@ -276,6 +274,7 @@ namespace CEESP
 
         private void SaveMode_Click(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show("Clicado");
             if (saveMode.Content.ToString() == "Autosave")
             {
                 this.hide_salvar.Stop();
@@ -312,22 +311,27 @@ namespace CEESP
             FaseA_Fault.Visibility = Visibility.Hidden;
             FaseB_Fault.Visibility = Visibility.Hidden;
             FaseC_Fault.Visibility = Visibility.Hidden;
+            USB_Fault.Visibility = Visibility.Hidden;
 
-            // Falta de fases
-            for (int i = 1; i < 4; i++)
+            if (!this.dado.getNullFail())
             {
-                bool problem = this.dado.getPhaseFail(i);
-                if (problem && i == 1)
-                    FaseA_Fault.Visibility = Visibility.Visible;
+                // Falta de fases
+                for (int i = 1; i < 4; i++)
+                {
+                    bool problem = this.dado.getPhaseFail(i);
+                    if (problem && i == 1)
+                        FaseA_Fault.Visibility = Visibility.Visible;
 
-                if (problem && i == 2)
-                    FaseB_Fault.Visibility = Visibility.Visible;
+                    if (problem && i == 2)
+                        FaseB_Fault.Visibility = Visibility.Visible;
 
-                if (problem && i == 3)
-                    FaseC_Fault.Visibility = Visibility.Visible;
+                    if (problem && i == 3)
+                        FaseC_Fault.Visibility = Visibility.Visible;
+                }
+            } else
+            {
+                USB_Fault.Visibility = Visibility.Visible;
             }
-
-
         }
     }
 }

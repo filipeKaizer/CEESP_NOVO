@@ -7,6 +7,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Threading.Tasks;
+using ControlzEx.Standard;
+using System.Linq;
 
 namespace CEESP
 {
@@ -407,8 +409,8 @@ namespace CEESP
 
         private void refreshValores()
         {
-            TBIa.Text = Math.Round(IaValue, 1).ToString() + "A";
-            TBVa.Text = Math.Round(VaValue, 1).ToString() + "V";
+            TBIa.Text = Math.Round(IaValue, 1).ToString();
+            TBVa.Text = Math.Round(VaValue, 1).ToString();
             TBFP.Text = Math.Round(FPValue, 2).ToString();
             TBRPM.Text = Math.Round(RPMValue, 0).ToString();
             TBF.Text = Math.Round(FValue, 0).ToString() + "Hz";
@@ -450,7 +452,7 @@ namespace CEESP
 
         private void plusVa_Click(object sender, RoutedEventArgs e)
         {
-            if (this.VaValue + 20 < 6000)
+            if (this.VaValue < 6000)
             {
                 this.VaValue += 20;
                 refreshValores();
@@ -492,7 +494,6 @@ namespace CEESP
                 refreshValores();
             }
         }
-
 
         private void minusF_Click(object sender, RoutedEventArgs e)
         {

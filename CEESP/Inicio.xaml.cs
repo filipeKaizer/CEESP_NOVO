@@ -118,7 +118,6 @@ namespace CEESP
 
                 this.main.getGraficos().getFasorial().changeMode(true);
 
-
                 main.SetPage(1, false);
             }
         }

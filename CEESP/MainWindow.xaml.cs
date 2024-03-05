@@ -25,6 +25,7 @@ namespace CEESP
         public MainWindow()
         {
             InitializeComponent();
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
 
             float width = ListData1.configData.getWidth();
             float height = ListData1.configData.getHeigth();

@@ -1,8 +1,13 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
+using PdfSharp.Drawing;
+using PdfSharp.Pdf;
+using PdfSharp.Events;
+using PdfSharp.Pdf.Advanced;
 
 namespace CEESP
 {
@@ -46,11 +51,31 @@ namespace CEESP
             drawLines();
         }
 
-
-
         private void Seguir_Click(object sender, RoutedEventArgs e)
         {
+            // Abrir salvamento
+            SaveFileDialog SaveWindow = new SaveFileDialog();
+            SaveWindow.Filter = "Arquivo PDF (*.pdf)|*.pdf";
+            SaveWindow.Title = "Escolher caminho do arquivo de dados";
 
+            if (SaveWindow.ShowDialog() == true)
+            {
+                // Documento
+                PdfDocument document = new PdfDocument();
+                
+                // Pagina
+                PdfPage page = document.AddPage();
+
+                XGraphics gfx = XGraphics.FromPdfPage(page);
+
+                // Fonte usada
+                XFont font = new XFont("Arial", 10);
+
+                gfx.DrawString("Ola", font, XBrushes.Black, new XRect(0, 0, page.Width, page.Height), XStringFormats.Center);
+
+                document.Save(SaveWindow.FileName);
+            
+            }
         }
 
         private void Seguir_MouseEnter(object sender, RoutedEventArgs e)
@@ -199,7 +224,7 @@ namespace CEESP
 
         private void ProximoButton_Click(object sender, RoutedEventArgs e)
         {
-
+           
         }
     }
 }

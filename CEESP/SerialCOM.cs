@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO.Ports;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace CEESP
 {
@@ -36,6 +38,13 @@ namespace CEESP
                 foreach (String port in ports)
                 {
                     SerialPort serialPort = new SerialPort(port, ListData1.configData.getBoundRate(), Parity.None, 8, StopBits.One);
+
+                    this.main.getInicio().Dispatcher.Invoke(() =>
+                    {
+                        this.main.getInicio().setProgress("Ola", true);
+                        Thread.Sleep(2000);
+                    }
+                    ); 
 
                     try
                     {
@@ -237,8 +246,6 @@ namespace CEESP
         {
             return this.portSelected != "";
         }
-
-
 
     }
 }
