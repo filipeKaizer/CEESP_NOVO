@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -14,6 +16,8 @@ namespace CEESP
         private float FinalX;
         private float FinalY;
 
+        private bool autoHeigth;
+
         private SolidColorBrush ActualBrush;
         public plot(float centerXv, float centerYv, float Xs)
         {
@@ -25,6 +29,23 @@ namespace CEESP
         }
 
 
+        public List<Line> createLines(ColectedData dado, float zoomScale, int index)
+        {
+            List<Line> objects = new List<Line>
+
+            {
+                this.createVa(dado.getVa(index) * zoomScale), //Adiciona Va
+                this.createIa(dado.getIa(index) * zoomScale, dado.getFP(index), dado.getFPType(index)), //Adiciona Ia
+                this.createXs(dado.getIa(index) * zoomScale, dado.getFP(index), dado.getFPType(index)), //Adiciona Xs
+            };
+
+            if (dado.getFP(index) != 0)
+            {
+                objects.Add(this.createEa());
+            }
+
+            return objects;
+        }
         public Line createVa(float value)
         {
 
@@ -79,6 +100,7 @@ namespace CEESP
         {
             SolidColorBrush customBrush = new SolidColorBrush(Color.FromRgb(193, 81, 0));
             float angulo = (float)(Math.Acos(FP));
+            double altura;
             int typeValue = 1;
 
             if (type == 'i')
@@ -90,12 +112,20 @@ namespace CEESP
                 typeValue = -1; // é capacitivo, o xs é deslocado para a esquerda
             }
 
+            if (this.autoHeigth)
+            {
+                altura = centerY * 0.95;
+            } else
+            {
+                altura = FinalY - (XSValue * IaValue) * Math.Sin(1.5708 - angulo);
+            }
+
             Line Xs = new Line
             {
                 X1 = FinalX,
                 Y1 = FinalY,
                 X2 = FinalX + typeValue * XSValue * IaValue * Math.Cos(1.5708 - angulo), //Subtrai 90 do angulo.
-                Y2 = FinalY - (XSValue * IaValue) * Math.Sin(1.5708 - angulo),
+                Y2 = altura,
                 Stroke = customBrush,
                 StrokeThickness = ListData1.configData.getLarguraLinha()
             };
@@ -170,6 +200,11 @@ namespace CEESP
         public void setXs(float XsValue)
         {
             this.XSValue = XsValue;
+        }
+
+        public void setHeigthOption(bool isActive)
+        {
+            this.autoHeigth = isActive;
         }
     }
 }

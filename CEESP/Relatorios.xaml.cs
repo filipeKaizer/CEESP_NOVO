@@ -8,6 +8,9 @@ using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using PdfSharp.Events;
 using PdfSharp.Pdf.Advanced;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.IO;
 
 namespace CEESP
 {
@@ -51,8 +54,11 @@ namespace CEESP
             drawLines();
         }
 
-        private void Seguir_Click(object sender, RoutedEventArgs e)
+        private async void Seguir_Click(object sender, RoutedEventArgs e)
         {
+
+
+
             // Abrir salvamento
             SaveFileDialog SaveWindow = new SaveFileDialog();
             SaveWindow.Filter = "Arquivo PDF (*.pdf)|*.pdf";
@@ -61,19 +67,10 @@ namespace CEESP
             if (SaveWindow.ShowDialog() == true)
             {
                 // Documento
-                PdfDocument document = new PdfDocument();
-                
-                // Pagina
-                PdfPage page = document.AddPage();
+                Pdf pdf = new Pdf(SaveWindow.FileName);
 
-                XGraphics gfx = XGraphics.FromPdfPage(page);
+                bool status = await pdf.createFile();
 
-                // Fonte usada
-                XFont font = new XFont("Arial", 10);
-
-                gfx.DrawString("Ola", font, XBrushes.Black, new XRect(0, 0, page.Width, page.Height), XStringFormats.Center);
-
-                document.Save(SaveWindow.FileName);
             
             }
         }

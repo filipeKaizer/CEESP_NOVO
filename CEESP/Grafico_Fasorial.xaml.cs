@@ -77,18 +77,11 @@ namespace CEESP
             if (autosizeEnable)
                 AutoSizeValue(this.dado, index);
 
-            List<Line> objects = new List<Line>
+            // Altura elevada
+            //plot.setHeigthOption(true);
 
-            {
-                plot.createVa(this.dado.getVa(index) * this.zoomScale), //Adiciona Va
-                plot.createIa(this.dado.getIa(index) * this.zoomScale, this.dado.getFP(index), this.dado.getFPType(index)), //Adiciona Ia
-                plot.createXs(this.dado.getIa(index) * this.zoomScale,this.dado.getFP(index), this.dado.getFPType(index)), //Adiciona Xs
-            };
-
-            if (this.dado.getFP(index) != 0)
-            {
-                objects.Add(plot.createEa());
-            }
+            // Cria linhas
+            List<Line> objects = this.plot.createLines(this.dado, zoomScale, index);
 
             double FPv = this.dado.getFP(index);
             double angle = Math.Acos(FPv) * 180 / Math.PI;

@@ -14,15 +14,19 @@ namespace CEESP
         private float[] FP;
         private float[] CFP;
         private float[] P;
+        private float ExI;
+        private float ExV;
         private float RPM = 0;
         private float frequency = 0;
         private int tempo = 0;
 
         private float Xs = 5;
 
-        public ColectedData(int errorCode, float[] Ia, float[] Va, float[] FP, float[] CFP, float RPM, float frequency)
+        public ColectedData(int errorCode, float ExI, float ExV, float[] Ia, float[] Va, float[] FP, float[] CFP, float RPM, float frequency)
         {
             this.errorCode = errorCode;
+            this.ExI = ExI;
+            this.ExV = ExV;
             this.Ia = Ia;
             this.Va = Va;
             this.FP = FP;
@@ -48,6 +52,8 @@ namespace CEESP
 
         public ColectedData(int tempo)
         {
+            this.ExI = 1;
+            this.ExV = 220;
             this.Ia = new float[4] { 2, 2, 2, 2 };
             this.Va = new float[4] { 220, 220, 220, 220 };
             this.FP = new float[4] { 0.87f, 0.87f, 0.87f, 0.87f };
@@ -232,6 +238,16 @@ namespace CEESP
         public int getErrorCode()
         {
             return this.errorCode;
+        }
+
+        public float getExtV()
+        {
+            return this.ExV;
+        }
+
+        public float getExtI()
+        {
+            return this.ExI;
         }
 
     }
