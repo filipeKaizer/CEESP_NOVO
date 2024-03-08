@@ -11,6 +11,7 @@ using PdfSharp.Pdf.Advanced;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.IO;
+using System.Diagnostics;
 
 namespace CEESP
 {
@@ -26,6 +27,7 @@ namespace CEESP
         private List<Line> oldLines;
         private plot plot;
         private int index;
+        private Pdf pdf;
 
         public Relatorios(MainWindow main)
         {
@@ -45,9 +47,11 @@ namespace CEESP
 
             this.dadosSelecionados = new List<ColectedData>();
 
-            this.plot = new plot((float)this.Graph.Width * 0.1f, (float)this.Graph.Height / 2, ListData1.configData.getXs()); ;
+            this.plot = new plot((float)this.Graph.Width * 0.1f, (float)this.Graph.Height / 2, ListData1.configData.getXs()); 
 
             this.index = 0;
+
+            this.pdf = new Pdf();
 
             this.atualizaLista();
             this.showCargaSelecionada();
@@ -56,22 +60,59 @@ namespace CEESP
 
         private async void Seguir_Click(object sender, RoutedEventArgs e)
         {
-
-
-
-            // Abrir salvamento
-            SaveFileDialog SaveWindow = new SaveFileDialog();
-            SaveWindow.Filter = "Arquivo PDF (*.pdf)|*.pdf";
-            SaveWindow.Title = "Escolher caminho do arquivo de dados";
-
-            if (SaveWindow.ShowDialog() == true)
+            if (SelecionarLeitura.Visibility == Visibility.Visible)
             {
-                // Documento
-                Pdf pdf = new Pdf(SaveWindow.FileName);
+                if (this.valorSelecionado != null)
+                {
+                    this.pdf.setDadoSelecionado(this.valorSelecionado);
 
-                bool status = await pdf.createFile();
+                    SelecionarLeitura.Visibility = Visibility.Hidden;
 
-            
+                    rangeSlider.Minimum = 0;
+                    rangeSlider.Maximum = ListData1.colectedData.Count;
+                    rangeSlider.UpperValue = rangeSlider.Maximum;
+
+                    slider.Minimum = 0;
+                    slider.Maximum = rangeSlider.Maximum;
+
+                    SelecionarRange.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    MessageBox.Show("Selecione um valor para prosseguir.");
+                }
+
+            }
+            else if (SelecionarRange.Visibility == Visibility.Visible)
+            {
+                if (checkNoValues.IsChecked == true)
+                    this.pdf.setIsSingleSample(true);
+
+                SelecionarRange.Visibility = Visibility.Hidden;
+                SelecionarDados.Visibility = Visibility.Visible;
+
+            } else {
+                // Salvar as ultimas informações informações
+                this.pdf.setAutor(Autor.Text.Length != 0 ? Autor.Text.ToString() : "CTISM - UFSM");
+
+                // Abrir salvamento
+                SaveFileDialog SaveWindow = new SaveFileDialog();
+                SaveWindow.Filter = "Arquivo PDF (*.pdf)|*.pdf";
+                SaveWindow.Title = "Escolher caminho do arquivo de dados";
+
+                if (SaveWindow.ShowDialog() == true)
+                {
+                    // Documento
+                    this.pdf.setUrl(SaveWindow.FileName);
+
+                    bool status = this.pdf.createFile();
+
+                    if (status) {
+                        SelecionarLeitura.Visibility = Visibility.Visible;
+                        SelecionarRange.Visibility = Visibility.Hidden;
+                        SelecionarDados.Visibility = Visibility.Hidden;
+                    }
+                }
             }
         }
 
@@ -222,6 +263,70 @@ namespace CEESP
         private void ProximoButton_Click(object sender, RoutedEventArgs e)
         {
            
+        }
+
+        private void checkRange_Checked(object sender, RoutedEventArgs e)
+        {
+            checkMaxLimit.IsChecked = false;
+            checkNoValues.IsChecked = false;
+
+            this.pdf.setIsSingleSample(false);
+
+            TBMode.Visibility = Visibility.Visible;
+            TBMode.Text = "Selecione os limites maximo e minimo abaixo";
+
+            TBMaxValue.Visibility = Visibility.Visible;
+            TBMinValue.Visibility = Visibility.Visible;
+            rangeSlider.Visibility = Visibility.Visible;
+            slider.Visibility = Visibility.Hidden;
+        }
+
+        private void checkNoCheck_Checked(object sender, RoutedEventArgs e)
+        {
+            checkMaxLimit.IsChecked = false;
+            checkRange.IsChecked = false;
+
+            this.pdf.setIsSingleSample(true);
+
+            TBMode.Visibility = Visibility.Visible;
+            TBMode.Text = "Clique em seguir";
+
+            TBMaxValue.Visibility = Visibility.Hidden;
+            TBMinValue.Visibility = Visibility.Hidden;
+            rangeSlider.Visibility = Visibility.Hidden;
+            slider.Visibility = Visibility.Hidden;
+
+        }
+
+        private void checkMaxLimit_Checked(object sender, RoutedEventArgs e)
+        {
+            checkRange.IsChecked = false;
+            checkNoValues.IsChecked = false;
+
+            this.pdf.setIsSingleSample(false);
+
+            TBMode.Visibility = Visibility.Visible;
+            TBMode.Text = "Selecione o mumero de leituras abaixo";
+
+            TBMaxValue.Visibility = Visibility.Visible;
+            TBMinValue.Visibility = Visibility.Hidden;
+            rangeSlider.Visibility = Visibility.Hidden;
+            slider.Visibility = Visibility.Visible;
+        }
+
+        private void rangeSlider_RangeSelectionChanged(object sender, MahApps.Metro.Controls.RangeSelectionChangedEventArgs<double> e)
+        {
+            TBMinValue.Text = rangeSlider.LowerValue.ToString();
+            TBMaxValue.Text = rangeSlider.UpperValue.ToString();
+
+            this.pdf.setRangeValues((int)rangeSlider.LowerValue, (int)rangeSlider.UpperValue);
+        }
+
+        private void slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            TBMaxValue.Text = slider.Value.ToString();
+
+            this.pdf.setRangeValues(0, (int)slider.Value);
         }
     }
 }

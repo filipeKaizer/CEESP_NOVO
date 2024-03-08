@@ -1,19 +1,20 @@
-﻿<Page x:Name="Page" x:Class="CEESP.Relatorios"
+﻿<Page
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CEESP"
+      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Name="Page" x:Class="CEESP.Relatorios"
       mc:Ignorable="d"
       Title="Relatorios" Width="1280" Height="720">
 
     <Page.Resources>
-        <Style x:Key="NoMouseOverButtonStyle" TargetType="Button">
+        <Style x:Key="NoMouseOverButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="Black"/>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="Button">
+                    <ControlTemplate TargetType="{x:Type Button}">
                         <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
@@ -26,11 +27,6 @@
     <Grid x:Name="Grid" Width="1280" Height="720">
         <Grid x:Name="SelecionarLeitura" Width="800" Height="600" Margin="240,85,240,20" HorizontalAlignment="Center" VerticalAlignment="Bottom">
             <Rectangle x:Name="rtLeitura" HorizontalAlignment="Center" Height="600" VerticalAlignment="Center" Width="800" Fill="#33000000" RadiusX="20" RadiusY="20"/>
-            <Button x:Name="Seguir" Style="{StaticResource NoMouseOverButtonStyle}"  Width="200" Height="50" Margin="0,540,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="{x:Null}" Click="Seguir_Click" MouseEnter="Seguir_MouseEnter" MouseLeave="Seguir_MouseLeave">
-                <Border x:Name="BorderSeguir" Background="#72D9D9D9" CornerRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBlock x:Name="TBSeguir" Text="Seguir" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Height="50" FontFamily="Elephant" FontSize="35" TextAlignment="Center" Foreground="#FF171049" Cursor="Hand" ToolTip="Prosseguir com a amostra selecionada"/>
-                </Border>
-            </Button>
             <Canvas x:Name="Graph" Width="570" Height="340" Margin="115,165,115,95" Background="#26000000"/>
             <Button x:Name="Carga" Style="{StaticResource NoMouseOverButtonStyle}"  Width="150" Height="40" Margin="115,45,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="{x:Null}" Click="Carga_Click" ToolTip="Mudar tipo de carga">
                 <Border x:Name="BorderCarga" CornerRadius="15,15,15,15" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="40" Background="#33D9D9D9">
@@ -74,6 +70,44 @@
             </Button>
             <TextBlock x:Name="TBCargaSelecionada" HorizontalAlignment="Left" Margin="315,56,0,0" TextWrapping="Wrap" Text="Item 1 (Va: 220v, Ia:10A, FP:0.79)" VerticalAlignment="Top" Foreground="#CCD2D2D2" FontFamily="Elephant" Width="325" FontSize="14" TextAlignment="Center"/>
         </Grid>
+        <Grid x:Name="SelecionarRange" Width="800" Height="600" Margin="0,100,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Visibility="Hidden">
+            <Rectangle x:Name="rtLeitura1" HorizontalAlignment="Center" Height="600" VerticalAlignment="Center" Width="800" Fill="#33000000" RadiusX="20" RadiusY="20"/>
+            <TextBlock HorizontalAlignment="Center" Margin="0,35,0,0" TextWrapping="Wrap" Text="Como deseja selecionar os demais valores lidos?" VerticalAlignment="Top" Foreground="#FFDADADA" FontFamily="Arial" FontSize="18"/>
+            <CheckBox x:Name="checkRange" Content="" HorizontalAlignment="Left" Margin="136,170,0,0" VerticalAlignment="Top" Width="15" Height="25" Checked="checkRange_Checked" Background="#FFCACACA" BorderBrush="{x:Null}" Foreground="{x:Null}" Padding="5,0,0,0" Cursor="Hand" IsChecked="False" VerticalContentAlignment="Center">
+                <CheckBox.LayoutTransform>
+                    <ScaleTransform ScaleX="2" ScaleY="2"/>
+                </CheckBox.LayoutTransform>
+            </CheckBox>
+            <TextBlock HorizontalAlignment="Left" Margin="80,149,0,0" TextWrapping="Wrap" Text="Range de valores" VerticalAlignment="Top" Foreground="#FFDADADA" FontFamily="Arial" FontSize="18"/>
+            <CheckBox x:Name="checkNoValues" Content="" HorizontalAlignment="Left" Margin="618,170,0,0" VerticalAlignment="Top" Width="15" Height="25" Checked="checkNoCheck_Checked" Background="#FFCACACA" BorderBrush="{x:Null}" Foreground="{x:Null}" Padding="5,0,0,0" Cursor="Hand" IsChecked="False" VerticalContentAlignment="Center">
+                <CheckBox.LayoutTransform>
+                    <ScaleTransform ScaleX="2" ScaleY="2"/>
+                </CheckBox.LayoutTransform>
+            </CheckBox>
+            <TextBlock HorizontalAlignment="Right" Margin="0,149,80,0" TextWrapping="Wrap" Text="Não adicionar valores" VerticalAlignment="Top" Foreground="#FFDADADA" FontFamily="Arial" FontSize="18"/>
+            <CheckBox x:Name="checkMaxLimit" Content="" HorizontalAlignment="Left" Margin="385,170,0,0" VerticalAlignment="Top" Width="15" Height="25" Checked="checkMaxLimit_Checked" Background="#FFCACACA" BorderBrush="{x:Null}" Foreground="{x:Null}" Padding="5,0,0,0" Cursor="Hand" IsChecked="False" VerticalContentAlignment="Center">
+                <CheckBox.LayoutTransform>
+                    <ScaleTransform ScaleX="2" ScaleY="2"/>
+                </CheckBox.LayoutTransform>
+            </CheckBox>
+            <TextBlock HorizontalAlignment="Center" Margin="0,149,0,0" TextWrapping="Wrap" Text="Limite máximo" VerticalAlignment="Top" Foreground="#FFDADADA" FontFamily="Arial" FontSize="18"/>
+            <TextBlock x:Name="TBMode" HorizontalAlignment="Center" Margin="0,279,0,0" TextWrapping="Wrap" Text="Selecione o range de valores" VerticalAlignment="Top" Foreground="#FFDADADA" FontFamily="Arial" FontSize="18" Visibility="Hidden"/>
+            <mah:RangeSlider x:Name="rangeSlider" HorizontalAlignment="Center" Margin="0,331,0,0" IsSnapToTickEnabled="True" VerticalAlignment="Top" Width="496" Foreground="{x:Null}" Background="#FFC1B9B9" RangeSelectionChanged="rangeSlider_RangeSelectionChanged" Visibility="Hidden" Interval="1000" TickFrequency="1"/>
+            <TextBlock x:Name="TBMinValue" HorizontalAlignment="Left" Margin="70,334,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="77" Foreground="DarkGray" FontFamily="Arial" FontSize="16" Height="18" TextAlignment="Center" Visibility="Hidden"/>
+            <TextBlock x:Name="TBMaxValue" HorizontalAlignment="Left" Margin="653,334,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="77" Foreground="DarkGray" FontFamily="Arial" FontSize="16" Height="18" TextAlignment="Center" Visibility="Hidden"/>
+            <Slider x:Name="slider" HorizontalAlignment="Center" IsSnapToTickEnabled="True" Margin="0,334,0,0" VerticalAlignment="Top" Width="496" TickFrequency="1" ValueChanged="slider_ValueChanged" Visibility="Hidden"/>
+        </Grid>
+        <Grid x:Name="SelecionarDados" Width="800" Height="600" Margin="0,100,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Visibility="Hidden">
+            <Rectangle x:Name="rtLeitura2" HorizontalAlignment="Center" Height="600" VerticalAlignment="Center" Width="800" Fill="#33000000" RadiusX="20" RadiusY="20"/>
+            <TextBlock x:Name="TB" HorizontalAlignment="Center" Margin="0,35,0,0" TextWrapping="Wrap" Text="Qual o seu nome?" VerticalAlignment="Top" Foreground="#FFDADADA" FontFamily="Arial" FontSize="18"/>
+            <TextBox x:Name="Autor" HorizontalAlignment="Center" Margin="0,77,0,0" TextWrapping="Wrap" Text="Filipe Sacchet Kaizer" VerticalAlignment="Top" Width="360" Foreground="#FFCACACA" Background="#19000000" BorderBrush="{x:Null}" SelectionTextBrush="#FF636363" FontFamily="Arial" FontSize="15" FontStyle="Italic" MaxLength="100" MaxLines="1" Cursor="Hand" TextAlignment="Center"/>
+            <TextBlock x:Name="TB_Copiar" HorizontalAlignment="Center" Margin="0,150,0,0" TextWrapping="Wrap" Text="O que deseja no relatório?" VerticalAlignment="Top" Foreground="#FFDADADA" FontFamily="Arial" FontSize="18"/>
+        </Grid>
+        <Button x:Name="Seguir" Style="{StaticResource NoMouseOverButtonStyle}"  Width="200" Height="50" Margin="0,625,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="{x:Null}" Click="Seguir_Click" MouseEnter="Seguir_MouseEnter" MouseLeave="Seguir_MouseLeave">
+            <Border x:Name="BorderSeguir" Background="#72D9D9D9" CornerRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock x:Name="TBSeguir" Text="Seguir" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Height="50" FontFamily="Elephant" FontSize="35" TextAlignment="Center" Foreground="#FF171049" Cursor="Hand" ToolTip="Prosseguir com a amostra selecionada"/>
+            </Border>
+        </Button>
 
     </Grid>
 </Page>

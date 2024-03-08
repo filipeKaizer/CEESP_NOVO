@@ -7,6 +7,14 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Shapes;
+using System.Collections.Generic;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
+using static System.Resources.ResXFileRef;
+using System.Reflection;
+using System.Diagnostics;
 
 namespace CEESP
 {
@@ -16,10 +24,15 @@ namespace CEESP
         String autor = "CTISM - UFSM";
         String discplina = "";
 
+        private plot plotagem;
+        Canvas canvas;
+
+        List<Line> oldlines;
         bool isSingleSample = false;
 
         int inicioAmostra = 0;
         int finalAmostra = 0;
+        int maxAmostra = 0;
 
         DateTime data;
         ColectedData dadoSelecionado;
@@ -33,12 +46,31 @@ namespace CEESP
 
             if (this.autor.Length <= 0)
                 this.autor = "CTISM - UFSM";
+
+            this.canvas = new Canvas();
+            this.canvas.Width = 800;
+            this.canvas.Height = 400;
+
+
+            this.plotagem = new plot((float)this.canvas.Width * 0.1f, (float)this.canvas.Height / 2, ListData1.configData.getXs());
         }
 
-        public Task<bool> createFile()
+        public Pdf()
         {
-            return Task.Run(() =>
-            {
+            this.data = DateTime.Now;
+
+            if (this.autor.Length <= 0)
+                this.autor = "CTISM - UFSM";
+
+            this.canvas = new Canvas();
+            this.canvas.Width = 400;
+            this.canvas.Height = 800;
+
+            this.plotagem = new plot((float)this.canvas.Width * 0.1f, (float)200 / 2, ListData1.configData.getXs());
+        }
+
+        public bool createFile()
+        {
                 // Documento
                 Document doc = new Document(PageSize.A4);
                 doc.SetMargins(40, 40, 40, 40);
@@ -58,11 +90,91 @@ namespace CEESP
                 if (dadoSelecionado != null)
                     doc.Add(getEnunciado());
 
-                doc.Close();
-                return true;
-            });
+            // Adiciona a leitura selecionada
+            if (dadoSelecionado != null)
+                doc.Add(getGraficoFasorial(this.dadoSelecionado, 1.7f, 0));
+
+            if (!isSingleSample) {
+                int value = 0;
+
+                foreach (ColectedData i in ListData1.colectedData)
+                {
+                    if (value >= inicioAmostra && value <= finalAmostra)
+                    {
+                        doc.Add(getSubtitulo(i, value));
+                        doc.Add(getGraficoFasorial(i, 1, 0));
+                    }
+
+                    value++;
+                }
+            }
+
+            doc.Close();
+
+            return true;
         } 
 
+        private iTextSharp.text.Image getGraficoFasorial(ColectedData dado, float zoomScale, int index)
+        {
+            if (oldlines != null)
+            {
+                foreach(Line i in oldlines)
+                {
+                    this.canvas.Children.Remove(i);
+                }
+            }
+
+
+            // Criar grafico
+            if (this.plotagem == null)
+            {
+                MessageBox.Show("Plot é null");
+            }
+
+            List<Line> objects = this.plotagem.createLines(dado, zoomScale, index);
+
+            foreach (Line i in objects)
+            {
+                this.canvas.Children.Add(i);
+            }
+
+            this.oldlines = objects;
+
+            this.canvas.Background = System.Windows.Media.Brushes.Transparent;
+            // Criar um RenderTargetBitmap com as dimensões do Canvas
+            RenderTargetBitmap renderBitmap = new RenderTargetBitmap((int)760, (int)200, 90d, 90d, PixelFormats.Default);
+
+            // Renderizar o Canvas no RenderTargetBitmap
+            canvas.Measure(new System.Windows.Size((int)canvas.ActualWidth / 2, (int)canvas.ActualHeight / 2));
+            canvas.Arrange(new Rect(new System.Windows.Size((int)canvas.ActualWidth / 2, (int)canvas.ActualHeight / 2)));
+            renderBitmap.Render(canvas);
+
+            // Criar um codificador PNG
+            PngBitmapEncoder encoder = new PngBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(renderBitmap));
+
+            // Converter o PngBitmapEncoder em um iTextSharp.text.Image
+            MemoryStream memoryStream = new MemoryStream();
+            encoder.Save(memoryStream);
+            byte[] bytes = memoryStream.ToArray();
+            iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(bytes);
+
+
+            return image;
+
+        }
+
+        private Paragraph getSubtitulo(ColectedData dado, int num)
+        {
+            Paragraph sub = new Paragraph();
+            
+            sub.Font = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.COURIER, 11);
+            sub.Alignment = Element.ALIGN_LEFT;
+
+            sub.Add($"\n\nLeitura {num} ({dado.getTempo()}s):\n");
+
+            return sub;
+        }
         private Paragraph getEnunciado()
         {
             Paragraph enun = new Paragraph();
@@ -120,7 +232,6 @@ namespace CEESP
             return titulo;
         }
 
-
         public void setDadoSelecionado(ColectedData dadoSelecionado)
         {
             this.dadoSelecionado = dadoSelecionado;
@@ -131,10 +242,20 @@ namespace CEESP
             this.isSingleSample = status;
         }
 
-        public void setIsSingleSample(int inicio, int final)
+        public void setRangeValues(int inicio, int final)
         {
             this.inicioAmostra = inicio;
             this.finalAmostra = final;
         }
+
+        public void setUrl(String Url)
+        {
+            this.Url = Url;
+        }
+
+        public void setAutor(String autor)
+        {
+            this.autor = autor;
+        } 
     }
 }
