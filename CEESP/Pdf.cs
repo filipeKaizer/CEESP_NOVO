@@ -25,35 +25,23 @@ namespace CEESP
         String discplina = "";
 
         private plot plotagem;
-        Canvas canvas;
 
+        private Canvas canvas;
         List<Line> oldlines;
-        bool isSingleSample = false;
 
-        int inicioAmostra = 0;
-        int finalAmostra = 0;
-        int maxAmostra = 0;
+        private bool isSingleSample = false;
+        private bool addValueTable = false;
+        private bool addTitleValue = false;
+        private bool addAutorData = false;
 
-        DateTime data;
-        ColectedData dadoSelecionado;
+        private int index = 0;
 
+        private int inicioAmostra = 0;
+        private int finalAmostra = 0;
+        private int maxAmostra = 0;
 
-        public Pdf(String Url)
-        {
-            this.Url = Url;
-
-            this.data = DateTime.Now;
-
-            if (this.autor.Length <= 0)
-                this.autor = "CTISM - UFSM";
-
-            this.canvas = new Canvas();
-            this.canvas.Width = 800;
-            this.canvas.Height = 400;
-
-
-            this.plotagem = new plot((float)this.canvas.Width * 0.1f, (float)this.canvas.Height / 2, ListData1.configData.getXs());
-        }
+        private DateTime data;
+        private ColectedData dadoSelecionado;
 
         public Pdf()
         {
@@ -63,8 +51,8 @@ namespace CEESP
                 this.autor = "CTISM - UFSM";
 
             this.canvas = new Canvas();
-            this.canvas.Width = 400;
-            this.canvas.Height = 800;
+            this.canvas.Width = 700;
+            this.canvas.Height = 400;
 
             this.plotagem = new plot((float)this.canvas.Width * 0.1f, (float)200 / 2, ListData1.configData.getXs());
         }
@@ -73,7 +61,8 @@ namespace CEESP
         {
                 // Documento
                 Document doc = new Document(PageSize.A4);
-                doc.SetMargins(40, 40, 40, 40);
+                doc.SetMargins(25, 25, 25, 25);
+                
                 doc.AddCreationDate();
 
                 PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(this.Url, FileMode.Create));
@@ -84,7 +73,8 @@ namespace CEESP
                 doc.Add(getTitle());
 
                 // Adiciona informações
-                doc.Add(getInfo());
+                if (this.addAutorData)
+                    doc.Add(getInfo());
 
                 // Adiciona enunciado
                 if (dadoSelecionado != null)
@@ -101,7 +91,9 @@ namespace CEESP
                 {
                     if (value >= inicioAmostra && value <= finalAmostra)
                     {
-                        doc.Add(getSubtitulo(i, value));
+                        if (this.addTitleValue)
+                            doc.Add(getSubtitulo(i, value));
+                        
                         doc.Add(getGraficoFasorial(i, 1, 0));
                     }
 
@@ -142,11 +134,12 @@ namespace CEESP
 
             this.canvas.Background = System.Windows.Media.Brushes.Transparent;
             // Criar um RenderTargetBitmap com as dimensões do Canvas
-            RenderTargetBitmap renderBitmap = new RenderTargetBitmap((int)760, (int)200, 90d, 90d, PixelFormats.Default);
+            RenderTargetBitmap renderBitmap = new RenderTargetBitmap((int)760, (int)200, 96d, 96d, PixelFormats.Default);
 
             // Renderizar o Canvas no RenderTargetBitmap
-            canvas.Measure(new System.Windows.Size((int)canvas.ActualWidth / 2, (int)canvas.ActualHeight / 2));
-            canvas.Arrange(new Rect(new System.Windows.Size((int)canvas.ActualWidth / 2, (int)canvas.ActualHeight / 2)));
+            MessageBox.Show("Width: " + canvas.Width.ToString());
+            canvas.Measure(new System.Windows.Size((int)canvas.Width, (int)canvas.Height));
+            canvas.Arrange(new Rect(new System.Windows.Size((int)canvas.Width, (int)canvas.Height)));
             renderBitmap.Render(canvas);
 
             // Criar um codificador PNG
@@ -256,6 +249,26 @@ namespace CEESP
         public void setAutor(String autor)
         {
             this.autor = autor;
-        } 
+        }
+
+        public void setIndex(int index)
+        {
+            this.index = index;
+        }
+
+        public void setAddValueTable(bool status)
+        {
+            this.addValueTable = status;
+        }
+
+        public void setAddTitleValue(bool status)
+        {
+            this.addTitleValue = status;
+        }
+        
+        public void setAddAutorData(bool status)
+        {
+            this.addAutorData = status;
+        }
     }
 }

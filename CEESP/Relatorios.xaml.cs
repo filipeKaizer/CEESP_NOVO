@@ -85,11 +85,18 @@ namespace CEESP
             }
             else if (SelecionarRange.Visibility == Visibility.Visible)
             {
-                if (checkNoValues.IsChecked == true)
-                    this.pdf.setIsSingleSample(true);
+                if (checkNoValues.IsChecked == false && checkRange.IsChecked == false && checkMaxLimit.IsChecked == false)
+                {
+                    MessageBox.Show("Marque uma opção para prosseguir.");
+                }
+                else
+                {
+                    if (checkNoValues.IsChecked == true)
+                        this.pdf.setIsSingleSample(true);
 
-                SelecionarRange.Visibility = Visibility.Hidden;
-                SelecionarDados.Visibility = Visibility.Visible;
+                    SelecionarRange.Visibility = Visibility.Hidden;
+                    SelecionarDados.Visibility = Visibility.Visible;
+                }
 
             } else {
                 // Salvar as ultimas informações informações
@@ -327,6 +334,43 @@ namespace CEESP
             TBMaxValue.Text = slider.Value.ToString();
 
             this.pdf.setRangeValues(0, (int)slider.Value);
+        }
+
+        private void Phase_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            if (pdf != null)
+                this.pdf.setIndex(Fase.SelectedIndex);
+        }
+
+        private void RBaddValues_Checked(object sender, RoutedEventArgs e)
+        {
+            this.pdf.setAddValueTable(RBaddValues.IsChecked == true ? true : false);
+        }
+
+        private void RBaddValues_Unchecked(object sender, RoutedEventArgs e)
+        {
+            this.pdf.setAddValueTable(RBaddValues.IsChecked == true ? true : false);
+        }
+
+        private void RBaddTitle_Checked(object sender, RoutedEventArgs e)
+        {
+            this.pdf.setAddTitleValue(RBaddTitle.IsChecked == true ? true : false);
+        }
+
+        private void RBaddTitle_Unchecked(object sender, RoutedEventArgs e)
+        {
+            this.pdf.setAddTitleValue(RBaddTitle.IsChecked == true ? true : false);
+        }
+
+        private void RBaddAutorData_Unchecked(object sender, RoutedEventArgs e)
+        {
+            this.pdf.setAddAutorData(RBaddTitle.IsChecked == true ? true : false);
+        }
+
+        private void RBaddAutorData_Checked(object sender, RoutedEventArgs e)
+        {
+            this.pdf.setAddAutorData(RBaddTitle.IsChecked == true ? true : false);
         }
     }
 }
