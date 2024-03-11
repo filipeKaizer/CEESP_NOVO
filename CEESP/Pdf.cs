@@ -15,6 +15,7 @@ using System.Windows.Media;
 using static System.Resources.ResXFileRef;
 using System.Reflection;
 using System.Diagnostics;
+using System.Windows.Documents;
 
 namespace CEESP
 {
@@ -54,7 +55,7 @@ namespace CEESP
             this.canvas.Width = 700;
             this.canvas.Height = 400;
 
-            this.plotagem = new plot((float)this.canvas.Width * 0.1f, (float)200 / 2, ListData1.configData.getXs());
+            this.plotagem = new plot((float)this.canvas.Width * 0.05f, (float)200 / 2, ListData1.configData.getXs());
         }
 
         public bool createFile()
@@ -82,7 +83,12 @@ namespace CEESP
 
             // Adiciona a leitura selecionada
             if (dadoSelecionado != null)
-                doc.Add(getGraficoFasorial(this.dadoSelecionado, 1.7f, 0));
+            {
+                doc.Add(getTituloDadoSelecionado());
+                doc.Add(getGraficoFasorial(this.dadoSelecionado, calcularZoom(this.dadoSelecionado), this.index));
+                if (this.addValueTable)
+                    doc.Add(getValuesTable(this.dadoSelecionado));
+            }
 
             if (!isSingleSample) {
                 int value = 0;
@@ -92,9 +98,13 @@ namespace CEESP
                     if (value >= inicioAmostra && value <= finalAmostra)
                     {
                         if (this.addTitleValue)
+                        {
                             doc.Add(getSubtitulo(i, value));
+                        }
                         
-                        doc.Add(getGraficoFasorial(i, 1, 0));
+                        doc.Add(getGraficoFasorial(i, calcularZoom(i), this.index));
+                        if (this.addValueTable)
+                            doc.Add(getValuesTable(i));
                     }
 
                     value++;
@@ -105,7 +115,16 @@ namespace CEESP
 
             return true;
         } 
+        private iTextSharp.text.Paragraph getTituloDadoSelecionado()
+        {
+            iTextSharp.text.Paragraph titulo = new iTextSharp.text.Paragraph();
+            titulo.Font = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.COURIER, 11);
+            titulo.Alignment = Element.ALIGN_CENTER;
 
+            titulo.Add("\n\nDado selecionado");
+
+            return titulo;
+        }
         private iTextSharp.text.Image getGraficoFasorial(ColectedData dado, float zoomScale, int index)
         {
             if (oldlines != null)
@@ -134,10 +153,9 @@ namespace CEESP
 
             this.canvas.Background = System.Windows.Media.Brushes.Transparent;
             // Criar um RenderTargetBitmap com as dimensões do Canvas
-            RenderTargetBitmap renderBitmap = new RenderTargetBitmap((int)760, (int)200, 96d, 96d, PixelFormats.Default);
+            RenderTargetBitmap renderBitmap = new RenderTargetBitmap((int)760, (int)170, 96d, 96d, PixelFormats.Pbgra32);
 
             // Renderizar o Canvas no RenderTargetBitmap
-            MessageBox.Show("Width: " + canvas.Width.ToString());
             canvas.Measure(new System.Windows.Size((int)canvas.Width, (int)canvas.Height));
             canvas.Arrange(new Rect(new System.Windows.Size((int)canvas.Width, (int)canvas.Height)));
             renderBitmap.Render(canvas);
@@ -156,21 +174,45 @@ namespace CEESP
             return image;
 
         }
-
-        private Paragraph getSubtitulo(ColectedData dado, int num)
+        private PdfPTable getValuesTable(ColectedData dado)
         {
-            Paragraph sub = new Paragraph();
+            PdfPTable tabela = new PdfPTable(6);
+
+            tabela.WidthPercentage = 70;
+            tabela.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            // Adicionar cabeçalho
+            tabela.AddCell("V");
+            tabela.AddCell("Ia");
+            tabela.AddCell("F");
+            tabela.AddCell("FP");
+            tabela.AddCell("Ea");
+            tabela.AddCell("XsIa");
+
+            // Adicionar valores
+            tabela.AddCell(Math.Round(dado.getVa(this.index), 1).ToString() + "V");
+            tabela.AddCell(Math.Round(dado.getIa(this.index), 2).ToString() + "A");
+            tabela.AddCell(Math.Round(dado.getFrequency(), 1).ToString() + "Hz");
+            tabela.AddCell(Math.Round(dado.getFP(this.index), 2).ToString() + dado.getFPType(this.index));
+            tabela.AddCell(Math.Round(dado.getEa(this.index), 2).ToString() + "V");
+            tabela.AddCell(Math.Round(dado.getIa(this.index) * ListData1.configData.getXs(), 2).ToString() + "V");
+
+            return tabela;
+        }
+        private iTextSharp.text.Paragraph getSubtitulo(ColectedData dado, int num)
+        {
+            iTextSharp.text.Paragraph sub = new iTextSharp.text.Paragraph();
             
             sub.Font = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.COURIER, 11);
-            sub.Alignment = Element.ALIGN_LEFT;
+            sub.Alignment = Element.ALIGN_CENTER;
 
             sub.Add($"\n\nLeitura {num} ({dado.getTempo()}s):\n");
 
             return sub;
         }
-        private Paragraph getEnunciado()
+        private iTextSharp.text.Paragraph getEnunciado()
         {
-            Paragraph enun = new Paragraph();
+            iTextSharp.text.Paragraph enun = new iTextSharp.text.Paragraph();
 
             enun.Font = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.COURIER, 11);
 
@@ -179,15 +221,14 @@ namespace CEESP
             if (isSingleSample)
             {
                 // é uma unica amostra
-                enun.Add("O presente documento contem a listagem de uma única amostra obtida, sendo uma carga do tipo '" + dadoSelecionado.getFPType(0) + "' medida aos " + dadoSelecionado.getTempo() + " segundos, como demonstrado abaixo.\n\n");
+                enun.Add("O presente documento contem a listagem de uma única amostra obtida, sendo uma carga do tipo '" + dadoSelecionado.getFPType(0) + "' medida aos " + dadoSelecionado.getTempo() + " segundos e ênfase na " + this.getPhaseString());
             } else
             {
-                enun.Add($"O presente documento contém a listagem das {this.finalAmostra - this.inicioAmostra} leituras selecionadas de um total de {ListData1.colectedData.Count} valores lidos, com ênfase no valor de tipo '{dadoSelecionado.getFPType(0)}' e medido aos {dadoSelecionado.getTempo()} segundos. ");
+                enun.Add($"O presente documento contém a listagem das {this.finalAmostra - this.inicioAmostra} leituras selecionadas de um total de {ListData1.colectedData.Count} valores lidos, sendo detalhado o valor de tipo '{dadoSelecionado.getFPType(0)}', medido aos {dadoSelecionado.getTempo()} segundos e ênfase na " + this.getPhaseString());
             }
 
             return enun;
         }
-
         private PdfPTable getInfo()
         {
             PdfPTable info = new PdfPTable(3);
@@ -211,10 +252,9 @@ namespace CEESP
 
             return info;
         }
-
-        private Paragraph getTitle()
+        private iTextSharp.text.Paragraph getTitle()
         {
-            Paragraph titulo = new Paragraph();
+            iTextSharp.text.Paragraph titulo = new iTextSharp.text.Paragraph();
 
             titulo.Font = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.COURIER, 18);
 
@@ -224,7 +264,23 @@ namespace CEESP
 
             return titulo;
         }
+        private float calcularZoom(ColectedData dado)
+        {
+            float zoom = 0;
+            float X = 0;
 
+            if (dado == null)
+                return 1;
+
+            float angle = (float)Math.Acos(dado.getFP(0));
+            X = dado.getFP(0) != 0
+                ? dado.getVa(0) + ((dado.getFPType(0) == 'i') ? dado.getIa(0) * ListData1.configData.getXs() * (float)Math.Cos(1.5708 - angle) : 0)
+                : dado.getVa(0);
+            if (X != 0)
+                zoom = (float)(450) / X;
+
+            return zoom;
+        }
         public void setDadoSelecionado(ColectedData dadoSelecionado)
         {
             this.dadoSelecionado = dadoSelecionado;
@@ -269,6 +325,19 @@ namespace CEESP
         public void setAddAutorData(bool status)
         {
             this.addAutorData = status;
+        }
+
+        private string getPhaseString()
+        {
+            if (this.index == 0)
+                return "média das fases.";
+            else if (this.index == 1)
+                return "fase A.";
+            else if (this.index == 2)
+                return "fase B.";
+            else
+                return "fase C.";
+
         }
     }
 }

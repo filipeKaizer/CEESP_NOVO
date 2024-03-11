@@ -345,32 +345,32 @@ namespace CEESP
 
         private void RBaddValues_Checked(object sender, RoutedEventArgs e)
         {
-            this.pdf.setAddValueTable(RBaddValues.IsChecked == true ? true : false);
+            this.pdf.setAddValueTable(true);
         }
 
         private void RBaddValues_Unchecked(object sender, RoutedEventArgs e)
         {
-            this.pdf.setAddValueTable(RBaddValues.IsChecked == true ? true : false);
+            this.pdf.setAddValueTable(false);
         }
 
         private void RBaddTitle_Checked(object sender, RoutedEventArgs e)
         {
-            this.pdf.setAddTitleValue(RBaddTitle.IsChecked == true ? true : false);
+            this.pdf.setAddTitleValue(true);
         }
 
         private void RBaddTitle_Unchecked(object sender, RoutedEventArgs e)
         {
-            this.pdf.setAddTitleValue(RBaddTitle.IsChecked == true ? true : false);
+            this.pdf.setAddTitleValue(false);
         }
 
         private void RBaddAutorData_Unchecked(object sender, RoutedEventArgs e)
         {
-            this.pdf.setAddAutorData(RBaddTitle.IsChecked == true ? true : false);
+            this.pdf.setAddAutorData(false);
         }
 
         private void RBaddAutorData_Checked(object sender, RoutedEventArgs e)
         {
-            this.pdf.setAddAutorData(RBaddTitle.IsChecked == true ? true : false);
+            this.pdf.setAddAutorData(true);
         }
     }
 }
