@@ -1,22 +1,24 @@
 ////////////////////////////////   Modbus Master   ////////////////////////////////
 #include <ModbusMaster.h>
 ModbusMaster node;          // instantiate ModbusMaster object
+
 #define MAX485_DE      3    // Pino de sentido de transmissão
+#define ledRed         A0   // led - Red
+#define ledGreen       A1   // led - Green
+#define ledBlue        A2   // led - Blue
+#define fan            10   // Fan de ventilação
+
 #define MMW2_ID        1    // ID do dispositivo medidor MMW02
-#define AddrNum        80   // Numero de endereços obtidos pelo MMW02
-#define refresh        60 // Tempo entre atualizações de dados do arduino (1000 -> 1seg)
-#define tempoLimite    100  // Tempo máximo de espera do envio de dados pelo MW02 (100 -> 0,1seg)
+#define AddrNum        82   // Numero de endereços obtidos pelo MMW02
+#define refresh        60   // Tempo entre atualizações de dados do arduino (60 -> 60ms)
+#define tempoLimite    200  // Tempo máximo de espera do envio de dados pelo MW02 (100 -> 0,1seg)
+#define refreshConnection 500 // Tempo de espera para o software enviar valores de teste
 
 
 //---------------------------------------------------------------------------------
 ///////////////////////////////   Variaveis   /////////////////////////////////////
-bool rele_status = false;   // Indica o estado do rele RL do medido MMW02
 bool ConEst = false;        // Flag que controla o envio de dados para o computador. Se não houver um, o mesmo não envia
-unsigned int tempoLido=0;
-
-//// Especifica as portas usadas pelos reles de comando.
-int RL[8] = {22,24,26,28,30,32,34,36}; //
-bool RLStatus[8];
+bool Debug = false;         // Flag que habilita a função debug. 
 
 //// Especifica o formato de cada leitura
 struct Valor {
@@ -27,21 +29,29 @@ struct Valor {
 //// Especifica um vetor da struct valor
 Valor valores[AddrNum];
 
+
+///////////////////////// COMANDOS //////////////////////////////////// 
+/*
+  snd      -> envio de dados concatenados 
+  serial   -> Envio de dados como lista
+  test     -> Função de compatibilidade
+  debug    -> Ativa a função de debug, mostrando leitura em tempo real
+*/
+
 //////////////////////////////// SETUP ////////////////////////////////
 void setup(){
-  pinMode(MAX485_DE, OUTPUT);
-  digitalWrite(MAX485_DE, 0);                         
-  Serial.begin(9600);                           // Monitor serial para visualização de dados.
-  Serial2.begin(9600, SERIAL_8N1);              // Serial para comunicação com o MMW02
-  node.begin(MMW2_ID, Serial2);                 // Inicia o objeto node para comunicação com o MMW02
-
-  //Inicializa os reles:
-  for(int i=0; i<8; i++){
-    pinMode(RL[i],OUTPUT); 
-    RLStatus[i] = false;
-    digitalWrite(RL[i], LOW); 
-  }
+  pinMode(MAX485_DE, OUTPUT);                   // Pino de controle do MAX485
+  pinMode(ledRed, OUTPUT);                      // LED - Red
+  pinMode(ledGreen, OUTPUT);                    // LED - Green
+  pinMode(ledBlue, OUTPUT);                     // LED - Blue
+  pinMode(fan, OUTPUT);                         // Ventilação
   
+  digitalWrite(MAX485_DE, 0);                   // Sentido do MAX485     
+   
+  Serial.begin(9600);                           // Monitor serial para visualização de dados.
+  Serial1.begin(9600, SERIAL_8N1);              // Serial para comunicação com o MMW02
+  
+  node.begin(MMW2_ID, Serial1);                 // Inicia o objeto node para comunicação com o MMW02
   node.preTransmission(preTransmission);
   node.postTransmission(postTransmission);
 }
@@ -54,43 +64,26 @@ void loop()
   
   switch(req){
     case 1:
+      ledState('t');
       testaConexao();
     break;
     case 2:
+      ledState('s');
       enviaValores();
     break;
-    case 3:
-      controlaRele();
-    break;
     case 4:
+      ledState('s');
       mostraSerial();
     break;
     default:
-     tempoLido = millis();
+     ledState('l');
      Leitura();
     break;    
   }
+
   delay(refresh);
 }
 // ------------------------------------------------------------------------------------
-
-//////////////////////// CONTROLE DE RELES ////////////////////////////////////////////
-void controlaRele(){
-  unsigned int Tinicio=millis(); //Tempo inicial
-  while( !(Serial.available() > 0) && (millis() - Tinicio < 4000)); //Aguarda conexão de até 4s;
-  if (Serial.available() > 0){
-    int msg = Serial.parseInt();
-    switch(msg){
-      case 1:
-      break;
-      case 2:
-      break;
-      case 3:
-      break;
-    }
-  }
-}
-//-------------------------------------------------------------------------------------
 
 //////////////////////// LEITURA/ESCRITA //////////////////////////////////////////////
 void Escrita(uint32_t address, uint8_t value) {
@@ -99,8 +92,7 @@ void Escrita(uint32_t address, uint8_t value) {
     postTransmission();
 }
 
-
-float Leitura(){
+void Leitura(){
   uint16_t result, result2;
   float floatValue;
   uint8_t readStatus;
@@ -109,8 +101,12 @@ float Leitura(){
 
   if (readStatus == node.ku8MBSuccess) {
     float res = 0;
+
+    // Adiciona o codigo de erro 0 (success)
+    valores[0].add = 0;
+    valores[0].valor = 0;
     
-    for (int address = 0, pos = 0; address < AddrNum; address += 2, pos++) {
+    for (int address = 0, pos = 1; address < AddrNum; address += 2, pos++) {
  
         // Obtem os dados em buffer
         result = node.getResponseBuffer(address);
@@ -123,10 +119,28 @@ float Leitura(){
         // É baseado em flutuante, usa unificação flutuante
           res = unificarFloat(result, result2);
         }
-        
+          
+        // Adiciona os valores no registro
         valores[pos].add = address+2;
         valores[pos].valor = res;
+
+        //Função Debug
+        if (Debug) {
+          ledState('d');
+          Serial.print("Valor: ");
+          Serial.println(res);
+        }
     }
+  } else {
+    if (Debug) {
+      ledState('d');
+      Serial.print("Erro: ");
+      Serial.println(readStatus);
+    }
+
+    valores[0].add = 0;
+    valores[0].valor = readStatus;
+    ledState('e');
   }
 }
 //--------------------------------------------------------------------------------------
@@ -158,9 +172,9 @@ void testaConexao(){
        int result = (valor1 % valor2) * (valor1+valor2);
   
        Serial.println(result);
-      } else {
       }
    }
+   delay(refreshConnection);
 }
 
 //// FUNÇÃO RESPONSÁVEL POR OBTER OS COMANDOS DO COMPUTADOR
@@ -172,11 +186,14 @@ int softwareReq(){
       return 1;  
     } else if (msg == "snd") {
       return 2; 
-    } else if (msg == "rele") {
-      return 3;
-    } else if (msg == "serial"){
+    } else if (msg == "serial") {
       return 4;
+    } else if (msg == "debug") {
+      ledState('d');
+      Debug = !Debug;
+      return 0;
     } else {
+      ledState('e');
       return 0;
     }
   } else {
@@ -184,7 +201,7 @@ int softwareReq(){
   }
 }
 
-// FUNÇÃO RESPONSÁVEL PELA CONCATENAÇÃO E ENVIO DE DADOS AO OMPUTADOR //////
+// FUNÇÃO RESPONSÁVEL PELA CONCATENAÇÃO E ENVIO DE DADOS AO COMPUTADOR //////
 // Envia valores para o software
 void enviaValores(){
   String mensagem="";
@@ -196,6 +213,9 @@ void enviaValores(){
     id = "";
 
     switch(valores[i].add) {
+      case 0:
+        id = "Erro";
+      break;
       case 2:
         id = "Vm";
       break;
@@ -258,6 +278,9 @@ void enviaValores(){
 void mostraSerial() {
   for (int add = 0; add < AddrNum/2; add++) {
     switch(valores[add].add) {
+      case 0:
+        Serial.print("Erro: ");
+      break;  
       case 2:
         Serial.print("Vm: ");
       break;
@@ -316,7 +339,23 @@ void mostraSerial() {
 }
 //-------------------------------------------------------------------------
 
+////////////////// LED INDICADOR //////////////////////////////////////////
+// 'e' - erro; 's' - envio; 'l' - leitura; 't' - teste; 'd' - debug
+void ledState(char state) {
+    switch(state) {
+      case 'e': led(255, 0, 0); break;
+      case 's': led(0, 255, 0); break;
+      case 'l': led(0, 0, 255); break;
+      case 't': led(255, 255, 0); break;
+      case 'd': led(255, 0, 255); break;
+    }
+}
 
+void led(int red, int green, int blue) {
+  analogWrite(ledRed, red);
+  analogWrite(ledGreen, green);
+  analogWrite(ledBlue, blue);
+}
 
 /////////////////// FUNÇÕES RESPONSÁVEIS PELA UNIFICAÇÃO //////////////////  
 int unificarInt(uint16_t a, uint16_t b){
