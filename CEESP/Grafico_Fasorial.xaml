@@ -133,6 +133,12 @@
             <Label x:Name="FPValue" Content="Cos(φ): 90º" FontFamily="Arial Rounded MT Bold" Width="78" Foreground="#FFAFAFAF" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="483,0,0,0" Padding="2,0,0,0" ToolTip="Angulo de defasagem"/>
             <Label x:Name="type" Content="Indutivo" FontFamily="Arial Rounded MT Bold" Width="74" Foreground="#FFAFAFAF" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="572,0,0,0" Padding="2,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ToolTip="Tipo de carga"/>
         </Grid>
+        <Grid x:Name="Values2" Height="30" Width="450" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="295,0,0,55" Grid.Row="1">
+            <Rectangle HorizontalAlignment="Center" VerticalAlignment="Center" RadiusX="5" RadiusY="5" Fill="#3F000000" Width="450" Height="30"/>
+            <Label x:Name="ExtVValue" Content="Excitatriz (V): 0V" FontFamily="Arial Rounded MT Bold" Width="150" Foreground="#FFAFAFAF" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="25,0,0,0" Padding="2,0,0,0" IsTabStop="True"/>
+            <Label x:Name="ExtIValue" Content="Excitatriz (I): 0A" FontFamily="Arial Rounded MT Bold" Width="150" Foreground="#FFAFAFAF" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="175,0,0,0" Padding="2,0,0,0"/>
+            <Label x:Name="RPMValue" Content="RPM: 1000" FontFamily="Arial Rounded MT Bold" Width="100" Foreground="#FFAFAFAF" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="325,0,0,0" Padding="2,0,0,0"/>
+        </Grid>
         <Grid x:Name="Zoom" Margin="0,262,230,20" Width="187" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>

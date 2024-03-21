@@ -22,6 +22,8 @@ namespace CEESP
 
         private float Xs = 5;
 
+        private Random rand;
+
         public ColectedData(int errorCode, float ExI, float ExV, float[] Ia, float[] Va, float[] FP, float[] CFP, float RPM, float frequency)
         {
             this.errorCode = errorCode;
@@ -50,16 +52,55 @@ namespace CEESP
             this.Ea = EaValues;
         }
 
+        // Gera dados de forma aleatória
         public ColectedData(int tempo)
         {
-            this.ExI = 1;
-            this.ExV = 220;
-            this.Ia = new float[4] { 2, 2, 2, 2 };
-            this.Va = new float[4] { 220, 220, 220, 220 };
-            this.FP = new float[4] { 0.87f, 0.87f, 0.87f, 0.87f };
-            this.CFP = new float[4] { 1, 1, 2, 2 };
-            this.RPM = 2000;
-            this.frequency = 60;
+            this.rand = new Random();
+            // Excitatriz
+            this.ExI = getRandNumber(0.1f, 5f);
+            this.ExV = getRandNumber(0.1f, 250.0f);
+            
+            // RPM
+            this.RPM = getRandNumber(200f, 5000f);
+
+            // Frequencia
+            this.frequency = getRandNumber(50f, 61f);
+
+            // Ia M, A, B, C
+            this.Ia = new float[4];
+            for (int i = 1; i < 4; i++)
+                this.Ia[i] = getRandNumber(0.1f, 3f);
+            this.Ia[0] = (this.Ia[1] + this.Ia[2] + this.Ia[3]) / 3;
+
+            // Va M, A, B, C
+            this.Va = new float[4];
+            for (int i = 1; i < 4; i++)
+                this.Va[i] = getRandNumber(10f, 250f);
+            this.Va[0] = (this.Va[1] + this.Va[2] + this.Va[3]) / 3;
+
+            // FP M, A, B, C
+            this.FP = new float[4];
+            for (int i = 1; i < 4; i++)
+                this.FP[i] = getRandNumber(0f, 1f);
+            this.FP[0] = (this.FP[1] + this.FP[2] + this.FP[3]) / 3;
+
+            // Caracteristica do fator de potencia
+            this.CFP = new float[4];
+            for (int i = 1; i < 4; i++)
+                this.CFP[i] = this.rand.Next(1, 3);
+
+            int ind = 0, cap = 0;
+            for (int i = 1; i < 4; i++)
+            {
+                if (this.CFP[i] == 1)
+                    ind++;
+                else
+                    cap++;
+            }
+
+            this.CFP[0] = (ind > cap) ? 1 : 2;
+            
+            // Adiciona o tempo
             this.tempo = tempo;
 
             float[] EaValues = { 0, 0, 0, 0 };
@@ -76,6 +117,11 @@ namespace CEESP
 
             // Calcular Potencia
             this.calcularPotencia();
+        }
+
+        private float getRandNumber(float inicio, float final)
+        {
+            return (float)(this.rand.NextDouble() * (final - inicio) + inicio);
         }
 
         public float getIa(int index)
@@ -248,6 +294,16 @@ namespace CEESP
         public float getExtI()
         {
             return this.ExI;
+        }
+
+        public void setExtI(float i)
+        {
+            this.ExI = i;
+        }
+
+        public void setExtV(float v)
+        {
+            this.ExV = v;
         }
 
     }

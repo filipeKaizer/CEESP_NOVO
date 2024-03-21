@@ -101,7 +101,7 @@ namespace CEESP
             } else {
                 // Salvar as ultimas informações informações
                 this.pdf.setAutor(Autor.Text.Length != 0 ? Autor.Text.ToString() : "CTISM - UFSM");
-
+                this.pdf.setDisciplina(Disciplina.Text.ToString());
                 // Abrir salvamento
                 SaveFileDialog SaveWindow = new SaveFileDialog();
                 SaveWindow.Filter = "Arquivo PDF (*.pdf)|*.pdf";
@@ -371,6 +371,12 @@ namespace CEESP
         private void RBaddAutorData_Checked(object sender, RoutedEventArgs e)
         {
             this.pdf.setAddAutorData(true);
+        }
+
+        private void Disciplina_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (Disciplina != null && this.pdf != null)
+                this.pdf.setDisciplina(Disciplina.Text);
         }
     }
 }

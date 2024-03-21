@@ -35,15 +35,17 @@
             </ListView.BorderBrush>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Tempo" Width="85"  DisplayMemberBinding="{Binding Tempo}"/>
-                    <GridViewColumn Header="Va" Width="85"  DisplayMemberBinding="{Binding Va}"/>
-                    <GridViewColumn Header="Ia" Width="80" DisplayMemberBinding="{Binding Ia}"/>
-                    <GridViewColumn Header="Ea" Width="85" DisplayMemberBinding="{Binding Ea}"/>
-                    <GridViewColumn Header="FP" Width="85" DisplayMemberBinding="{Binding FP}"/>
-                    <GridViewColumn Header="RPM" Width="85" DisplayMemberBinding="{Binding RPM}"/>
+                    <GridViewColumn Header="Tempo" Width="50"  DisplayMemberBinding="{Binding Tempo}"/>
+                    <GridViewColumn Header="Va" Width="70"  DisplayMemberBinding="{Binding Va}"/>
+                    <GridViewColumn Header="Ia" Width="70" DisplayMemberBinding="{Binding Ia}"/>
+                    <GridViewColumn Header="Ea" Width="70" DisplayMemberBinding="{Binding Ea}"/>
+                    <GridViewColumn Header="FP" Width="70" DisplayMemberBinding="{Binding FP}"/>
+                    <GridViewColumn Header="RPM" Width="80" DisplayMemberBinding="{Binding RPM}"/>
                     <GridViewColumn Header="F" Width="35" DisplayMemberBinding="{Binding F}"/>
-                    <GridViewColumn Header="P" Width="80" DisplayMemberBinding="{Binding P}"/>
+                    <GridViewColumn Header="P" Width="65" DisplayMemberBinding="{Binding P}"/>
                     <GridViewColumn Header="Tipo" Width="100" DisplayMemberBinding="{Binding Tipo}"/>
+                    <GridViewColumn Header="Ext(V)" Width="70" DisplayMemberBinding="{Binding ExtV}"/>
+                    <GridViewColumn Header="Ext(I)" Width="70" DisplayMemberBinding="{Binding ExtI}"/>
                 </GridView>
             </ListView.View>
             <ListView.ItemContainerStyle>

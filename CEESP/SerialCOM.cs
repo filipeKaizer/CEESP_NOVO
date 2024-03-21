@@ -187,6 +187,9 @@ namespace CEESP
                             case "F":
                                 frequency = valor;
                                 break;
+                            case "RPM":
+                                RPM = valor;
+                                break;
                         }
                     }
                 }

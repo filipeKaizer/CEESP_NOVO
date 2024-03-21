@@ -78,7 +78,7 @@ namespace CEESP
                     doc.Add(getInfo());
 
                 // Adiciona enunciado
-                if (dadoSelecionado != null)
+                if (this.dadoSelecionado != null)
                     doc.Add(getEnunciado());
 
             // Adiciona a leitura selecionada
@@ -233,18 +233,20 @@ namespace CEESP
         {
             PdfPTable info = new PdfPTable(3);
             info.WidthPercentage = 100;
+            
 
             // Nome do autor
-            PdfPCell autor = new PdfPCell(new Phrase("Autor: " + this.autor));
+            PdfPCell autor = new PdfPCell(new Phrase("Autor: " + this.autor, new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.COURIER, 10)));
             autor.Border = PdfPCell.NO_BORDER;
             info.AddCell(autor);
 
-
+            // Disciplina
             PdfPCell disciplina = new PdfPCell(new Phrase(this.discplina.Length != 0 ? "Disc.: " + this.discplina : ""));
             disciplina.Border = PdfPCell.NO_BORDER;
             disciplina.HorizontalAlignment = Element.ALIGN_CENTER;
             info.AddCell(disciplina);
 
+            // Data
             PdfPCell data = new PdfPCell(new Phrase("Data: " + this.data.ToString("dd/MM/yyyy\n\n\n")));
             data.Border = PdfPCell.NO_BORDER;
             data.HorizontalAlignment = Element.ALIGN_RIGHT;
@@ -338,6 +340,11 @@ namespace CEESP
             else
                 return "fase C.";
 
+        }
+        
+        public void setDisciplina(string disciplina)
+        {
+            this.discplina = disciplina;
         }
     }
 }

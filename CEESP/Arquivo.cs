@@ -153,6 +153,12 @@ namespace CEESP
                 // Obtem a frequencia
                 dado.setFrequency(float.TryParse(worksheet.Cells[lin, 3].Value?.ToString(), out float parsedValueF) ? parsedValueF : 0.0f);
 
+                // Obtem ExtI
+                dado.setExtI(float.TryParse(worksheet.Cells[lin, 25].Value?.ToString(), out float parsedValueExtI) ? parsedValueExtI : 0.0f);
+
+                // Obtem ExtV
+                dado.setExtV(float.TryParse(worksheet.Cells[lin, 24].Value?.ToString(), out float parsedValueExtV) ? parsedValueExtV : 0.0f);
+                
                 for (int i = 0; i < 4; i++)
                 {
                     // Obtem Va

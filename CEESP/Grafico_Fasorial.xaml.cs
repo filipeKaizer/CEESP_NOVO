@@ -91,6 +91,9 @@ namespace CEESP
             IaValue.Content = "Ia: " + Math.Round(this.dado.getIa(index), ListData1.configData.getDecimals()).ToString() + "∠" + Math.Round(angle, 1) + "º A";
             EaValue.Content = "Ea: " + Math.Round(this.dado.getEa(index), ListData1.configData.getDecimals()).ToString() + "V";
             XsIa.Content = "XsIa: " + Math.Abs(Math.Round((this.dado.getIa(index) * ListData1.configData.getXs()), ListData1.configData.getDecimals())).ToString() + "∠" + Math.Round(90 - angle, 1) + "º V";
+            ExtVValue.Content = "Excitatriz(V): " + Math.Round(this.dado.getExtV(), 1) + "V";
+            ExtIValue.Content = "Excitatriz(A): " + Math.Round(this.dado.getExtI(), 1) + "A";
+            RPMValue.Content = "RPM: " + Math.Round(this.dado.getRPM(), 0); 
 
             FPValue.Content = "Cos(φ): " + Math.Round(FPv, 2);
 

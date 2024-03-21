@@ -98,34 +98,37 @@
             <Slider x:Name="slider" HorizontalAlignment="Center" IsSnapToTickEnabled="True" Margin="0,334,0,0" VerticalAlignment="Top" Width="496" TickFrequency="1" ValueChanged="slider_ValueChanged" Visibility="Hidden"/>
         </Grid>
         <Grid x:Name="SelecionarDados" Width="800" Height="600" Margin="0,100,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Visibility="Hidden">
-            <Rectangle HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Width="400" Margin="0,16,0,0" Fill="#66131313" RadiusX="15" RadiusY="15"/>
-            <Rectangle HorizontalAlignment="Center" Height="385" VerticalAlignment="Top" Width="660" Margin="0,140,0,0" Fill="#66131313" RadiusX="15" RadiusY="15"/>
+            <Rectangle HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Width="660" Margin="0,16,0,0" Fill="#66131313" RadiusX="15" RadiusY="15"/>
+            <Rectangle HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Width="660" Margin="0,124,0,0" Fill="#66131313" RadiusX="15" RadiusY="15"/>
+            <Rectangle HorizontalAlignment="Center" Height="296" VerticalAlignment="Top" Width="660" Margin="0,229,0,0" Fill="#66131313" RadiusX="15" RadiusY="15"/>
             <Rectangle x:Name="rtLeitura2" HorizontalAlignment="Center" Height="600" VerticalAlignment="Center" Width="800" Fill="#33000000" RadiusX="20" RadiusY="20"/>
             <TextBlock x:Name="TB" HorizontalAlignment="Center" Margin="0,35,0,0" TextWrapping="Wrap" Text="Qual o seu nome?" VerticalAlignment="Top" Foreground="#FFDADADA" FontFamily="Arial" FontSize="18"/>
             <TextBox x:Name="Autor" HorizontalAlignment="Center" Margin="0,77,0,0" TextWrapping="Wrap" Text="CTISM - UFSM" VerticalAlignment="Top" Width="360" Foreground="#FFCACACA" Background="#198A8888" BorderBrush="{x:Null}" SelectionTextBrush="#FF636363" FontFamily="Arial" FontSize="15" FontStyle="Italic" MaxLength="100" MaxLines="1" Cursor="Hand" TextAlignment="Center" Height="20"/>
-            <TextBlock x:Name="TB_Copiar" HorizontalAlignment="Center" Margin="0,140,0,0" TextWrapping="Wrap" Text="O que deseja no relatório?" VerticalAlignment="Top" Foreground="#FFDADADA" FontFamily="Arial" FontSize="18"/>
-            <ComboBox x:Name="Fase" Width="120" Height="25" BorderBrush="{x:Null}" Background="White" Foreground="Black" Cursor="Hand" ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="0,395,0,0" VerticalAlignment="Top" SelectionChanged="Phase_SelectionChanged" HorizontalAlignment="Center" OpacityMask="#66545454" SelectedIndex="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ToolTip="Selecionar fase para analise" FontSize="11">
+            <TextBlock x:Name="TB_Copiar" HorizontalAlignment="Left" Margin="283,244,0,0" TextWrapping="Wrap" Text="O que deseja no relatório?" VerticalAlignment="Top" Foreground="#FFDADADA" FontFamily="Arial" FontSize="18"/>
+            <ComboBox x:Name="Fase" Width="120" Height="25" BorderBrush="{x:Null}" Background="White" Foreground="Black" Cursor="Hand" ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="0,420,0,0" VerticalAlignment="Top" SelectionChanged="Phase_SelectionChanged" HorizontalAlignment="Center" OpacityMask="#66545454" SelectedIndex="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ToolTip="Selecionar fase para analise" FontSize="11">
                 <ComboBoxItem Content="Media" Background="{x:Null}"/>
                 <ComboBoxItem Cursor="Hand" Content="Fase A"/>
                 <ComboBoxItem Content="Fase B"/>
                 <ComboBoxItem Cursor="Hand" Content="Fase C"/>
             </ComboBox>
-            <TextBlock x:Name="TB_Copiar1" HorizontalAlignment="Center" Margin="0,376,0,0" TextWrapping="Wrap" Text="Selecione a fase" VerticalAlignment="Top" Foreground="#FFDADADA" FontFamily="Arial"/>
-            <CheckBox x:Name="RBaddValues" Content="Adicionar valores correspondentes" HorizontalAlignment="Left" Margin="170,191,0,0" VerticalAlignment="Top" Width="180" Height="23" Checked="RBaddTitle_Checked" Unchecked="RBaddTitle_Unchecked" Background="#FFCACACA" BorderBrush="{x:Null}" Padding="5,0,0,0" Cursor="Hand" IsChecked="False" VerticalContentAlignment="Center" Foreground="#FFD2D2D2" FontSize="10">
+            <TextBlock x:Name="TB_Copiar1" HorizontalAlignment="Center" Margin="0,401,0,0" TextWrapping="Wrap" Text="Selecione a fase" VerticalAlignment="Top" Foreground="#FFDADADA" FontFamily="Arial"/>
+            <CheckBox x:Name="RBaddValues" Content="Adicionar valores correspondentes" HorizontalAlignment="Left" Margin="165,270,0,0" VerticalAlignment="Top" Width="180" Height="22" Checked="RBaddTitle_Checked" Unchecked="RBaddTitle_Unchecked" Background="#FFCACACA" BorderBrush="{x:Null}" Padding="5,0,0,0" Cursor="Hand" IsChecked="False" VerticalContentAlignment="Center" Foreground="#FFD2D2D2" FontSize="10">
                 <CheckBox.LayoutTransform>
                     <ScaleTransform ScaleX="1" ScaleY="1"/>
                 </CheckBox.LayoutTransform>
             </CheckBox>
-            <CheckBox x:Name="RBaddTitle" Content="Separar leituras por titulo" HorizontalAlignment="Left" Margin="170,235,0,0" VerticalAlignment="Top" Width="180" Height="23" Checked="RBaddValues_Checked" Unchecked="RBaddValues_Unchecked" Background="#FFCACACA" BorderBrush="{x:Null}" Padding="5,0,0,0" Cursor="Hand" IsChecked="False" VerticalContentAlignment="Center" Foreground="#FFD2D2D2" FontSize="10">
+            <CheckBox x:Name="RBaddTitle" Content="Separar leituras por titulo" HorizontalAlignment="Left" Margin="165,314,0,0" VerticalAlignment="Top" Width="180" Height="22" Checked="RBaddValues_Checked" Unchecked="RBaddValues_Unchecked" Background="#FFCACACA" BorderBrush="{x:Null}" Padding="5,0,0,0" Cursor="Hand" IsChecked="False" VerticalContentAlignment="Center" Foreground="#FFD2D2D2" FontSize="10">
                 <CheckBox.LayoutTransform>
                     <ScaleTransform ScaleX="1" ScaleY="1"/>
                 </CheckBox.LayoutTransform>
             </CheckBox>
-            <CheckBox x:Name="RBaddAutorData" Content="Adicionar autor e data" HorizontalAlignment="Left" Margin="465,191,0,0" VerticalAlignment="Top" Width="180" Height="23" Checked="RBaddAutorData_Checked" Unchecked="RBaddAutorData_Unchecked" Background="#FFCACACA" BorderBrush="{x:Null}" Padding="5,0,0,0" Cursor="Hand" IsChecked="False" VerticalContentAlignment="Center" Foreground="#FFD2D2D2" FontSize="10">
+            <CheckBox x:Name="RBaddAutorData" Content="Adicionar autor e data" HorizontalAlignment="Left" Margin="460,270,0,0" VerticalAlignment="Top" Width="180" Height="22" Checked="RBaddAutorData_Checked" Unchecked="RBaddAutorData_Unchecked" Background="#FFCACACA" BorderBrush="{x:Null}" Padding="5,0,0,0" Cursor="Hand" IsChecked="False" VerticalContentAlignment="Center" Foreground="#FFD2D2D2" FontSize="10">
                 <CheckBox.LayoutTransform>
                     <ScaleTransform ScaleX="1" ScaleY="1"/>
                 </CheckBox.LayoutTransform>
             </CheckBox>
+            <TextBlock x:Name="TB_Copiar2" HorizontalAlignment="Center" Margin="0,143,0,0" TextWrapping="Wrap" Text="Qual a disciplina?" VerticalAlignment="Top" Foreground="#FFDADADA" FontFamily="Arial" FontSize="18"/>
+            <TextBox x:Name="Disciplina" HorizontalAlignment="Center" Margin="0,185,0,0" TextWrapping="Wrap" Text="Máquinas Elétricas" VerticalAlignment="Top" Width="360" Foreground="#FFCACACA" Background="#198A8888" BorderBrush="{x:Null}" SelectionTextBrush="#FF636363" FontFamily="Arial" FontSize="15" FontStyle="Italic" MaxLength="100" MaxLines="1" Cursor="Hand" TextAlignment="Center" Height="20" TextChanged="Disciplina_TextChanged"/>
         </Grid>
         <Button x:Name="Seguir" Style="{StaticResource NoMouseOverButtonStyle}"  Width="200" Height="50" Margin="0,630,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="{x:Null}" Click="Seguir_Click" MouseEnter="Seguir_MouseEnter" MouseLeave="Seguir_MouseLeave">
             <Border x:Name="BorderSeguir" Background="#72D9D9D9" CornerRadius="20" HorizontalAlignment="Left" VerticalAlignment="Top">

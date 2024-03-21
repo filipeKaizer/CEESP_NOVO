@@ -61,10 +61,12 @@ namespace CEESP
                             Ia = Math.Round(i.getIa(index), 2),
                             Ea = Math.Round(i.getEa(index), 2),
                             FP = Math.Round(i.getFP(index), 2).ToString(),
-                            RPM = Math.Round(i.getRPM(), 2),
-                            F = Math.Round(i.getFrequency(), 2),
+                            RPM = Math.Round(i.getRPM(), 1),
+                            F = Math.Round(i.getFrequency(), 0),
                             P = Math.Round(i.getPotencia(index), 1),
-                            Tipo = (i.getFP(index) == 1) ? "Resisitivo" : ((i.getFPType(index) == 'i') ? "Indutivo" : "Capacitivo")
+                            Tipo = (i.getFP(index) == 1) ? "Resisitivo" : ((i.getFPType(index) == 'i') ? "Indutivo" : "Capacitivo"),
+                            ExtV = Math.Round(i.getExtV(), 1),
+                            ExtI = Math.Round(i.getExtI(), 1)
                         };
 
                         ListData.Items.Add(item);
@@ -274,6 +276,8 @@ namespace CEESP
                             worksheet.Cells[2, 21].Value = "EaC";
                             worksheet.Cells[2, 22].Value = "FPC";
                             worksheet.Cells[2, 23].Value = "TipoC";
+                            worksheet.Cells[2, 24].Value = "ExtV";
+                            worksheet.Cells[2, 25].Value = "ExtI";
 
                             // Adiciona cores
                             for (int col = 1; col < 8; col++)
@@ -291,7 +295,7 @@ namespace CEESP
                             worksheet.Cells[1, 6].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Blue);
                             worksheet.Cells[1, 7].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Blue);
 
-                            for (int col = 1; col < 24; col++)
+                            for (int col = 1; col < 26; col++)
                             {
                                 worksheet.Cells[2, col].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                                 worksheet.Cells[2, col].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.BlueViolet);
@@ -325,6 +329,8 @@ namespace CEESP
                                 worksheet.Cells[i + 3, 1].Value = data.getTempo();
                                 worksheet.Cells[i + 3, 2].Value = Math.Round(data.getRPM(), 2);
                                 worksheet.Cells[i + 3, 3].Value = Math.Round(data.getFrequency(), 2);
+                                worksheet.Cells[i + 3, 24].Value = Math.Round(data.getExtV(), 1);
+                                worksheet.Cells[i + 3, 25].Value = Math.Round(data.getExtI(), 1);
 
                                 for (int index = 0; index < 4; index++)
                                 {
