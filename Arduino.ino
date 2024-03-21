@@ -6,7 +6,8 @@ ModbusMaster node;          // instantiate ModbusMaster object
 #define ledRed         A0   // led - Red
 #define ledGreen       A1   // led - Green
 #define ledBlue        A2   // led - Blue
-#define fan            10   // Fan de ventilação
+#define sensorRPM      2    // Sensor de RPM, HIGH quando interrompido
+#define sensorSignal   10   // Sensor de RPM paralelo ao 2
 
 #define MMW2_ID        1    // ID do dispositivo medidor MMW02
 #define AddrNum        82   // Numero de endereços obtidos pelo MMW02
@@ -19,6 +20,11 @@ ModbusMaster node;          // instantiate ModbusMaster object
 ///////////////////////////////   Variaveis   /////////////////////////////////////
 bool ConEst = false;        // Flag que controla o envio de dados para o computador. Se não houver um, o mesmo não envia
 bool Debug = false;         // Flag que habilita a função debug. 
+
+// Variáveis para o cálculo das RPM
+volatile unsigned long pulseCount = 0;
+volatile unsigned long lastTime = 0;
+volatile unsigned long interval = 1000; // Intervalo de leitura em milissegundos
 
 //// Especifica o formato de cada leitura
 struct Valor {
@@ -44,7 +50,9 @@ void setup(){
   pinMode(ledRed, OUTPUT);                      // LED - Red
   pinMode(ledGreen, OUTPUT);                    // LED - Green
   pinMode(ledBlue, OUTPUT);                     // LED - Blue
-  pinMode(fan, OUTPUT);                         // Ventilação
+
+  pinMode(sensorRPM, INPUT);                // RPM 
+  attachInterrupt(digitalPinToInterrupt(sensorRPM), countPulse, FALLING); // Ativa a interrupção no pino do sensor
   
   digitalWrite(MAX485_DE, 0);                   // Sentido do MAX485     
    
@@ -78,6 +86,7 @@ void loop()
     default:
      ledState('l');
      Leitura();
+     readRPM();
     break;    
   }
 
@@ -145,6 +154,35 @@ void Leitura(){
 }
 //--------------------------------------------------------------------------------------
 
+//////////////////////////////// RPM ///////////////////////////////////////////////////
+// Função de interrupção para contar os pulsos
+void countPulse() {
+  pulseCount++;
+}
+
+void readRPM() {
+  unsigned long currentTime = millis();
+  
+  // Calcula as RPM a cada intervalo de tempo
+  if (currentTime - lastTime >= interval) {
+    // Calcula as RPM
+    float rpm = (float)pulseCount / (float(interval) / 60000.0); // Converte para minutos
+
+    // Exibe as RPM no Monitor Serial
+    if (Debug) {
+      Serial.print("RPM: ");
+      Serial.println(rpm);
+    }
+    
+    valores[AddrNum - 1].add = 44;
+    valores[AddrNum - 1].valor = rpm;
+
+    // Reinicia o contador de pulsos
+    pulseCount = 0;
+    lastTime = currentTime;
+  }
+}
+
 
 //////////////////////////////// MODBUS MASTER /////////////////////////////////////////
 void   preTransmission(){
@@ -176,6 +214,8 @@ void testaConexao(){
    }
    delay(refreshConnection);
 }
+
+
 
 //// FUNÇÃO RESPONSÁVEL POR OBTER OS COMANDOS DO COMPUTADOR
 int softwareReq(){
@@ -264,6 +304,9 @@ void enviaValores(){
       case 42:
         id = "CFPc";
       break;
+      case 44:
+        id = "RPM";
+      break;  
       case 66:
         id = "F";
       break;
@@ -329,10 +372,14 @@ void mostraSerial() {
       case 42:
         Serial.print("CFPc: ");
       break;
+      case 44:
+        Serial.print("RPM: ");
+      break;
       case 66:
         Serial.print("F: ");
       break;
     }
+    Serial.print("\t");
     Serial.print(valores[add].valor);
     Serial.print("\n");
   }
