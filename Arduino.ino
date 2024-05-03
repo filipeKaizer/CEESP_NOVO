@@ -9,12 +9,14 @@ ModbusMaster node;          // instantiate ModbusMaster object
 #define ledRed                                  A0        // led - Red
 #define ledGreen                                A1        // led - Green
 #define ledBlue                                 A2        // led - Blue
+#define Rele                                    A3        // Rele de proteção do comando
 #define sensorRPM                               2         // Sensor de RPM, HIGH quando interrompido
 #define MMW2_ID                                 1         // ID do dispositivo medidor MMW02
 #define AddrNum                                 80        // Numero de endereços obtidos pelo MMW02
 #define refresh                                 1         // Tempo entre atualizações de dados do arduino (ms)
 #define TIMEOUT_INTERVAL                        1000      // Tempo entre atualizações
 #define refreshConnection                       400       // Tempo de espera para o software enviar valores de teste
+#define MAXCURRENT                              1.5f      // Corrente máxima de operação do gerador, sem desativar
 #define Conf_INA                                0
 #define Conf_eeprom_INA                         5
 #define INA260_ADDRESS                          (0x41)    // 1000000 (A0+A1=GND) ou (0x41) 1000001 (A0=VCC , A1=GND)
@@ -23,11 +25,12 @@ ModbusMaster node;          // instantiate ModbusMaster object
 #define INA260_CONFIG_BVOLTAGETIME_8244US       (0x01C0)  // 8.244ms
 #define INA260_CONFIG_SCURRENTTIME_8244US       (0x0038)  // 8.244ms
 #define INA260_CONFIG_MODE_SANDBVOLT_CONTINUOUS (0x0007)  // Shunt Current and Bus Voltage,Continuous
-#define INA260_VOLTAGE_MULTIPLIER               1         // Multiplicador definido com base do divisor de tensão (1 quando não houver)
+
 //--------------------------------------------------------------------------------//
 
 //----------------------------------- VARIAVEIS ----------------------------------//
 bool Debug = false;                     // Flag que habilita a função debug. 
+bool OverCurrent = false;               // Flag de operação do rele de proteção
 int Erro = 0;                           // Codigo de erro
 unsigned long lastRequestTime = 0;      // Variavel usada para o tempo de resposta
 
@@ -67,6 +70,7 @@ void setup(){
   pinMode(ledRed, OUTPUT);                      // LED - Red
   pinMode(ledGreen, OUTPUT);                    // LED - Green
   pinMode(ledBlue, OUTPUT);                     // LED - Blue
+  pinMode(Rele, OUTPUT);                        // Rele de sobrecorrente
 
   pinMode(sensorRPM, INPUT);                    // RPM 
   attachInterrupt(digitalPinToInterrupt(sensorRPM), countPulse, FALLING); // Ativa a interrupção no pino do sensor
@@ -160,6 +164,8 @@ void Leitura(){
           // Adiciona os valores no registro
           Medidor[pos].name = getName(address);
           Medidor[pos].value = res;
+
+          overCurrent(address, res);
       }
     } else {
       Erro = readStatus;
@@ -347,7 +353,7 @@ float getvoltage(uint8_t addr){
     valor = ((Wire.receive() << 8) | Wire.receive());
   #endif
 
-  tensao = (valor*0.00125/0.909) * INA260_VOLTAGE_MULTIPLIER;
+  tensao = (valor*0.00125/0.909);
   if(tensao<0)tensao=0;
   delay(10);
   return tensao;
@@ -378,10 +384,20 @@ float getcurrent(uint8_t addr){
   #endif
 
   corrente = valor* 1.25;
-  if(corrente<0) corrente=0;
+  if (corrente<0) corrente = 0;
   delay(10);
   return corrente;
   }
+//----------------------------------------------------------------------------------//
+
+//-------------------------------- RELE DE CORRENTE --------------------------------//
+void overCurrent(int addr, int current) {
+  if (addr >= 10 && addr <= 16) {
+    if (current > MAXCURRENT) {
+      digitalWrite(Rele, HIGH);
+    }
+  }
+}
 //----------------------------------------------------------------------------------//
 
 //----------------------------------- AUXILIARES -----------------------------------//
