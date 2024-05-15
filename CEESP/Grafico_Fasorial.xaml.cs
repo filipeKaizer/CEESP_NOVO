@@ -59,7 +59,7 @@ namespace CEESP
 
             AutosizeButton.Content = autosizeEnable ? "A" : (object)"M";
 
-            InitializeTime(30, 3);
+            InitializeTime(25, 5);
             Phase.SelectedIndex = 0;
 
             saveMode.Content = "Autosave";
@@ -116,12 +116,13 @@ namespace CEESP
         {
             times.Add("Pause");
 
-            for (int i = 1; i < max; i += diference)
+            times.Add("1s");
+            times.Add("2s");
+
+            for (int i = 5; i < max; i += diference)
             {
                 times.Add(i + "s");
             }
-
-            times.Add(2 + "s");
 
             CBTimes.ItemsSource = times;
         }

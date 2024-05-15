@@ -6,6 +6,7 @@ namespace CEESP
     {
         public static List<ColectedData> colectedData { get; set; } = new List<ColectedData>();
         public static List<ColectedData> cache { get; set; } = new List<ColectedData>();
+        public static List<ColectedData> temporalData { get; set; } = new List<ColectedData>();
 
         public static ConfigData configData { get; set; } = new ConfigData();
     }

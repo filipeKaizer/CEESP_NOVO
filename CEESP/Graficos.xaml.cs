@@ -115,10 +115,15 @@ namespace CEESP
                     // Atualiza o dataView da classe dados
                     this.main.getDados().atualizaDados();
 
+                    // Atualiza a lista de leitura do Grafico Temporal
+                    if (ListData1.temporalData.Count > ListData1.configData.getMaxItems())
+                        ListData1.temporalData.Remove(ListData1.temporalData[0]);
+
+                    ListData1.temporalData.Add(novo);
+
                     // Atualiza o Graph
                     grafico_Temporal.atualizaGraph();
 
-                    // Atualiza o CBRelatorio
                 }
             }
 

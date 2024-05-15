@@ -1,5 +1,6 @@
 ﻿using OxyPlot;
 using OxyPlot.Series;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -75,49 +76,43 @@ namespace CEESP
             var VaLineSeries = new LineSeries
             {
                 Color = OxyColors.Green,  // Cor da linha
-                StrokeThickness = ListData1.configData.getLarguraLinha()     // Espessura da linha
+                StrokeThickness = ListData1.configData.getLarguraLinha(),     // Espessura da linha
+                MarkerType = MarkerType.Circle
             };
 
             var IaLineSeries = new LineSeries
             {
                 Color = OxyColors.Red,  // Cor da linha
-                StrokeThickness = ListData1.configData.getLarguraLinha()    // Espessura da linha
+                StrokeThickness = ListData1.configData.getLarguraLinha(),    // Espessura da linha
+                MarkerType = MarkerType.Circle
             };
 
             var EaLineSeries = new LineSeries
             {
                 Color = OxyColors.Blue,  // Cor da linha
-                StrokeThickness = ListData1.configData.getLarguraLinha()    // Espessura da linha
+                StrokeThickness = ListData1.configData.getLarguraLinha(),    // Espessura da linha
+                MarkerType = MarkerType.Circle
             };
 
             var RPMLineSeries = new LineSeries
             {
                 Color = OxyColors.Yellow,  // Cor da linha
-                StrokeThickness = ListData1.configData.getLarguraLinha()   // Espessura da linha
+                StrokeThickness = ListData1.configData.getLarguraLinha(),   // Espessura da linha
+                MarkerType = MarkerType.Circle
             };
             /*-------------------------*/
 
-            /* ADICIONA OS PONTOS IGNORANDO OS NULOS */
-            List<ColectedData> data = new List<ColectedData>();
-
-            foreach (ColectedData i in ListData1.colectedData)
+            foreach (ColectedData valores in ListData1.temporalData)
             {
-                if (i != null)
+                if (valores != null)
                 {
-                    if (i.getVa(0) != 0)
-                        data.Add(i);
+                    int t = valores.getTempo();
+
+                    VaLineSeries.Points.Add(new DataPoint(t, Math.Round(valores.getVa(0), 2)));
+                    IaLineSeries.Points.Add(new DataPoint(t, Math.Round(valores.getIa(0), 2)));
+                    RPMLineSeries.Points.Add(new DataPoint(t, Math.Round(valores.getRPM(), 2)));
+                    EaLineSeries.Points.Add(new DataPoint(t, Math.Round(valores.getEa(0), 2)));
                 }
-            }
-
-            for (int i = 0; i < data.Count; i++)
-            {
-                ColectedData valores = data[i];
-                int t = valores.getTempo();
-
-                VaLineSeries.Points.Add(new DataPoint(t, valores.getVa(0)));
-                IaLineSeries.Points.Add(new DataPoint(t, valores.getIa(0)));
-                RPMLineSeries.Points.Add(new DataPoint(t, valores.getRPM()));
-                EaLineSeries.Points.Add(new DataPoint(t, valores.getEa(0)));
             }
             /*--------------------*/
 

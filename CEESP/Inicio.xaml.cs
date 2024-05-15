@@ -76,6 +76,7 @@ namespace CEESP
 
                 LPorts.Visibility = Visibility.Visible;
                 show_Ports.Begin();
+
                 setProgress("Iniciando busca", true);
 
                 List<string> compatiblePorts = await main.getSerial().SearchPorts(); //Busca portas de forma assincrona

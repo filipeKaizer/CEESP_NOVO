@@ -17,6 +17,8 @@ namespace CEESP
 
         private int tempoCorrente = 0;
 
+        private int delay = 50;
+
         public SerialCOM(MainWindow main)
         {
             this.main = main;
@@ -41,27 +43,68 @@ namespace CEESP
 
                     this.main.getInicio().Dispatcher.Invoke(() =>
                     {
-                        this.main.getInicio().setProgress("Ola", true);
-                        Thread.Sleep(2000);
+                        this.main.getInicio().setProgress(port+": testanto porta..." + port, true);
+                        Thread.Sleep(delay);
                     }
                     ); 
 
                     try
                     {
+                        this.main.getInicio().Dispatcher.Invoke(() =>
+                        {
+                            this.main.getInicio().setProgress(port+": abrindo comunicação...", true);
+                            Thread.Sleep(delay);
+                        }
+                    );
                         serialPort.Open();
                         //Realiza o teste de compatibilidade da comunicação
+                        this.main.getInicio().Dispatcher.Invoke(() =>
+                        {
+                            this.main.getInicio().setProgress(port + ": gerando valores aleatórios...", true);
+                            Thread.Sleep(delay);
+                        }
+                        );
                         int A = random.Next(0, 101);
                         int B = random.Next(0, 101);
 
+                        this.main.getInicio().Dispatcher.Invoke(() =>
+                        {
+                            this.main.getInicio().setProgress(port + ": calculando resposta...", true);
+                        }
+                        );
+
                         int resposta = (A % B) * (A + B); // O teste é feito com uma operação matemática
+
+                        this.main.getInicio().Dispatcher.Invoke(() =>
+                        {
+                            this.main.getInicio().setProgress(port + ": cmd + valores...", true);
+                        }
+                        );
 
                         serialPort.WriteLine(ListData1.configData.getCmdTest()); //Pede teste
 
                         serialPort.WriteLine($"{A},{B}"); //Envia os valores de teste
 
+                        this.main.getInicio().Dispatcher.Invoke(() =>
+                        {
+                            this.main.getInicio().setProgress(port + ": testando...", true);
+                        }
+                        );
                         if (int.Parse(serialPort.ReadLine()) == resposta)
                         {
+                            this.main.getInicio().Dispatcher.Invoke(() =>
+                            {
+                                this.main.getInicio().setProgress(port + ": compátivel!", true);
+                            }
+                            );
                             comp.Add(port);
+                        } else
+                        {
+                            this.main.getInicio().Dispatcher.Invoke(() =>
+                            {
+                                this.main.getInicio().setProgress(port + ": incompátivel.", true);
+                            }
+                            );
                         }
 
                         serialPort.Close();
@@ -99,15 +142,18 @@ namespace CEESP
 
                 connection.WriteLine(ListData1.configData.getCmdSend()); //Pede envio de dados
 
-                values = await Receber(connection); //Chama de forma assincrona a função para ler dados do arduino
-                String msg = "";
-                foreach (String i in values)
+                if (connection.IsOpen)
                 {
-                    msg += i + " ";
-                }
+                    values = await Receber(connection); //Chama de forma assincrona a função para ler dados do arduino
+                    String msg = "";
+                    foreach (String i in values)
+                    {
+                        msg += i + " ";
+                    }
 
-                connection.Close();
-                connected = true;
+                    connection.Close();
+                    connected = true;
+                }
 
             }
             catch (Exception)
