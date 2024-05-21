@@ -92,7 +92,7 @@ namespace CEESP
             EaValue.Content = "Ea: " + Math.Round(this.dado.getEa(index), ListData1.configData.getDecimals()).ToString() + "V";
             XsIa.Content = "XsIa: " + Math.Abs(Math.Round((this.dado.getIa(index) * ListData1.configData.getXs()), ListData1.configData.getDecimals())).ToString() + "∠" + Math.Round(90 - angle, 1) + "º V";
             ExtVValue.Content = "Excitatriz(V): " + Math.Round(this.dado.getExtV(), 1) + "V";
-            ExtIValue.Content = "Excitatriz(A): " + Math.Round(this.dado.getExtI(), 1) + "A";
+            ExtIValue.Content = "Excitatriz(I): " + Math.Round(this.dado.getExtI(), 1) + "A";
             RPMValue.Content = "RPM: " + Math.Round(this.dado.getRPM(), 0); 
 
             FPValue.Content = "Cos(φ): " + Math.Round(FPv, 2);
@@ -142,7 +142,7 @@ namespace CEESP
                 zoom = (this.Width - (2 * ListData1.configData.getCenterX())) / X;
             this.zoomScale = (float)zoom;
 
-            Slider.Value = (zoom != 0) ? zoom : 1;
+            Slider.Value = (zoom != 0 && !double.IsNaN(zoom)) ? zoom : 1;
             LabelZoom.Content = Math.Round(this.zoomScale, 1) + "x";
         }
 
@@ -316,13 +316,13 @@ namespace CEESP
                 {
                     bool problem = this.dado.getPhaseFail(i);
                     if (problem && i == 1)
-                        FaseA_Fault.Visibility = Visibility.Visible;
+                        FaseC_Fault.Visibility = Visibility.Visible;
 
                     if (problem && i == 2)
                         FaseB_Fault.Visibility = Visibility.Visible;
 
                     if (problem && i == 3)
-                        FaseC_Fault.Visibility = Visibility.Visible;
+                        FaseA_Fault.Visibility = Visibility.Visible;
                 }
             } else
             {

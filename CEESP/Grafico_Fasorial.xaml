@@ -110,8 +110,8 @@
             <RowDefinition Height="313*"/>
         </Grid.RowDefinitions>
         <Canvas x:Name="Graph" HorizontalAlignment="Center" Width="1280" Height="704" Background="#19000000" VerticalAlignment="Top" Cursor="" Grid.RowSpan="2"/>
-        <Label x:Name="TimeSelected" Content="2s" Background="{x:Null}" Foreground="#99DEDEDE" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="27,0,0,11" Grid.Row="1"/>
-        <ComboBox x:Name="CBTimes" Margin="10,0,0,22" Width="28" Height="28" BorderBrush="{x:Null}" Foreground="#FF17006D" HorizontalAlignment="Left" VerticalAlignment="Bottom" SelectionChanged="CBTimes_SelectionChanged" Cursor="Hand" RenderTransformOrigin="0.512,0.607" Grid.Row="1" ToolTip="Ajustar intervalo de atualização">
+        <Label x:Name="TimeSelected" Content="2s" Background="{x:Null}" Foreground="#99DEDEDE" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="27,0,0,11" Grid.Row="1" Visibility="Hidden"/>
+        <ComboBox x:Name="CBTimes" Margin="10,0,0,22" Width="28" Height="28" BorderBrush="{x:Null}" Foreground="#FF17006D" HorizontalAlignment="Left" VerticalAlignment="Bottom" SelectionChanged="CBTimes_SelectionChanged" Cursor="Hand" RenderTransformOrigin="0.512,0.607" Grid.Row="1" ToolTip="Ajustar intervalo de atualização" Visibility="Hidden">
             <ComboBox.OpacityMask>
                 <ImageBrush ImageSource="/icons/Timer.png"/>
             </ComboBox.OpacityMask>

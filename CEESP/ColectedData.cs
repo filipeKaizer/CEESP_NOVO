@@ -264,7 +264,7 @@ namespace CEESP
 
         public bool getPhaseFail(int index)
         {
-            if (this.Va[index] == 0 && this.Ia[index] == 0)
+            if (this.Va[index] == 0 || double.IsNaN(this.Va[index]))
                 return true;
             else 
                 return false;

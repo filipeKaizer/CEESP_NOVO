@@ -102,6 +102,9 @@ namespace CEESP
             };
             /*-------------------------*/
 
+            if (ListData1.temporalData.Count == 0 && ListData1.colectedData.Count > 0)
+                ListData1.temporalData = ListData1.colectedData;
+
             foreach (ColectedData valores in ListData1.temporalData)
             {
                 if (valores != null)

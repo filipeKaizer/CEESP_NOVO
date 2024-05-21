@@ -171,6 +171,8 @@ namespace CEESP
 
                         float valor = float.Parse(separados[1]) / 100;
 
+                        valor = double.IsNaN(valor) ? 0 : valor;
+
                         switch (separados[0])
                         {
                             case "Erro":
@@ -275,8 +277,11 @@ namespace CEESP
             {
                 try
                 {
-                    String response = con.ReadLine();
-                    values = response.Split(';');
+                    if (con != null)
+                    {
+                        String response = con.ReadLine();
+                        values = response.Split(';');
+                    }
                 }
                 catch (Exception)
                 {
