@@ -26,7 +26,13 @@ namespace CEESP
 
         public void actualizeSerialPort()
         {
-            this.serialPort = new SerialPort(portSelected, ListData1.configData.getBoundRate(), Parity.None, 8, StopBits.One);
+            try
+            {
+                this.serialPort = new SerialPort(portSelected, ListData1.configData.getBoundRate(), Parity.None, 8, StopBits.One);
+            } catch (Exception e)
+            {
+                setProgressInvoke("Erro: " + e.Message);
+            }    
         }
 
         public Task<List<string>> SearchPorts()
@@ -40,78 +46,52 @@ namespace CEESP
                 foreach (String port in ports)
                 {
                     SerialPort serialPort = new SerialPort(port, ListData1.configData.getBoundRate(), Parity.None, 8, StopBits.One);
-
-                    this.main.getInicio().Dispatcher.Invoke(() =>
-                    {
-                        this.main.getInicio().setProgress(port+": testanto porta..." + port, true);
-                        Thread.Sleep(delay);
-                    }
-                    ); 
+                    setProgressInvoke(port + ": testando porta...");
 
                     try
                     {
-                        this.main.getInicio().Dispatcher.Invoke(() =>
-                        {
-                            this.main.getInicio().setProgress(port+": abrindo comunicação...", true);
-                            Thread.Sleep(delay);
-                        }
-                    );
-                        serialPort.Open();
-                        //Realiza o teste de compatibilidade da comunicação
-                        this.main.getInicio().Dispatcher.Invoke(() =>
-                        {
-                            this.main.getInicio().setProgress(port + ": gerando valores aleatórios...", true);
-                            Thread.Sleep(delay);
-                        }
-                        );
-                        int A = random.Next(0, 101);
-                        int B = random.Next(0, 101);
+                        int i = 0;
+                        
+                            setProgressInvoke(port + ": abrindo comunicação...");
 
-                        this.main.getInicio().Dispatcher.Invoke(() =>
-                        {
-                            this.main.getInicio().setProgress(port + ": calculando resposta...", true);
-                        }
-                        );
+                            serialPort.Open();
+                            //Realiza o teste de compatibilidade da comunicação
+                            setProgressInvoke(port + ": gerando valores aleatorios...");
 
-                        int resposta = (A % B) * (A + B); // O teste é feito com uma operação matemática
+                            int A = random.Next(0, 101);
+                            int B = random.Next(0, 101);
 
-                        this.main.getInicio().Dispatcher.Invoke(() =>
-                        {
-                            this.main.getInicio().setProgress(port + ": cmd + valores...", true);
-                        }
-                        );
+                            setProgressInvoke(port + ": calculando resposta...");
 
-                        serialPort.WriteLine(ListData1.configData.getCmdTest()); //Pede teste
+                            int resposta = (A % B) * (A + B); // O teste é feito com uma operação matemática
 
-                        serialPort.WriteLine($"{A},{B}"); //Envia os valores de teste
+                            setProgressInvoke(port + ": cmd + valores...");
 
-                        this.main.getInicio().Dispatcher.Invoke(() =>
-                        {
-                            this.main.getInicio().setProgress(port + ": testando...", true);
-                        }
-                        );
-                        if (int.Parse(serialPort.ReadLine()) == resposta)
-                        {
-                            this.main.getInicio().Dispatcher.Invoke(() =>
+                            serialPort.WriteLine(ListData1.configData.getCmdTest()); //Pede teste
+                            serialPort.WriteLine($"{A},{B}"); //Envia os valores de teste
+
+
+                            setProgressInvoke(port + ": testando...");
+
+                            if (int.Parse(serialPort.ReadLine()) == resposta)
                             {
-                                this.main.getInicio().setProgress(port + ": compátivel!", true);
-                            }
-                            );
-                            comp.Add(port);
-                        } else
-                        {
-                            this.main.getInicio().Dispatcher.Invoke(() =>
+                                setProgressInvoke(port + ": compativel!");
+                                comp.Add(port);
+                            } else
                             {
-                                this.main.getInicio().setProgress(port + ": incompátivel.", true);
+                                setProgressInvoke(port + ": incompativel.");
                             }
-                            );
-                        }
 
-                        serialPort.Close();
-                    }
+                            serialPort.Close(); 
+                        }
+                    
                     catch (Exception e)
                     {
-                        MessageBox.Show("Erro de teste:" + e.Message);
+                        setProgressInvoke("Erro: " + e.Message);
+                        if (serialPort.IsOpen)
+                        {
+                            serialPort.Close();
+                        } 
                     }
                 }
                 return comp;
@@ -311,6 +291,17 @@ namespace CEESP
         public bool isValidPort()
         {
             return this.portSelected != "";
+        }
+
+        private void setProgressInvoke(string msg)
+        {
+            bool active = (msg == "") ? false : true;
+            this.main.getInicio().Dispatcher.Invoke(() =>
+            {
+                this.main.getInicio().setProgress(msg, active);
+            }
+            );
+            Thread.Sleep(delay);
         }
 
     }

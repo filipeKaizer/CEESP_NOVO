@@ -35,15 +35,15 @@
             </ListView.BorderBrush>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Tempo" Width="50"  DisplayMemberBinding="{Binding Tempo}"/>
+                    <GridViewColumn Header="Tempo" Width="75"  DisplayMemberBinding="{Binding Tempo}"/>
                     <GridViewColumn Header="Va" Width="70"  DisplayMemberBinding="{Binding Va}"/>
                     <GridViewColumn Header="Ia" Width="70" DisplayMemberBinding="{Binding Ia}"/>
                     <GridViewColumn Header="Ea" Width="70" DisplayMemberBinding="{Binding Ea}"/>
                     <GridViewColumn Header="FP" Width="70" DisplayMemberBinding="{Binding FP}"/>
                     <GridViewColumn Header="RPM" Width="80" DisplayMemberBinding="{Binding RPM}"/>
-                    <GridViewColumn Header="F" Width="35" DisplayMemberBinding="{Binding F}"/>
+                    <GridViewColumn Header="F" Width="30" DisplayMemberBinding="{Binding F}"/>
                     <GridViewColumn Header="P" Width="65" DisplayMemberBinding="{Binding P}"/>
-                    <GridViewColumn Header="Tipo" Width="100" DisplayMemberBinding="{Binding Tipo}"/>
+                    <GridViewColumn Header="Tipo" Width="80" DisplayMemberBinding="{Binding Tipo}"/>
                     <GridViewColumn Header="Ext(V)" Width="70" DisplayMemberBinding="{Binding ExtV}"/>
                     <GridViewColumn Header="Ext(I)" Width="70" DisplayMemberBinding="{Binding ExtI}"/>
                 </GridView>
@@ -100,7 +100,7 @@
             </Button.Background>
         </Button>
 
-        <TextBlock x:Name="TextNItens" HorizontalAlignment="Left" Margin="445,586,0,0" TextWrapping="Wrap" Text="Itens: 0" VerticalAlignment="Top" FontFamily="Microsoft YaHei" Foreground="#B2FFFFFF"/>
+        <TextBlock x:Name="TextNItens" HorizontalAlignment="Left" Margin="86,586,0,0" TextWrapping="Wrap" Text="Itens: 0" VerticalAlignment="Top" FontFamily="Microsoft YaHei" Foreground="#B2FFFFFF"/>
         <Grid x:Name="valores" Height="450" Width="305" Margin="950,135,25,135">
             <Rectangle x:Name="rtValores" HorizontalAlignment="Center" Height="450" VerticalAlignment="Center" Width="305" RadiusX="25" RadiusY="25">
                 <Rectangle.Fill>
@@ -250,5 +250,7 @@
                 <ToolTip Content="Adicionar novo dado na tabela" />
             </Button.ToolTip>
         </Button>
+        <Label x:Name="verbose" Content="" HorizontalAlignment="Left" Margin="180,631,0,0" VerticalAlignment="Top" FontSize="15" FontFamily="Elephant" Foreground="#CCFFFFFF" Width="500" HorizontalContentAlignment="Center" Height="30"/>
+        <TextBlock x:Name="TBCache" HorizontalAlignment="Left" Margin="660,586,0,0" TextWrapping="Wrap" Text="Cache: 0" VerticalAlignment="Top" FontFamily="Microsoft YaHei" Foreground="#B2FFFFFF" Width="186" TextAlignment="Right"/>
     </Grid>
 </Page>

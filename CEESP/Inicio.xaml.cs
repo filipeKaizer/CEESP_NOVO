@@ -81,7 +81,8 @@ namespace CEESP
 
                 List<string> compatiblePorts = await main.getSerial().SearchPorts(); //Busca portas de forma assincrona
 
-                setProgress("Adicionando porta", true);
+                if (compatiblePorts.Count > 0)
+                    setProgress("Adicionando porta", true);
 
                 foreach (string port in compatiblePorts)
                 {
@@ -91,10 +92,11 @@ namespace CEESP
                 if (compatiblePorts.Count >= 1)
                     LPorts.Visibility = System.Windows.Visibility.Visible;
 
-                setProgress("", false);
                 verbose.Visibility = Visibility.Visible;
 
-                verbose.Content = compatiblePorts.Count >= 1 ? "Portas compativeis: " + compatiblePorts.Count : (object)"Nenhuma porta válida encontrada";
+                if (compatiblePorts.Count > 0)
+                    verbose.Content = compatiblePorts.Count >= 1 ? "Portas compativeis: " + compatiblePorts.Count : (object)"Nenhuma porta válida encontrada";
+                
                 TBSelecioneUmaPorta.Visibility = Visibility.Visible;
             }
             else
@@ -120,6 +122,8 @@ namespace CEESP
                 this.main.getGraficos().getFasorial().changeMode(true);
 
                 main.SetPage(1, false);
+
+                progress.Visibility = Visibility.Hidden;
             }
         }
 
@@ -195,6 +199,7 @@ namespace CEESP
         {
             hide_options.Begin();
             Modulo.Visibility = Visibility.Visible;
+
             Back.Visibility = Visibility.Visible;
         }
 
@@ -252,6 +257,7 @@ namespace CEESP
             ArquivoSelecionado.Visibility = Visibility.Hidden;
             Back.Visibility = Visibility.Hidden;
             Options.Visibility = Visibility.Visible;
+            Seguir.Visibility = Visibility.Hidden;
 
             this.XsValue = 5;
             this.main.getSerial().setPort("");
@@ -261,6 +267,7 @@ namespace CEESP
             hide_options.Stop();
             verbose.Visibility = Visibility.Hidden;
             verbose.Content = "";
+            progress.Visibility = Visibility.Hidden;
 
 
         }

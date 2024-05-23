@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Threading.Tasks;
 using ControlzEx.Standard;
 using System.Linq;
+using System.Threading;
 
 namespace CEESP
 {
@@ -26,6 +27,7 @@ namespace CEESP
         private float RPMValue;
         private float FValue;
         private char Type;
+        private int delay = 0;
 
 
         bool edit = true;
@@ -54,9 +56,10 @@ namespace CEESP
                     if (i != null)
                     {
                         item = new ListViewItem();
+
                         item.Content = new
                         {
-                            Tempo = i.getTempo() + "s",
+                            Tempo = getTimeHMSFormat(i.getTempo()),
                             Va = Math.Round(i.getVa(index), 2),
                             Ia = Math.Round(i.getIa(index), 2),
                             Ea = Math.Round(i.getEa(index), 2),
@@ -71,6 +74,9 @@ namespace CEESP
 
                         ListData.Items.Add(item);
                         TextNItens.Text = "Itens: " + ListData1.colectedData.Count;
+                        TBCache.Text = "Cache: " + ListData1.cache.Count + " (" + getSizeData(ListData1.cache.Count) + ")";
+
+
                     }
                 }
 
@@ -216,6 +222,7 @@ namespace CEESP
             {
                 if (ListData1.colectedData.Count != 0)
                 {
+                    setProgressInvoke("Iniciando...", true);
 
                     SaveFileDialog SaveWindow = new SaveFileDialog();
                     SaveWindow.Filter = "Arquivo Excel (*.xlsx)|*.xlsx";
@@ -223,6 +230,7 @@ namespace CEESP
 
                     if (SaveWindow.ShowDialog() == true)
                     {
+                        setProgressInvoke("Criando arquivo...", true);
                         string caminhoArquivo = SaveWindow.FileName;
 
                         FileInfo fileInfo = new FileInfo(caminhoArquivo);
@@ -231,128 +239,148 @@ namespace CEESP
 
                         using (ExcelPackage excelPackage = new ExcelPackage(fileInfo))
                         {
-                            ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("Dados");
-
-                            // Adiciona numeros de verificação
-                            Random random = new Random();
-                            int A = random.Next(0, 101);
-                            int B = random.Next(0, 101);
-
-                            int resposta = (A % B) * (A + B);
-
-                            worksheet.Cells[1, 1].Value = A;
-                            worksheet.Cells[1, 2].Value = B;
-                            worksheet.Cells[1, 3].Value = resposta;
-
-                            // Adiciona Xs
-                            worksheet.Cells[1, 4].Value = "Xs";
-                            worksheet.Cells[1, 5].Value = ListData1.configData.getXs();
-
-                            // Adiciona O numero de intens
-                            worksheet.Cells[1, 6].Value = "Itens";
-                            worksheet.Cells[1, 7].Value = (ListData1.colectedData.Count + ListData1.cache.Count);
-
-                            // Adiciona os cabeçalhos
-                            worksheet.Cells[2, 1].Value = "Tempo";
-                            worksheet.Cells[2, 2].Value = "RPM";
-                            worksheet.Cells[2, 3].Value = "Freq.";
-                            worksheet.Cells[2, 4].Value = "Va";
-                            worksheet.Cells[2, 5].Value = "Ia";
-                            worksheet.Cells[2, 6].Value = "Ea";
-                            worksheet.Cells[2, 7].Value = "FP";
-                            worksheet.Cells[2, 8].Value = "Tipo";
-                            worksheet.Cells[2, 9].Value = "VaA";
-                            worksheet.Cells[2, 10].Value = "IaA";
-                            worksheet.Cells[2, 11].Value = "EaA";
-                            worksheet.Cells[2, 12].Value = "FPA";
-                            worksheet.Cells[2, 13].Value = "TipoA";
-                            worksheet.Cells[2, 14].Value = "VaB";
-                            worksheet.Cells[2, 15].Value = "IaB";
-                            worksheet.Cells[2, 16].Value = "EaB";
-                            worksheet.Cells[2, 17].Value = "FPB";
-                            worksheet.Cells[2, 18].Value = "TipoB";
-                            worksheet.Cells[2, 19].Value = "VaC";
-                            worksheet.Cells[2, 20].Value = "IaC";
-                            worksheet.Cells[2, 21].Value = "EaC";
-                            worksheet.Cells[2, 22].Value = "FPC";
-                            worksheet.Cells[2, 23].Value = "TipoC";
-                            worksheet.Cells[2, 24].Value = "ExtV";
-                            worksheet.Cells[2, 25].Value = "ExtI";
-
-                            // Adiciona cores
-                            for (int col = 1; col < 8; col++)
+                            try
                             {
-                                // Adicionar paterntype
-                                worksheet.Cells[1, col].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                            }
-                            worksheet.Cells[1, 1].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Yellow);
-                            worksheet.Cells[1, 2].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Yellow);
-                            worksheet.Cells[1, 3].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Yellow);
+                                ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("Dados");
 
-                            worksheet.Cells[1, 4].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Green);
-                            worksheet.Cells[1, 5].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Green);
+                                // Adiciona numeros de verificação
+                                setProgressInvoke("Adicionando verificação...", true);
+                                Random random = new Random();
+                                int A = random.Next(0, 101);
+                                int B = random.Next(0, 101);
 
-                            worksheet.Cells[1, 6].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Blue);
-                            worksheet.Cells[1, 7].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Blue);
+                                int resposta = (A % B) * (A + B);
 
-                            for (int col = 1; col < 26; col++)
-                            {
-                                worksheet.Cells[2, col].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                                worksheet.Cells[2, col].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.BlueViolet);
-                            }
+                                worksheet.Cells[1, 1].Value = A;
+                                worksheet.Cells[1, 2].Value = B;
+                                worksheet.Cells[1, 3].Value = resposta;
 
-                            // Adiciona os dados
-                            int i = 0;
-                            bool u = ListData1.configData.getUnidade();
-                            ConfigData c = ListData1.configData;
-                            List<ColectedData> dados;
+                                // Adiciona Xs
+                                setProgressInvoke("Adicionando Xs...", true);
+                                worksheet.Cells[1, 4].Value = "Xs";
+                                worksheet.Cells[1, 5].Value = ListData1.configData.getXs();
 
-                            if (ListData1.cache.Count > 0)
-                            {
-                                dados = ListData1.cache;
+                                // Adiciona O numero de intens
+                                setProgressInvoke("Adicionando itens...", true);
+                                worksheet.Cells[1, 6].Value = "Itens";
+                                worksheet.Cells[1, 7].Value = (ListData1.colectedData.Count + ListData1.cache.Count);
 
-                                foreach (ColectedData colect in ListData1.colectedData)
+                                // Adiciona os cabeçalhos
+                                setProgressInvoke("Adicionando cabeçalhos...", true);
+                                worksheet.Cells[2, 1].Value = "Tempo";
+                                worksheet.Cells[2, 2].Value = "RPM";
+                                worksheet.Cells[2, 3].Value = "Freq.";
+                                worksheet.Cells[2, 4].Value = "Va";
+                                worksheet.Cells[2, 5].Value = "Ia";
+                                worksheet.Cells[2, 6].Value = "Ea";
+                                worksheet.Cells[2, 7].Value = "FP";
+                                worksheet.Cells[2, 8].Value = "Tipo";
+                                worksheet.Cells[2, 9].Value = "VaA";
+                                worksheet.Cells[2, 10].Value = "IaA";
+                                worksheet.Cells[2, 11].Value = "EaA";
+                                worksheet.Cells[2, 12].Value = "FPA";
+                                worksheet.Cells[2, 13].Value = "TipoA";
+                                worksheet.Cells[2, 14].Value = "VaB";
+                                worksheet.Cells[2, 15].Value = "IaB";
+                                worksheet.Cells[2, 16].Value = "EaB";
+                                worksheet.Cells[2, 17].Value = "FPB";
+                                worksheet.Cells[2, 18].Value = "TipoB";
+                                worksheet.Cells[2, 19].Value = "VaC";
+                                worksheet.Cells[2, 20].Value = "IaC";
+                                worksheet.Cells[2, 21].Value = "EaC";
+                                worksheet.Cells[2, 22].Value = "FPC";
+                                worksheet.Cells[2, 23].Value = "TipoC";
+                                worksheet.Cells[2, 24].Value = "ExtV";
+                                worksheet.Cells[2, 25].Value = "ExtI";
+
+                                // Adiciona cores
+                                setProgressInvoke("Adicionando cores...", true);
+                                for (int col = 1; col < 8; col++)
                                 {
-                                    dados.Add(colect);
+                                    // Adicionar paterntype
+                                    worksheet.Cells[1, col].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                                 }
-                            }
-                            else
-                            {
-                                dados = ListData1.colectedData;
-                            }
+                                worksheet.Cells[1, 1].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Yellow);
+                                worksheet.Cells[1, 2].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Yellow);
+                                worksheet.Cells[1, 3].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Yellow);
 
-                            foreach (ColectedData data in dados)
-                            {
-                                int p = c.getDecimals();
+                                worksheet.Cells[1, 4].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Green);
+                                worksheet.Cells[1, 5].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Green);
 
-                                // Adiciona os valores comuns
-                                worksheet.Cells[i + 3, 1].Value = data.getTempo();
-                                worksheet.Cells[i + 3, 2].Value = Math.Round(data.getRPM(), 2);
-                                worksheet.Cells[i + 3, 3].Value = Math.Round(data.getFrequency(), 2);
-                                worksheet.Cells[i + 3, 24].Value = Math.Round(data.getExtV(), 1);
-                                worksheet.Cells[i + 3, 25].Value = Math.Round(data.getExtI(), 1);
+                                worksheet.Cells[1, 6].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Blue);
+                                worksheet.Cells[1, 7].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Blue);
 
-                                for (int index = 0; index < 4; index++)
+                                for (int col = 1; col < 26; col++)
                                 {
-                                    worksheet.Cells[i + 3, index * 5 + 4].Value = Math.Round(data.getVa(index), p);
-                                    worksheet.Cells[i + 3, index * 5 + 5].Value = Math.Round(data.getIa(index), p);
-                                    worksheet.Cells[i + 3, index * 5 + 6].Value = Math.Round(data.getEa(index), p);
-                                    worksheet.Cells[i + 3, index * 5 + 7].Value = Math.Round(data.getFP(index), p);
-
-                                    if (data.getFP(index) == 1)
-                                        worksheet.Cells[i + 3, index * 5 + 8].Value = "Resistiva";
-                                    else if (data.getFPType(index) == 'i')
-                                        worksheet.Cells[i + 3, index * 5 + 8].Value = "Indutiva";
-                                    else if (data.getFPType(index) == 'c')
-                                        worksheet.Cells[i + 3, index * 5 + 8].Value = "Capacitiva";
-                                    else if (data.getFPType(index) == '?')
-                                        worksheet.Cells[i + 3, index * 5 + 8].Value = "Inválido";
+                                    worksheet.Cells[2, col].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                    worksheet.Cells[2, col].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.BlueViolet);
                                 }
 
-                                i++;
+                                // Adiciona os dados
+                                int i = 0;
+                                bool u = ListData1.configData.getUnidade();
+                                ConfigData c = ListData1.configData;
+                                List<ColectedData> dados;
+
+                                setProgressInvoke("Obtendo dados: " + ListData1.cache.Count.ToString(), true);
+                                if (ListData1.cache.Count > 0)
+                                {
+                                    dados = ListData1.cache;
+
+                                    foreach (ColectedData colect in ListData1.colectedData)
+                                    {
+                                        dados.Add(colect);
+                                    }
+                                }
+                                else
+                                {
+                                    dados = ListData1.colectedData;
+                                }
+
+                                int total = dados.Count;
+
+
+                                foreach (ColectedData data in dados)
+                                {
+                                    int p = c.getDecimals();
+                                    setProgressInvoke("Adicionando: " + i + "/" + total + ".", true);
+
+                                    // Adiciona os valores comuns
+                                    worksheet.Cells[i + 3, 1].Value = data.getTempo();
+                                    worksheet.Cells[i + 3, 2].Value = Math.Round(data.getRPM(), 2);
+                                    worksheet.Cells[i + 3, 3].Value = Math.Round(data.getFrequency(), 2);
+                                    worksheet.Cells[i + 3, 24].Value = Math.Round(data.getExtV(), 1);
+                                    worksheet.Cells[i + 3, 25].Value = Math.Round(data.getExtI(), 1);
+
+                                    for (int index = 0; index < 4; index++)
+                                    {
+                                        worksheet.Cells[i + 3, index * 5 + 4].Value = Math.Round(data.getVa(index), p);
+                                        worksheet.Cells[i + 3, index * 5 + 5].Value = Math.Round(data.getIa(index), p);
+                                        worksheet.Cells[i + 3, index * 5 + 6].Value = Math.Round(data.getEa(index), p);
+                                        worksheet.Cells[i + 3, index * 5 + 7].Value = Math.Round(data.getFP(index), p);
+
+                                        if (data.getFP(index) == 1)
+                                            worksheet.Cells[i + 3, index * 5 + 8].Value = "Resistiva";
+                                        else if (data.getFPType(index) == 'i')
+                                            worksheet.Cells[i + 3, index * 5 + 8].Value = "Indutiva";
+                                        else if (data.getFPType(index) == 'c')
+                                            worksheet.Cells[i + 3, index * 5 + 8].Value = "Capacitiva";
+                                        else if (data.getFPType(index) == '?')
+                                            worksheet.Cells[i + 3, index * 5 + 8].Value = "Inválido";
+                                    }
+
+                                    i++;
+                                }
+
+                                setProgressInvoke("Salvando...", true);
+                                excelPackage.Save();
+                            }
+                            catch (Exception e)
+                            {
+                                setProgressInvoke("Erro: " + e.Message, true);
                             }
 
-                            excelPackage.Save();
+                            setProgressInvoke("", false);
                         }
                     }
                 }
@@ -388,29 +416,28 @@ namespace CEESP
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            int tempo = 0;
-            if (ListData1.colectedData.Count > 0)
-            {
-                try
+                int tempo = 1;
+                if (ListData1.colectedData.Count > 0)
                 {
-                    tempo = ListData1.colectedData[ListData1.colectedData.Count - 1].getTempo();
+                    try
+                    {
+                        tempo = ListData1.colectedData[ListData1.colectedData.Count - 1].getTempo();
+                    }
+                    catch
+                    {
+                        tempo = 0;
+                    }
                 }
-                catch
-                {
-                    tempo = 0;
-                }
-            }
 
-            else if (ListData1.cache.Count > 0)
-                tempo = ListData1.cache[ListData1.cache.Count - 1].getTempo();
+                else if (ListData1.cache.Count > 0)
+                    tempo = ListData1.cache[ListData1.cache.Count - 1].getTempo();
 
-            ListData1.colectedData.Add(new ColectedData(tempo + 1));
+                ListData1.colectedData.Add(new ColectedData(tempo + 1));
 
-            this.atualizaDados();
-            this.main.getGraficos().getFasorial().setDado(ListData1.colectedData[ListData1.colectedData.Count - 1]);
-            this.main.getGraficos().getFasorial().drawLines();
-
-            this.main.saveCache();
+                this.atualizaDados();
+                this.main.getGraficos().getFasorial().setDado(ListData1.colectedData[ListData1.colectedData.Count - 1]);
+                this.main.getGraficos().getFasorial().drawLines();
+                this.main.saveCache();
         }
 
         private void refreshValores()
@@ -523,6 +550,72 @@ namespace CEESP
         {
             this.Type = this.Type == 'r' ? 'i' : (this.Type == 'i') ? 'c' : 'r';
             refreshValores();
+        }
+
+        private string getTimeHMSFormat(int seconds)
+        {
+            string tempo = "";
+
+            if (seconds >= 3600)
+            {
+                tempo += (seconds / 3600) + "h ";
+                seconds = seconds % 3600;
+            }
+
+            if (seconds >= 60)
+            {
+                tempo += (seconds / 60) + "m ";
+                seconds = seconds % 60;
+            }
+
+            tempo += seconds + "s";
+
+            return tempo;
+        }
+
+        public void setProgress(string msg, bool visible)
+        {
+            if (visible)
+            {
+                verbose.Content = msg;
+                verbose.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                verbose.Visibility = Visibility.Hidden;
+            }
+        }
+
+        public void setProgressInvoke(string msg, bool visible)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                this.setProgress(msg, true);
+            }
+           );
+            Thread.Sleep(delay);
+        }
+
+        private string getSizeData(int qtd)
+        {
+            qtd = qtd * ListData1.configData.getSizeData();
+
+            if (qtd > (Math.Pow(10, 9)))
+            {
+                return Math.Round(qtd / Math.Pow(10, 9), 0).ToString() + "GB";
+            }
+            else if (qtd > (Math.Pow(10, 6)))
+            {
+                return Math.Round(qtd / Math.Pow(10, 6), 0).ToString() + "MB";
+            }
+            else if (qtd > 1000)
+            {
+                return Math.Round(qtd / Math.Pow(10, 3), 0).ToString() + "KB";
+            }
+            else
+            {
+                return qtd + "B";
+            }
         }
     }
 }

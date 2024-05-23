@@ -17,6 +17,7 @@ namespace CEESP
         private int LarguraLinha;
         private int dataBits;
         private int MaxReadItems;
+        private int sizeData;
 
         private string cmdSend;
         private string cmdRele;
@@ -64,6 +65,7 @@ namespace CEESP
 
             // Leitura e armazenamento
             this.MaxReadItems = 60;
+            this.sizeData = 30000; 
         }
 
         public float getCenterX()
@@ -180,6 +182,11 @@ namespace CEESP
         public bool getModuloAtivo()
         {
             return this.moduloAtivo;
+        }
+
+        public int getSizeData()
+        {
+            return this.sizeData;
         }
     }
 }

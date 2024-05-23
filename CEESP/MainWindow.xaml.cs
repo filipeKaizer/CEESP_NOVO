@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System;
 
 namespace CEESP
 {
@@ -62,13 +63,13 @@ namespace CEESP
             FrameGraficos.Navigate(this.graficos);
             FrameDados.Navigate(this.dados);
             FrameRelatorios.Navigate(this.relatorios);
-
             Work.SelectedIndex = 0;
         }
 
+
         public void saveCache()
         {
-            if (ListData1.colectedData.Count == ListData1.configData.getMaxItems())
+            if (ListData1.colectedData.Count >= ListData1.configData.getMaxItems())
             {
                 // Salva em cache
                 foreach (ColectedData c in ListData1.colectedData)

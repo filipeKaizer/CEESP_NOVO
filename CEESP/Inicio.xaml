@@ -229,8 +229,8 @@
             <GridSplitter HorizontalAlignment="Center" Height="2" Margin="0,88,0,0" VerticalAlignment="Top" Width="100" Foreground="{x:Null}" Background="#4C410067"/>
             <TextBlock HorizontalAlignment="Center" Margin="0,165,0,0" TextWrapping="Wrap" Text="Para prosseguir nesse modo, clique no botão abaixo e insira um arquivo excel de outro experimento." VerticalAlignment="Top" Foreground="White" FontSize="25" Width="670" TextAlignment="Justify" FontStyle="Italic" FontFamily="Artifakt Element"/>
         </Grid>
-        <Label x:Name="verbose" Content="" HorizontalAlignment="Center" Margin="0,643,0,45" VerticalAlignment="Bottom" FontSize="15" FontFamily="Elephant" Foreground="#CCFFFFFF" Width="300" HorizontalContentAlignment="Center"/>
-        <mah:ProgressRing x:Name="progress" Margin="0,678,0,0" VerticalAlignment="Top" Width="30" Height="30" Foreground="#FF0027FF" IsActive="False"/>
+        <Label x:Name="verbose" Content="" HorizontalAlignment="Center" Margin="0,646,0,45" VerticalAlignment="Bottom" FontSize="15" FontFamily="Elephant" Foreground="#CCFFFFFF" Width="500" HorizontalContentAlignment="Center"/>
+        <mah:ProgressRing x:Name="progress" Margin="0,678,0,10" VerticalAlignment="Bottom" Width="30" Height="30" Foreground="#FF0027FF" IsActive="False"/>
         <Grid x:Name="ArquivoSelecionado" Margin="240,58,240,58" Width="800" Height="605" Background="#33000000" Visibility="Hidden">
             <Rectangle HorizontalAlignment="Left" Height="40" Margin="70,85,0,0" VerticalAlignment="Top" Width="400" RadiusX="20" RadiusY="20" Fill="#66000000"/>
             <Rectangle HorizontalAlignment="Right" Height="40" Margin="0,85,70,0" VerticalAlignment="Top" Width="250" RadiusX="20" RadiusY="20" Fill="#66000000"/>
