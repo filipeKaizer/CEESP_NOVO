@@ -23,7 +23,7 @@
             </Setter>
         </Style>
     </Page.Resources>
-    
+
     <Grid x:Name="Grid" Width="1280" Height="704" HorizontalAlignment="Left" VerticalAlignment="Top">
 
         <TabControl x:Name="Graficos_View" Background="{x:Null}" Foreground="{x:Null}" BorderBrush="{x:Null}" Width="1280" HorizontalAlignment="Left" Cursor="" Height="704" BorderThickness="0,0,0,0" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Padding="0,0,0,0" VerticalAlignment="Top" SelectedIndex="0">
@@ -40,24 +40,25 @@
             </TabItem>
 
         </TabControl>
-        <Button x:Name="selectTemporal"  Style="{StaticResource NoMouseOverButtonStyle}"  Content="Temporal" Margin="640,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="35" Background="{x:Null}" Foreground="#B2DDDDDD" FontSize="20" Cursor="Hand" Click="selectTemporal_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" ToolTip="Mostrar gráfico temporal">
-            <Button.BorderBrush>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#99751697"/>
-                    <GradientStop Color="#7F0B558B" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.BorderBrush>
-        </Button>
-
-        <Button x:Name="selectFasores" Style="{StaticResource NoMouseOverButtonStyle}" Content="Fasorial" Margin="490,5,0,0" Width="150" Height="35" Foreground="#B2DDDDDD" Background="{x:Null}" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="Hand" Click="selectFasores_Click" HorizontalContentAlignment="Center" ToolTip="Mostrar gráfico fasorial">
-            <Button.BorderBrush>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#99751697"/>
-                    <GradientStop Color="#7F0B558B" Offset="0.993"/>
-                </LinearGradientBrush>
-            </Button.BorderBrush>
-        </Button>
         <mah:ProgressRing x:Name="progressRing" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,90,0" Foreground="#FF004AFF" Width="34" Height="35" IsActive="False"/>
+        <Grid x:Name="selectGrid" Width="300" Height="35" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,0">
+            <Button x:Name="selectTemporal"  Style="{StaticResource NoMouseOverButtonStyle}"  Content="Temporal" Margin="150,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Height="35" Background="{x:Null}" Foreground="#B2DDDDDD" FontSize="20" Cursor="Hand" Click="selectTemporal_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" ToolTip="Mostrar gráfico temporal">
+                <Button.BorderBrush>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#99751697"/>
+                        <GradientStop Color="#7F0B558B" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.BorderBrush>
+            </Button>
+            <Button x:Name="selectFasores" Style="{StaticResource NoMouseOverButtonStyle}" Content="Fasorial" Width="150" Height="35" Foreground="#B2DDDDDD" Background="{x:Null}" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" Cursor="Hand" Click="selectFasores_Click" HorizontalContentAlignment="Center" ToolTip="Mostrar gráfico fasorial">
+                <Button.BorderBrush>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#99751697"/>
+                        <GradientStop Color="#7F0B558B" Offset="0.993"/>
+                    </LinearGradientBrush>
+                </Button.BorderBrush>
+            </Button>
+        </Grid>
 
     </Grid>
 </Page>

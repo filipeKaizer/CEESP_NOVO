@@ -93,6 +93,7 @@ namespace CEESP
                     LPorts.Visibility = System.Windows.Visibility.Visible;
 
                 verbose.Visibility = Visibility.Visible;
+                progress.Visibility = Visibility.Hidden;
 
                 if (compatiblePorts.Count > 0)
                     verbose.Content = compatiblePorts.Count >= 1 ? "Portas compativeis: " + compatiblePorts.Count : (object)"Nenhuma porta válida encontrada";
@@ -258,6 +259,7 @@ namespace CEESP
             Back.Visibility = Visibility.Hidden;
             Options.Visibility = Visibility.Visible;
             Seguir.Visibility = Visibility.Hidden;
+            grid.Visibility = Visibility.Hidden;
 
             this.XsValue = 5;
             this.main.getSerial().setPort("");
@@ -280,7 +282,10 @@ namespace CEESP
             show_Xs.Begin();
 
             LPorts.Visibility = Visibility.Hidden;
+            grid.Visibility = Visibility.Visible;
             portSelected = true;
+            progress.Visibility = Visibility.Hidden;
+            verbose.Visibility = Visibility.Hidden;
             main.getSerial().setPort(LPorts.SelectedItem.ToString());
             TBSelecioneUmaPorta.Text = "Informe um valor para a reatância sincrona (Xs)";
         }

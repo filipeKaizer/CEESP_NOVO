@@ -132,7 +132,7 @@
     </Page.Resources>
 
     <Grid x:Name="Grid" Width="1280" Height="720" HorizontalAlignment="Left" VerticalAlignment="Top">
-        <Grid x:Name="grid" Margin="540,752,540,-112" Width="200" RenderTransformOrigin="0.5,0.5">
+        <Grid x:Name="grid" Margin="540,752,540,-112" Width="200" RenderTransformOrigin="0.5,0.5" Visibility="Hidden">
             <Grid.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
