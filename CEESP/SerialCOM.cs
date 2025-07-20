@@ -177,6 +177,8 @@ namespace CEESP
                                 Va[3] = valor;
                                 break;
                             case "Im":
+                                // Trocar depois
+                                //Ia[0] = 1;
                                 Ia[0] = valor;
                                 break;
                             case "Ia":

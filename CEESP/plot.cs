@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PdfSharp.Charting;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Windows;
@@ -31,10 +32,22 @@ namespace CEESP
 
         public List<Line> createLines(ColectedData dado, float zoomScale, int index)
         {
+            // Subtração da tensao
+            float xsValuer = 0;
+            if (dado.getFPType(index) == 'i')
+            {
+                float angle = (float)Math.Acos(dado.getFP(index));
+
+                xsValuer = (float)(this.XSValue * dado.getIa(index) * ListData1.configData.getIaMultiplier() * Math.Cos(1.5708 - angle)) + centerX;
+            } else
+            {
+                xsValuer = 0;
+            }
+
             List<Line> objects = new List<Line>
 
             {
-                this.createVa(dado.getVa(index) * zoomScale), //Adiciona Va
+                this.createVa((dado.getVa(index) * zoomScale) - xsValuer), //Adiciona Va
                 this.createIa(dado.getIa(index) * zoomScale, dado.getFP(index), dado.getFPType(index)), //Adiciona Ia
                 this.createXs(dado.getIa(index) * zoomScale, dado.getFP(index), dado.getFPType(index)), //Adiciona Xs
             };
@@ -98,6 +111,8 @@ namespace CEESP
 
         public Line createXs(float IaValue, float FP, char type)
         {
+                IaValue = IaValue * ListData1.configData.getIaMultiplier();
+
             SolidColorBrush customBrush = new SolidColorBrush(Color.FromRgb(193, 81, 0));
             float angulo = (float)(Math.Acos(FP));
             double altura;
@@ -150,51 +165,6 @@ namespace CEESP
             };
 
             return Ea;
-        }
-
-        public Path createAngle()
-        {
-            double angle = 0;
-            double radius = 50;
-            // Converter ângulo de graus para radianos
-            double angleInRadians = angle * Math.PI / 180;
-
-            // Calcular os pontos inicial e final do arco
-            double startX = centerX + radius * Math.Cos(angleInRadians / 2);
-            double startY = centerY - radius * Math.Sin(angleInRadians / 2);
-
-            double endX = centerX - radius * Math.Cos(angleInRadians / 2);
-            double endY = startY;
-
-            PathGeometry pathGeometry = new PathGeometry();
-            PathFigure pathFigure = new PathFigure
-            {
-                StartPoint = new Point(startX, startY),
-                IsClosed = false
-            };
-
-            ArcSegment arcSegment = new ArcSegment
-            {
-                Size = new Size(radius, radius),
-                IsLargeArc = angle > 180,
-                SweepDirection = SweepDirection.Clockwise,
-                Point = new Point(endX, endY)
-            };
-
-            pathFigure.Segments.Add(arcSegment);
-            pathGeometry.Figures.Add(pathFigure);
-
-            SolidColorBrush customBrush = new SolidColorBrush(Color.FromArgb(55, 101, 17, 47));
-
-            Path path = new Path
-            {
-                Stroke = customBrush,
-                StrokeThickness = ListData1.configData.getLarguraLinha(),
-                Data = pathGeometry
-            };
-
-            return path;
-
         }
 
         public void setXs(float XsValue)

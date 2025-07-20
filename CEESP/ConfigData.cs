@@ -31,13 +31,12 @@ namespace CEESP
         private bool AdicionarUnidade;
         private bool moduloAtivo;
 
-
         public ConfigData()
         {
             // Valores
             this.XsDefault = 5.0f;
             this.decimals = 2;
-            this.IaMultiplier = 5;
+            this.IaMultiplier = 3;
 
             // Grafico
             this.centerX = (float)SystemParameters.WorkArea.Width * (float)0.1;
