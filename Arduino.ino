@@ -186,6 +186,13 @@ void enviaValores(){
     }
     mensagem = mensagem + Medidor[i].name + "=" + (String)Medidor[i].value;
   }
+
+  // Adiciona o RPM
+  mensagem = mensagem + ";" + "RPM=" + (String)RPM.valor;
+
+  // Adicionar os valores da excitatriz
+  mensagem = mensagem + ";" + "ExV=" + (String)Excitatriz.voltage + ";" + "ExI=" + Excitatriz.current; 
+
   Serial.println(mensagem);
  }
 //----------------------------------------------------------------------------------//
